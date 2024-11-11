@@ -1,3 +1,6 @@
+import { IProduct } from "./product.type";
+
+declare global{
 type getProductRequestPath={};
 
 type getProductRequestBody={};
@@ -17,7 +20,7 @@ type getProductDetailRequestPath={
 type getProductDetailRequestBody={};
 type getProductDetailRequestParams={};
 type getProductDetailRequest={
-    path?:getProductDetailRequestPath;
+    path:getProductDetailRequestPath;
     body?:getProductDetailRequestBody;
     params?:getProductDetailRequestParams;
 
@@ -44,10 +47,7 @@ type createProductResponse=IProduct;
  /**제품 수정 요청*/
  type updateProductRequestPath={};
  type updateProductRequestParams={};
- type updateProductRequestBody=Omit<{
-    productId:string;
-    
- }>
+ type updateProductRequestBody=Omit<IProduct,"id">
 
  type updateProductRequest={
     path?:updateProductRequestPath;
@@ -72,3 +72,5 @@ type deleteProductRequest={
 }
 /**제품 삭제 응답*/
 type deleteProductResponse=void;
+
+}
