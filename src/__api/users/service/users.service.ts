@@ -1,80 +1,80 @@
-import HttpException from "@/api/common/exceptions/http.exception";
-import { UserResponseDTO } from "@/api/users/dto/userResponse.dto";
-import { UserRepository } from "@/api/users/repository/user/user.repository";
-import { UserService } from "@/api/users/service/users.service.type";
-import { GetUserResponseDTO } from "@/api/users/dto/getUserResponse.dto";
-import { GetUsersResponseDTO } from "@/api/users/dto/getUsersResponse.dto";
-import { ProfileRepository } from "@/api/users/repository/profile/profile.repository";
+// import HttpException from "@/api/common/exceptions/http.exception";
+// import { UserResponseDTO } from "@/api/users/dto/userResponse.dto";
+// import { UserRepository } from "@/api/users/repository/user/user.repository";
+// import { UserService } from "@/api/users/service/users.service.type";
+// import { GetUserResponseDTO } from "@/api/users/dto/getUserResponse.dto";
+// import { GetUsersResponseDTO } from "@/api/users/dto/getUsersResponse.dto";
+// import { ProfileRepository } from "@/api/users/repository/profile/profile.repository";
 
-export class UsersServiceImpl implements UserService {
-  constructor(
-    private readonly _userRepository: UserRepository,
-    private readonly _profileRepository: ProfileRepository
-  ) {}
+// export class UsersServiceImpl implements UserService {
+//   constructor(
+//     private readonly _userRepository: UserRepository,
+//     private readonly _profileRepository: ProfileRepository
+//   ) {}
 
-  async createUser(params: Omit<IUser, "id">): Promise<UserResponseDTO> {
-    const profile = await this._profileRepository.save(params.profile);
+//   async createUser(params: Omit<IUser, "id">): Promise<UserResponseDTO> {
+//     const profile = await this._profileRepository.save(params.profile);
 
-    const user = await this._userRepository.save({
-      ...params,
-      profile,
-    });
+//     const user = await this._userRepository.save({
+//       ...params,
+//       profile,
+//     });
 
-    return new UserResponseDTO(user);
-  }
+//     return new UserResponseDTO(user);
+//   }
 
-  async getUsers(): Promise<GetUsersResponseDTO[]> {
-    const users = await this._userRepository.findAll();
+//   async getUsers(): Promise<GetUsersResponseDTO[]> {
+//     const users = await this._userRepository.findAll();
 
-    const newList = await Promise.all(
-      users.map((user) => new GetUsersResponseDTO(user))
-    );
+//     const newList = await Promise.all(
+//       users.map((user) => new GetUsersResponseDTO(user))
+//     );
 
-    return newList;
-  }
-  async getUser(id: string): Promise<GetUserResponseDTO | null> {
-    const user = await this._userRepository.findById(id);
+//     return newList;
+//   }
+//   async getUser(id: string): Promise<GetUserResponseDTO | null> {
+//     const user = await this._userRepository.findById(id);
 
-    if (!user) throw new HttpException(404, "유저를 찾을 수 없습니다.");
+//     if (!user) throw new HttpException(404, "유저를 찾을 수 없습니다.");
 
-    const dtoUser = await new GetUserResponseDTO(user);
+//     const dtoUser = await new GetUserResponseDTO(user);
 
-    return dtoUser;
-  }
+//     return dtoUser;
+//   }
 
-  async updateUser(userId: string, params: Partial<IUser>): Promise<void> {
-    const findUser = await this._userRepository.findById(userId);
+//   async updateUser(userId: string, params: Partial<IUser>): Promise<void> {
+//     const findUser = await this._userRepository.findById(userId);
 
-    if (!findUser) throw new HttpException(404, "유저를 찾을 수 없습니다.");
+//     if (!findUser) throw new HttpException(404, "유저를 찾을 수 없습니다.");
 
-    const updateProfile = await this._profileRepository.update(
-      findUser.profile.id,
-      params?.profile || {}
-    );
+//     const updateProfile = await this._profileRepository.update(
+//       findUser.profile.id,
+//       params?.profile || {}
+//     );
 
-    await this._userRepository.update(userId, {
-      ...params,
-      profile: updateProfile,
-    });
+//     await this._userRepository.update(userId, {
+//       ...params,
+//       profile: updateProfile,
+//     });
 
-    return;
-  }
+//     return;
+//   }
 
-  async deleteUser(id: string): Promise<void> {
-    const findUser = await this._userRepository.findById(id);
+//   async deleteUser(id: string): Promise<void> {
+//     const findUser = await this._userRepository.findById(id);
 
-    if (!findUser) throw new HttpException(404, "유저를 찾을 수 없습니다.");
+//     if (!findUser) throw new HttpException(404, "유저를 찾을 수 없습니다.");
 
-    await this._profileRepository.delete(findUser.profile.id);
+//     await this._profileRepository.delete(findUser.profile.id);
 
-    await this._userRepository.delete(id);
+//     await this._userRepository.delete(id);
 
-    return;
-  }
+//     return;
+//   }
 
-  async deleteUsers(ids: string[]): Promise<void> {
-    await Promise.all((ids || []).map((id) => this._userRepository.delete(id)));
+//   async deleteUsers(ids: string[]): Promise<void> {
+//     await Promise.all((ids || []).map((id) => this._userRepository.delete(id)));
 
-    return;
-  }
-}
+//     return;
+//   }
+// }

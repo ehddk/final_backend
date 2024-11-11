@@ -28,7 +28,27 @@ const USER_ROUTES = {
   USERS_API: "/api/users",
 } as const;
 
+<<<<<<< HEAD
 export const ROUTES_INDEX = {
+=======
+/**  주문 상품 라우터 */
+const ORDER_ITEM_ROUTES = {
+  /** 관리자 주문 API */
+  ADMIN_ORDER_ITEMS_API: "/admin-api/orderItems",
+  /** 주문 API */
+  ORDER_ITEMS_API: "/api/orderItems",
+} as const;
+
+/**  장바구니 라우터 */
+const CART_ROUTES = {
+  /** 장바구니 API */
+  CARTS_API: "/api/carts",
+} as const;
+
+export const ROUTES_INDEX = {
+  ...CART_ROUTES,
+  ...ORDER_ITEM_ROUTES,
+>>>>>>> feature
   ...ORDER_ROUTES,
   ...PRODUCT_ROUTES,
   ...AUTH_ROUTES,
