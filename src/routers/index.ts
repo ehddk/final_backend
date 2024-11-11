@@ -40,6 +40,8 @@ const ORDER_ITEM_ROUTES = {
 const CART_ROUTES = {
   /** 장바구니 API */
   CARTS_API: "/api/carts",
+  /** 장바구니 API */
+  ADMIN_CARTS_API: "/admin-api/carts",
 } as const;
 
 export const ROUTES_INDEX = {

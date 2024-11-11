@@ -18,6 +18,12 @@ import orderRouter from "./api/orders/router/orders.router";
 import adminOrderRouter from "./api/orders/router/adminOrder.router";
 import orderItemRouter from "./api/orderItems/router/orderItems.router";
 import adminOrderItemRouter from "./api/orderItems/router/adminOrderItem.router";
+import cartItemRouter from "./api/cartItems/router/cartItems.router";
+import adminCartItemRouter from "./api/cartItems/router/adminCartItem.router";
+import userRouter from "./api/users/router/users.router";
+import adminUsersRouter from "./api/users/router/adminUsers.router";
+import { productRouter } from "./api/product/router/products.router";
+import { adminProductRouter } from "./api/product/router/adminProduct.router";
 
 const app = express();
 
@@ -47,6 +53,10 @@ app.use(ROUTES_INDEX.ADMIN_PRODUCTS_API, adminProductRouter);
 /** -------- orderitems ---------  */
 app.use(ROUTES_INDEX.ORDER_ITEMS_API, orderItemRouter);
 app.use(ROUTES_INDEX.ADMIN_ORDER_ITEMS_API, adminOrderItemRouter);
+
+/** -------- cartitems ---------  */
+app.use(ROUTES_INDEX.CARTS_API, cartItemRouter);
+app.use(ROUTES_INDEX.ADMIN_CARTS_API, adminCartItemRouter);
 
 /** -------- carts ---------  */
 app.use(ROUTES_INDEX.CARTS_API, cartRouter);

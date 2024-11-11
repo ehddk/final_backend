@@ -12,7 +12,7 @@ import { authUserMiddleware } from "@/api/common/middlewares/authUser.middleware
 import OrdersController from "@/api/orders/controller/orders.controller";
 import { OrdersServiceImpl } from "@/api/orders/service/orders.service";
 import { MongooseOrderRepository } from "@/api/orders/repository/mongooseOrder.repository";
-import { MongooseProductRepository } from "@/api/products/repository/mongooseProduct.repository";
+import { MongooseProductRepository } from "@/api/product/repository/mongooseProduct.repository";
 import { MongooseUserRepository } from "@/api/users/repository/user/mongooseUser.repository";
 
 const orderRouter = express.Router();

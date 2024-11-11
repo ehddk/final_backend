@@ -32,8 +32,8 @@ export class OrderResponseDTO {
       totalPrice: params.orderItem.totalPrice;
     };
     this.user = {
-      name: params.user.name, // 사용자 이름
-      phoneNumber: params.user.phoneNumber,
+      name: params.user.profile.firstName, // 사용자 이름
+      phoneNumber: params.user.profile.phoneNum,
     };
     this.shippingAddress = {
       address: params.shippingAddress

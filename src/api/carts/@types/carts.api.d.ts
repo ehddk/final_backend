@@ -2,10 +2,7 @@
 
 declare type createCartRequestPath = {};
 
-declare type createCartRequestBody = {
-  /** 사용자 ID */
-  userId: string;
-};
+declare type createCartRequestBody = Omit<ICart, "id" | "user">;
 
 declare type createCartRequestParams = {};
 
@@ -26,7 +23,7 @@ declare type updateCartRequestPath = {
   cartId: string;
 };
 
-declare type updateCartRequestBody = Omit<ICart, "id" | "user">;
+declare type updateCartRequestBody = Partial<ICart>;
 
 declare type updateCartRequestParams = {};
 
