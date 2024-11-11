@@ -18,9 +18,9 @@ export class MongooseUserRepository implements UserRepository {
     try {
       const findUser = await MongooseUser.findById(userId)
         // .populate({
-        //   path: "posts",
+        //   path: "orders",
         //   populate: {
-        //     path: "author",
+        //     path: "user",
         //     populate: {
         //       path: "profile",
         //     },
@@ -46,6 +46,7 @@ export class MongooseUserRepository implements UserRepository {
   async update(userId: string, updateUserInfo: Partial<IUser>): Promise<void> {
     await MongooseUser.findByIdAndUpdate(userId, updateUserInfo).populate(
       "profile",
+      "orders"
     );
 
     return;

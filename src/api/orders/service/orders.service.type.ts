@@ -24,7 +24,4 @@ export interface OrdersService {
   ): Promise<void>;
   /** 주문 삭제 */
   deleteOrder(orderId: string): Promise<void>;
-
-  /** 상품 ID로 상품 정보 조회 */
-  getOrderItemById(productId: string): Promise<IOrderItem | null>;
 }

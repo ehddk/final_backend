@@ -30,4 +30,6 @@ interface IUser {
   profile: IProfile;
   /** 카트 */
   cart: ICart;
+  /** 주문 목록 */
+  orders?: IOrder[];
 }

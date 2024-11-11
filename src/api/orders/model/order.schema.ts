@@ -2,11 +2,6 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema<IOrder>(
   {
-    orderItem: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "OrderItem",
-      required: true,
-    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -14,7 +9,7 @@ const orderSchema = new mongoose.Schema<IOrder>(
     },
     shippingAddress: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "ShippingAddress",
+      ref: "Delivery",
       required: true,
     },
     deliveryRequest: {
@@ -26,16 +21,9 @@ const orderSchema = new mongoose.Schema<IOrder>(
       enum: Object.values(PAYMENT_METHOD),
       required: true,
     },
-    totalProductPrice: {
-      type: Number,
-      required: true,
-    },
-    shippingFee: {
-      type: Number,
-      required: true,
-    },
-    totalPaymentAmount: {
-      type: Number,
+    cart: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cart",
       required: true,
     },
     orderStatus: {

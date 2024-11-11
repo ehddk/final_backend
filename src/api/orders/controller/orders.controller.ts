@@ -69,33 +69,22 @@ export default class OrdersController {
     res: Response,
     next: NextFunction
   ) {
-    const { productId } = req.query.productId;
     const userId = req.user.userId;
 
     const {
       shippingAddress,
       deliveryRequest,
       paymentMethod,
-      productQuantity,
-      totalProductPrice,
-      shippingFee,
-      totalPaymentAmount,
+      cart,
       orderStatus,
     } = req.body;
 
     try {
-      // productId로 해당 상품을 조회
-      const product = await this._ordersService.getProductById(productId);
-
       const order = await this._ordersService.createOrder(userId, {
-        product: productId,
         shippingAddress,
         deliveryRequest,
         paymentMethod,
-        productQuantity,
-        totalProductPrice,
-        shippingFee,
-        totalPaymentAmount,
+        cart,
         orderStatus,
       });
 
@@ -125,7 +114,7 @@ export default class OrdersController {
         deliveryRequest,
         orderStatus,
       });
-      res.sendStatus(204); // 업데이트 성공 시, No Content(204) 상태를 반환합니다.
+      res.sendStatus(204);
     } catch (error) {
       next(error);
     }

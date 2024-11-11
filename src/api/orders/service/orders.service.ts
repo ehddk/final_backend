@@ -1,6 +1,4 @@
 import { UserRepository } from "@/api/users/repository/user/user.repository";
-import { ProductRepository } from "@/api/products/repository/product.repository";
-
 import HttpException from "@/api/common/exceptions/http.exception";
 import { OrderRepository } from "@/api/orders/repository/order.repository";
 import { OrderResponseDTO } from "@/api/orders/dto/orderResponse.dto";
@@ -9,16 +7,13 @@ import { OrdersService } from "@/api/orders/service/orders.service.type";
 export class OrdersServiceImpl implements OrdersService {
   private readonly _orderRepository: OrderRepository;
   private readonly _userRepository: UserRepository;
-  private readonly _productRepository: ProductRepository;
 
   constructor(
     orderRepository: OrderRepository,
     userRepository: UserRepository,
-    productRepository: ProductRepository
   ) {
     this._orderRepository = orderRepository;
     this._userRepository = userRepository;
-    this._productRepository = productRepository;
   }
 
   /** 주문 생성 */
@@ -108,16 +103,5 @@ export class OrdersServiceImpl implements OrdersService {
     }
 
     await this._orderRepository.delete(orderId);
-  }
-
-  /** 상품 ID로 상품 정보 조회 */
-  async getProductById(productId: string): Promise<IProduct | null> {
-    const product = await this._productRepository.findById(productId);
-
-    if (!product) {
-      throw new HttpException(404, "상품을 찾을 수 없습니다.");
-    }
-
-    return product;
   }
 }

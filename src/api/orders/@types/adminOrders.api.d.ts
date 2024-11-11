@@ -36,28 +36,20 @@ declare type adminGetOrderDetailResponse = IOrderResponseDTO | null;
 
 declare type adminCreateOrderRequestBody = {
   /** 배송지 */
-  shippingAddress: string;
+  shippingAddress: IDelivery;
   /** 배송 요청 사항 */
   deliveryRequest?: string; // 선택 사항
   /** 결제 수단 */
   paymentMethod: PaymentMethod;
-  /** 주문 상품 개수 */
-  productQuantity: number;
-  /** 상품 총 가격 */
-  totalProductPrice: number;
-  /** 배송비 */
-  shippingFee: number;
-  /** 결제 예정 금액 */
-  totalPaymentAmount: number;
+  /** 장바구니 정보 (상품 정보, 가격정보) */
+  cart: ICart;
   /** 주문 상태 */
   orderStatus: OrderStatus;
 };
 
 declare type adminCreateOrderRequestPath = {};
 
-declare type adminCreateOrderRequestParams = {
-  productId: string;
-};
+declare type adminCreateOrderRequestParams = {};
 
 /** 주문 생성 요청 */
 declare type adminCreateOrderRequest = {
@@ -71,7 +63,7 @@ declare type adminCreateOrderResponse = IOrderResponseDTO;
 
 declare type adminUpdateOrderRequestBody = {
   /** 배송지 */
-  shippingAddress?: string;
+  shippingAddress?: IDelivery;
   /** 배송 요청사항 */
   deliveryRequest?: string;
   /** 주문상태 */

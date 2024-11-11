@@ -11,7 +11,6 @@ import {
 } from "@/api/orders/dto/validations/adminOrder.validation";
 import { MongooseUserRepository } from "@/api/users/repository/user/mongooseUser.repository";
 import { MongooseOrderRepository } from "@/api/orders/repository/mongooseOrder.repository";
-import { MongooseProductRepository } from "@/api/products/repository/mongooseProduct.repository";
 import { extractPath } from "@/utils/path.util";
 import { ROUTES_INDEX } from "@/routers";
 import { authUserMiddleware } from "@/api/common/middlewares/authUser.middleware";
@@ -36,7 +35,6 @@ const adminOrdersController = new AdminOrdersController(
   new OrdersServiceImpl(
     new MongooseOrderRepository(),
     new MongooseUserRepository(),
-    new MongooseProductRepository()
   )
 );
 

@@ -1,3 +1,5 @@
+import { OrderResponseDTO } from "@/api/orders/dto/orderResponse.dto";
+
 // 상세 조회
 export class GetUserResponseDTO {
   userId: string;
@@ -14,6 +16,7 @@ export class GetUserResponseDTO {
     shippingFee: number;
     totalPaymentAmount: number;
   };
+  orders?: OrderResponseDTO[];
 
   constructor(user: IUser) {
     this.userId = user.id;
@@ -30,5 +33,6 @@ export class GetUserResponseDTO {
       shippingFee: user.cart.shippingFee,
       totalPaymentAmount: user.cart.totalPaymentAmount,
     };
+    this.orders = user.orders?.map((order) => new OrderResponseDTO(order));
   }
 }

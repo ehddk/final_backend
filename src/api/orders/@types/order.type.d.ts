@@ -28,24 +28,18 @@ type OrderStatus = keyof typeof ORDER_STATUS;
 interface IOrder {
   /** 주문 ID */
   id: string;
-  /** 주문 상품 */
-  orderItem: IOrderItem[];
   /** 주문 회원 정보  */
   user: IUser;
   /** 배송지 */
-  shippingAddress: IShippingAddress[];
+  shippingAddress: IDelivery;
   /** 배송요청사항 */
   deliveryRequest?: string;
   /** 주문날짜 */
   createdAt: Date;
   /** 결제수단 */
   paymentMethod: PaymentMethod;
-  /** 전체 주문 상품 총 합계 가격 */
-  totalProductPrice: number;
-  /** 배송비 */
-  shippingFee: number;
-  /** 결제예정금액 */
-  totalPaymentAmount: number;
+  /** 장바구니 정보 (상품 정보, 가격정보) */
+  cart: ICart;
   /** 주문상태 */
   orderStatus: OrderStatus;
 }
@@ -53,22 +47,19 @@ interface IOrder {
 interface IOrderResponseDTO {
   /** 주문 ID */
   orderId: string;
-  /** 주문 상품 정보*/
-  orderItem: {
-    product: {
-      productName: string;
-    };
-    quantity: number;
-    totalPrice: number;
-  };
+
   /** 주문 회원정보 */
   user: {
-    name: string;
-    phoneNumber: number;
+    firstName: string;
+    phoneNum: string;
   };
   /** 배송지 */
   shippingAddress: {
-    address: string;
+    name: string; //배송지와 연결된 유저명
+    postalCode: number; //우편번호
+    defaultAddress: string; // 기본 주소
+    detailAddress: string; // 상세 주소
+    number: string; //폰번호
   };
   /** 배송요청사항 */
   deliveryRequest?: string;
@@ -76,12 +67,25 @@ interface IOrderResponseDTO {
   orderDate: string;
   /** 결제수단 */
   paymentMethod: PaymentMethod;
-  /** 전체 주문 상품 총 합계 가격 */
-  totalProductPrice: number;
-  /** 배송비 */
-  shippingFee: number;
-  /** 결제예정금액 */
-  totalPaymentAmount: number;
+  /** 장바구니 정보 (상품 정보, 가격정보) */
+  cart: {
+    cartItem: {
+      product: {
+        productName: string;
+        sales: number;
+      };
+      /** 주문 수량 */
+      quantity: number;
+      /** 주문 총 가격 */
+      totalPrice: number;
+    };
+    /** 상품 총 가격 */
+    totalProductPrice: number;
+    /** 배송비 */
+    shippingFee: number;
+    /** 결제예정금액 */
+    totalPaymentAmount: number;
+  };
   /** 주문상태 */
   orderStatus: OrderStatus;
 }
