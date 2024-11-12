@@ -44,7 +44,16 @@ const CART_ROUTES = {
   ADMIN_CARTS_API: "/admin-api/carts",
 } as const;
 
+/**  장바구니 아이템 라우터 */
+const CART_ITEM_ROUTES = {
+  /** 장바구니 API */
+  CART_ITEMS_API: "/api/cartItems",
+  /** 장바구니 API */
+  ADMIN_CART_ITEMS_API: "/admin-api/cartItems",
+} as const;
+
 export const ROUTES_INDEX = {
+  ...CART_ITEM_ROUTES,
   ...CART_ROUTES,
   ...ORDER_ITEM_ROUTES,
   ...ORDER_ROUTES,

@@ -70,14 +70,8 @@ export default class OrdersController {
     next: NextFunction
   ) {
     const userId = req.user.userId;
-
-    const {
-      shippingAddress,
-      deliveryRequest,
-      paymentMethod,
-      cart,
-      orderStatus,
-    } = req.body;
+    const orderStatus = "PAYMENT_PENDING";
+    const { shippingAddress, deliveryRequest, paymentMethod, cart } = req.body;
 
     try {
       const order = await this._ordersService.createOrder(userId, {

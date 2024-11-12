@@ -55,8 +55,8 @@ app.use(ROUTES_INDEX.ORDER_ITEMS_API, orderItemRouter);
 app.use(ROUTES_INDEX.ADMIN_ORDER_ITEMS_API, adminOrderItemRouter);
 
 /** -------- cartitems ---------  */
-app.use(ROUTES_INDEX.CARTS_API, cartItemRouter);
-app.use(ROUTES_INDEX.ADMIN_CARTS_API, adminCartItemRouter);
+app.use(ROUTES_INDEX.CART_ITEMS_API, cartItemRouter);
+app.use(ROUTES_INDEX.ADMIN_CART_ITEMS_API, adminCartItemRouter);
 
 /** -------- carts ---------  */
 app.use(ROUTES_INDEX.CARTS_API, cartRouter);

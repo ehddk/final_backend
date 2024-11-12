@@ -18,13 +18,13 @@ const cartItemRouter = express.Router();
 
 const CART_ITEM_ROUTES = {
   /** 장바구니 주문 상품 목록 조회 */
-  GET_CART_ITEMS: `/api/carts/:cartId/cartItems`,
+  GET_CART_ITEMS: `/api/cartItems`,
   /** 장바구니 주문 상품 생성 */
-  CREATE_CART_ITEM: `/api/carts/:cartId/cartItems`,
+  CREATE_CART_ITEM: `/api/cartItems`,
   /** 장바구니 주문 상품 수정 */
-  UPDATE_CART_ITEM: `/api/carts/:cartId/cartItems/:cartItemId`,
+  UPDATE_CART_ITEM: `/api/cartItems/:cartItemId`,
   /** 장바구니 주문 상품 삭제 */
-  DELETE_CART_ITEM: `/api/carts/:cartId/cartItems/:cartItemId`,
+  DELETE_CART_ITEM: `/api/cartItems/:cartItemId`,
 } as const;
 
 const cartItemsController = new CartItemsController(
@@ -35,28 +35,28 @@ const cartItemsController = new CartItemsController(
 );
 
 cartItemRouter.get(
-  extractPath(CART_ITEM_ROUTES.GET_CART_ITEMS, ROUTES_INDEX.CARTS_API),
+  extractPath(CART_ITEM_ROUTES.GET_CART_ITEMS, ROUTES_INDEX.CART_ITEMS_API),
   authUserMiddleware,
   validate(getCartItemsValidator),
   cartItemsController.getCartItems
 );
 
 cartItemRouter.post(
-  extractPath(CART_ITEM_ROUTES.CREATE_CART_ITEM, ROUTES_INDEX.CARTS_API),
+  extractPath(CART_ITEM_ROUTES.CREATE_CART_ITEM, ROUTES_INDEX.CART_ITEMS_API),
   authUserMiddleware,
   validate(createCartItemValidator),
   cartItemsController.createCartItem
 );
 
 cartItemRouter.put(
-  extractPath(CART_ITEM_ROUTES.UPDATE_CART_ITEM, ROUTES_INDEX.CARTS_API),
+  extractPath(CART_ITEM_ROUTES.UPDATE_CART_ITEM, ROUTES_INDEX.CART_ITEMS_API),
   authUserMiddleware,
   validate(updateCartItemValidator),
   cartItemsController.updateCartItem
 );
 
 cartItemRouter.delete(
-  extractPath(CART_ITEM_ROUTES.DELETE_CART_ITEM, ROUTES_INDEX.CARTS_API),
+  extractPath(CART_ITEM_ROUTES.DELETE_CART_ITEM, ROUTES_INDEX.CART_ITEMS_API),
   authUserMiddleware,
   validate(deleteCartItemValidator),
   cartItemsController.deleteCartItem

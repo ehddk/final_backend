@@ -20,15 +20,15 @@ const adminCartItemRouter = express.Router();
 /*관리자 장바구니 주문 상품 관련 API 객체*/
 const ADMIN_CART_ITEM_ROUTES = {
   /**장바구니 주문 상품 목록 조회 (관리자) */
-  GET_CART_ITEMS: `/admin-api/carts/:cartId/cartItems`,
+  GET_CART_ITEMS: `/admin-api/cartItems`,
   /**장바구니 주문 상품 상세 조회 (관리자) */
-  GET_CART_ITEM: `/admin-api/carts/:cartId/cartItems/:cartItemId`,
+  GET_CART_ITEM: `/admin-api/cartItems/:cartItemId`,
   /**장바구니 주문 상품 생성 (관리자)  */
-  CREATE_CART_ITEM: `/admin-api/carts/:cartId/cartItems`,
+  CREATE_CART_ITEM: `/admin-api/cartItems`,
   /**장바구니 주문 상품 수정 (관리자) */
-  UPDATE_CART_ITEM: `/admin-api/carts/:cartId/cartItems/:cartItemId`,
+  UPDATE_CART_ITEM: `/admin-api/cartItems/:cartItemId`,
   /**장바구니 주문 상품 삭제 (관리자) */
-  DELETE_CART_ITEM: `/admin-api/carts/:cartId/cartItems/:cartItemId`,
+  DELETE_CART_ITEM: `/admin-api/cartItems/:cartItemId`,
 } as const;
 
 const adminCartItemsController = new AdminCartItemsController(
@@ -41,7 +41,7 @@ const adminCartItemsController = new AdminCartItemsController(
 adminCartItemRouter.get(
   extractPath(
     ADMIN_CART_ITEM_ROUTES.GET_CART_ITEMS,
-    ROUTES_INDEX.ADMIN_CARTS_API
+    ROUTES_INDEX.ADMIN_CART_ITEMS_API
   ),
   validate(getCartItemsValidator),
   adminCartItemsController.getCartItems
@@ -49,7 +49,7 @@ adminCartItemRouter.get(
 adminCartItemRouter.get(
   extractPath(
     ADMIN_CART_ITEM_ROUTES.GET_CART_ITEM,
-    ROUTES_INDEX.ADMIN_CARTS_API
+    ROUTES_INDEX.ADMIN_CART_ITEMS_API
   ),
   validate(getCartItemDetailValidator),
   authUserMiddleware,
@@ -58,7 +58,7 @@ adminCartItemRouter.get(
 adminCartItemRouter.post(
   extractPath(
     ADMIN_CART_ITEM_ROUTES.CREATE_CART_ITEM,
-    ROUTES_INDEX.ADMIN_CARTS_API
+    ROUTES_INDEX.ADMIN_CART_ITEMS_API
   ),
   validate(createCartItemValidator),
   authUserMiddleware,
@@ -67,7 +67,7 @@ adminCartItemRouter.post(
 adminCartItemRouter.put(
   extractPath(
     ADMIN_CART_ITEM_ROUTES.UPDATE_CART_ITEM,
-    ROUTES_INDEX.ADMIN_CARTS_API
+    ROUTES_INDEX.ADMIN_CART_ITEMS_API
   ),
   validate(updateCartItemValidator),
   adminCartItemsController.updateCartItem
@@ -75,7 +75,7 @@ adminCartItemRouter.put(
 adminCartItemRouter.delete(
   extractPath(
     ADMIN_CART_ITEM_ROUTES.DELETE_CART_ITEM,
-    ROUTES_INDEX.ADMIN_CARTS_API
+    ROUTES_INDEX.ADMIN_CART_ITEMS_API
   ),
   validate(deleteCartItemValidator),
   adminCartItemsController.deleteCartItem
