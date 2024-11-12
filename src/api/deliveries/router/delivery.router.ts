@@ -6,6 +6,7 @@ import { extractPath } from "@/utils/path.util";
 import { ROUTES_INDEX } from "@/routers";
 import { deleteDeliveryValidator, getDeliveryDetailValidator, getDeliveryValidator, updateDeliveryValidator } from "../dto/validations/delivery.validation";
 import { validate } from "@/api/common/middlewares/validation.middleware";
+import { authUserMiddleware } from "@/api/common/middlewares/authUser.middleware";
 
 export const deliveryRouter= express.Router();
 
@@ -21,24 +22,29 @@ const deliveryController= new DeliveryController(
 );
 deliveryRouter.get(
     extractPath(DELIVERY_ROUTES.GET_DELIVERIES,ROUTES_INDEX.DELIVERY_API),
+    authUserMiddleware,
     validate(getDeliveryValidator),
     deliveryController.getDeliveries 
 );
 deliveryRouter.get(
     extractPath(DELIVERY_ROUTES.GET_DELIVERY_DETAILS,ROUTES_INDEX.DELIVERY_API),
+    authUserMiddleware,
     validate(getDeliveryDetailValidator),
     deliveryController.getDeliveryDetail 
 );
 deliveryRouter.post(
     extractPath(DELIVERY_ROUTES.CREATE_DELIVERY,ROUTES_INDEX.DELIVERY_API),
+    authUserMiddleware,
     validate(getDeliveryDetailValidator),
     deliveryController.createDelivery as unknown as RequestHandler);
-    
+
 deliveryRouter.delete(
     extractPath(DELIVERY_ROUTES.DELETE_DELIVERY,ROUTES_INDEX.DELIVERY_API),
+    authUserMiddleware,
     validate(deleteDeliveryValidator),
     deliveryController.deleteDelivery as unknown as RequestHandler);
 deliveryRouter.put(
     extractPath(DELIVERY_ROUTES.UPDATE_DELIVERY,ROUTES_INDEX.DELIVERY_API),
+    authUserMiddleware,
     validate(updateDeliveryValidator),
     deliveryController.updateDelivery as unknown as RequestHandler);

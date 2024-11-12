@@ -35,6 +35,7 @@ export class DeliveryServicesImpl implements DeliveryService{
     }
     /**배송지 등록 */
     async createDelivery(userId: string,delivery:Omit<IDelivery,"id">):Promise<DeliveryResponseDTO>{
+        console.log('userId',userId)
         try{
             const newDelivery=await this._deliveryRepository.save(
                 userId,

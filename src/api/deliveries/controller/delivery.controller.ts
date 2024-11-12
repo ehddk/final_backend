@@ -26,7 +26,8 @@ export default class DeliveryController{
     ){
       //const {userId}=req.params;
       try{
-      const values=await this._deliveryService.getDeliveries("1");
+        const userId = req.user.userId;
+      const values=await this._deliveryService.getDeliveries(userId);
       res.send(values)
       }
       catch(error){
@@ -45,7 +46,8 @@ export default class DeliveryController{
       res:Response,
       next:NextFunction
     ){
-      const {userId,deliveryId}=req.params;
+      const userId = req.user.userId;
+      const {deliveryId}=req.params;
       try{
         const value=await this._deliveryService.getDeliveryDetail(userId,deliveryId);
         // console.log('value인줄',value)
@@ -87,8 +89,10 @@ export default class DeliveryController{
         const{name,postalCode,defaultAddress,detailAddress,number}=req.body;
         try{
            // const {userId}=req.params;
+           const userId = req.user.userId;
+           console.log('userIdDELi',userId)
           const delivery = await this._deliveryService.createDelivery(
-           "12",
+           userId,
             {
              name,postalCode,
              defaultAddress,detailAddress,
@@ -113,7 +117,7 @@ export default class DeliveryController{
       ){
         const {deliveryId}=req.params;
         try{
-          const userId="123";
+          const userId = req.user.userId;
           await this._deliveryService.updateDelivery(userId,deliveryId,req.body);
           res.status(204).json();
         }catch(error){
@@ -133,7 +137,7 @@ export default class DeliveryController{
       ){
         const {deliveryId}=req.params;
         try{
-          const userId="123";
+          const userId = req.user.userId;
           await this._deliveryService.deleteDelivery(userId,deliveryId);
           res.send("삭제 성공")
         }catch(error){
