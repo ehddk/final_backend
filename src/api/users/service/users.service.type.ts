@@ -9,16 +9,15 @@ export interface UserService {
   getUser(id: string): Promise<GetUserResponseDTO | null>;
   /** 유저 생성 */
   createUser(
-    params: Omit<IUser, "id" | "role" | "profile" | "cart"> & {
+    params: Omit<IUser, "id" | "role" | "profile"> & {
       profile: Omit<IProfile, "id" | "delivery">;
-      cart: Omit<ICart, "id" | "orderItems" | "user" | "totalProductPrice" | "shippingFee" | "totalPaymentAmount">;
     }
   ): Promise<UserResponseDTO>;
   /** 유저 수정 */
   updateUser(
     userId: string,
     params: Partial<
-      Omit<IUser, "id" | "role" | "profile" | "cart"> & {
+      Omit<IUser, "id" | "role" | "profile"> & {
         profile: Omit<IProfile, "id" | "delivery">;
       }
     >

@@ -6,7 +6,6 @@ export class User implements IUser {
   role: RoleType;
   salt?: string | undefined;
   profile: IProfile;
- // cart: ICart;
 
   constructor(params: IUser) {
     this.id = params.id;
@@ -16,6 +15,5 @@ export class User implements IUser {
     this.role = params.role;
     this.salt = params.salt;
     this.profile = params.profile;
-    //this.cart = params.cart;
   }
 }
