@@ -1,3 +1,5 @@
+import { IDelivery } from "@/api/delivery/@types/delivery.type";
+
 // 상세 조회
 export class GetUserResponseDTO {
   userId: string;
@@ -7,13 +9,13 @@ export class GetUserResponseDTO {
     firstName: string;
     delivery: IDelivery[];
   };
-  cart: {
-    id: string;
-    orderItems: IOrderItem[];
-    totalProductPrice: number;
-    shippingFee: number;
-    totalPaymentAmount: number;
-  };
+  // cart: {
+  //   id: string;
+  //   orderItems: IOrderItem[];
+  //   totalProductPrice: number;
+  //   shippingFee: number;
+  //   totalPaymentAmount: number;
+  // };
 
   constructor(user: IUser) {
     this.userId = user.id;
@@ -23,12 +25,12 @@ export class GetUserResponseDTO {
       firstName: user.profile.firstName,
       delivery: user.profile.delivery,
     };
-    this.cart = {
-      id: user.cart.id,
-      orderItems: user.cart.IOrderItem,
-      totalProductPrice: user.cart.totalProductPrice,
-      shippingFee: user.cart.shippingFee,
-      totalPaymentAmount: user.cart.totalPaymentAmount,
-    };
+    // this.cart = {
+    //   id: user.cart.id,
+    //   orderItems: user.cart.IOrderItem,
+    //   totalProductPrice: user.cart.totalProductPrice,
+    //   shippingFee: user.cart.shippingFee,
+    //   totalPaymentAmount: user.cart.totalPaymentAmount,
+    // };
   }
 }

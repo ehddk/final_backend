@@ -5,7 +5,7 @@ import { validate } from "@/api/common/middlewares/validation.middleware";
 import {
   createUserValidator,
   updateUserValidator,
-} from "@/api/users/dto/validations/adminUsers.validation";
+} from "@/api/users/dto/validations/users.validation";
 import { MongooseUserRepository } from "@/api/users/repository/user/mongooseUser.repository";
 import { MongooseProfileRepository } from "@/api/users/repository/profile/mongooseProfile.repository";
 import { extractPath } from "@/utils/path.util";

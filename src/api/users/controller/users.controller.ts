@@ -30,7 +30,9 @@ export default class UsersController {
           firstName: req.body.profile.firstName,
         },
         cart: {
-          orderItems: req.body.cart.orderItems,
+          // totalProductPrice: req.body.cart.totalProductPrice,
+          // shippingFee: req.body.cart.shippingFee,
+          // totalPaymentAmount: req.body.cart.totalPaymentAmount,
         },
       });
 
@@ -45,10 +47,19 @@ export default class UsersController {
   }
 
   /** 내 정보 조회 (사용자페이지) */
-  async getMyInfo(req: Request, res: Response, next: NextFunction) {
+  async getMyInfo(
+    req: Request<
+      getMyInfoRequest["path"],
+      getMyInfoResponse,
+      getMyInfoRequest["body"],
+      getMyInfoRequest["params"]
+    >,
+    res: Response,
+    next: NextFunction
+  ) {
     const user = await this._userService.getUser(req.user.userId);
     
-    console.log(user)
+    console.log(req.user)
     console.log("회원 상세 조회 완료")
 
     res.send(user);
@@ -65,7 +76,7 @@ export default class UsersController {
         },
       });
 
-      console.log(user)
+      console.log(req.user)
       console.log("회원 수정 완료")
 
       res.send(user);
