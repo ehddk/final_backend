@@ -1,4 +1,4 @@
-import { imageUpload } from './../../../vendors/multer';
+import { imageUpload } from "./../../../vendors/multer";
 import mongoose from "@/vendors/mongoose";
 
 const userSchema = new mongoose.Schema<IUser>(
@@ -33,11 +33,8 @@ const userSchema = new mongoose.Schema<IUser>(
     cart: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Cart",
-      required: true,
-      strictPopulate: false,
     },
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
-
   },
   {
     timestamps: {

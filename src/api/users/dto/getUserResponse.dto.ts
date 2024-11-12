@@ -10,15 +10,14 @@ export class GetUserResponseDTO {
     firstName: string;
     delivery: IDelivery[];
   };
-  cart: {
+  cart?: {
     id: string;
-    orderItems: IOrderItem[];
+    cartItem: ICartItem[];
     totalProductPrice: number;
     shippingFee: number;
     totalPaymentAmount: number;
   };
   orders?: OrderResponseDTO[];
-
 
   constructor(user: IUser) {
     this.userId = user.id;
@@ -29,14 +28,15 @@ export class GetUserResponseDTO {
       delivery: user.profile.delivery,
     };
 
-    this.cart = {
-      id: user.cart.id,
-      orderItems: user.cart.IOrderItem,
-      totalProductPrice: user.cart.totalProductPrice,
-      shippingFee: user.cart.shippingFee,
-      totalPaymentAmount: user.cart.totalPaymentAmount,
-    };
+    this.cart = user.cart
+      ? {
+          id: user.cart.id,
+          cartItem: user.cart.cartItem ?? [],
+          totalProductPrice: user.cart.totalProductPrice ?? 0,
+          shippingFee: user.cart.shippingFee ?? 0,
+          totalPaymentAmount: user.cart.totalPaymentAmount ?? 0,
+        }
+      : undefined;
     this.orders = user.orders?.map((order) => new OrderResponseDTO(order));
-
   }
 }

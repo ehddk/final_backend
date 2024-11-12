@@ -10,34 +10,26 @@ export class MongooseUserRepository implements UserRepository {
     return newUser;
   }
   async findAll(): Promise<IUser[]> {
-    const values = await MongooseUser
-    .find()
-    .populate({
-      path:'profile',
-      populate:{
-        path:'delivery',
-        model: 'Delivery',
-      }
-    })
-    .exec();
-    console.log('values',values)
+    const values = await MongooseUser.find()
+      .populate({
+        path: "profile",
+        populate: {
+          path: "delivery",
+          model: "Delivery",
+        },
+      })
+      .exec();
+    console.log("values", values);
     return values;
   }
 
   async findById(id: string): Promise<IUser | null> {
     try {
-
-      const findUser = await MongooseUser.findById(id)
-        // .populate({
-        //   path: "orders",
-        //   populate: {
-        //     path: "user",
-        //     populate: {
-        //       path: "profile",
-        //     },
-        //   },
-        // })
-        .populate("profile");
+      const findUser = await MongooseUser.findById(id).populate(
+        "profile",
+        "cart",
+        "orders"
+      );
 
       return findUser;
     } catch (error: any) {
@@ -62,6 +54,7 @@ export class MongooseUserRepository implements UserRepository {
   async update(id: string, updateUserInfo: Partial<IUser>): Promise<void> {
     await MongooseUser.findByIdAndUpdate(id, updateUserInfo).populate(
       "profile",
+      "cart",
       "orders"
     );
 

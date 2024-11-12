@@ -24,21 +24,15 @@ export default class UsersController {
         loginId: req.body.loginId,
         password: hashedPassword,
         email: req.body.email,
-        salt,        
+        salt,
         profile: {
           phoneNum: req.body.profile.phoneNum,
           firstName: req.body.profile.firstName,
         },
-
-        cart: {
-          // totalProductPrice: req.body.cart.totalProductPrice,
-          // shippingFee: req.body.cart.shippingFee,
-          // totalPaymentAmount: req.body.cart.totalPaymentAmount,
-        },
       });
 
-      console.log(user)
-      console.log("회원 생성 완료")
+      console.log(user);
+      console.log("회원 생성 완료");
 
       res.send(user);
     } catch (error) {
@@ -59,9 +53,9 @@ export default class UsersController {
     next: NextFunction
   ) {
     const user = await this._userService.getUser(req.user.userId);
-    
-    console.log(req.user)
-    console.log("회원 상세 조회 완료")
+
+    console.log(req.user);
+    console.log("회원 상세 조회 완료");
 
     res.send(user);
   }
@@ -77,8 +71,8 @@ export default class UsersController {
         },
       });
 
-      console.log(req.user)
-      console.log("회원 수정 완료")
+      console.log(req.user);
+      console.log("회원 수정 완료");
 
       res.send(user);
     } catch (error) {

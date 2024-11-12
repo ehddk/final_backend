@@ -2,7 +2,7 @@
 export interface UserRepository {
   // case B
   /** 유저 생성 */
-  save(user: Omit<IUser, "userId" | "cart">): Promise<IUser>;
+  save(user: Omit<IUser, "userId">): Promise<IUser>;
   /** 유저 목록 조회 */
   findAll(): Promise<IUser[]>;
   /** id로 유저 조회 */
