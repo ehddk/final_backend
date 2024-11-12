@@ -1,4 +1,4 @@
-import { UserRepository } from "@/__api/users/repository/user/user.repository"; //추후 변경 필요
+import { UserRepository } from "@/api/users/repository/user/user.repository";
 import { OrderItemResponseDTO } from "@/api/orderItems/dto/orderItemResponse.dto";
 import { OrderItemRepository } from "@/api/orderItems/repository/orderItem.repository";
 import { OrderItemsService } from "@/api/orderItems/service/orderItems.service.type";
