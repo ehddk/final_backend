@@ -9,7 +9,7 @@ import {
 } from "@/api/orderItems/dto/validations/orderItem.validation";
 import { validate } from "@/api/common/middlewares/validation.middleware";
 import { MongooseOrderItemRepository } from "@/api/orderItems/repository/mongooseOrderItem.repository";
-import { MongooseUserRepository } from "@/__api/users/repository/user/mongooseUser.repository"; //추후 변경 필요
+import { MongooseUserRepository } from "@/api/users/repository/user/mongooseUser.repository";
 import { extractPath } from "@/utils/path.util";
 import { ROUTES_INDEX } from "@/routers";
 import { authUserMiddleware } from "@/api/common/middlewares/authUser.middleware";

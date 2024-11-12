@@ -2,11 +2,22 @@ import { CartResponseDTO } from "@/api/carts/dto/cartResponse.dto";
 import { CartRepository } from "@/api/carts/repository/cart.repository";
 import { CartsService } from "@/api/carts/service/carts.service.type";
 import HttpException from "@/api/common/exceptions/http.exception";
+import { CartItemRepository } from "@/api/cartItems/repository/cartItem.repository";
 
 export class CartsServiceImpl implements CartsService {
-  private readonly _cartRepository: CartRepository;
-  constructor(cartRepository: CartRepository) {
-    this._cartRepository = cartRepository;
+  constructor(
+    private readonly _cartRepository: CartRepository,
+    private readonly _cartItemRepository: CartItemRepository
+  ) {}
+
+  /** 장바구니 생성 */
+  async createCart(params: Omit<ICart, "id">): Promise<CartResponseDTO> {
+    const cart = await this._cartRepository.save({
+      ...params,
+      cartItem: params.cartItem || [],
+    });
+
+    return new CartResponseDTO(cart);
   }
 
   /** 장바구니 조회 */
@@ -19,18 +30,16 @@ export class CartsServiceImpl implements CartsService {
     return new CartResponseDTO(cart);
   }
 
-  /** 장바구니 생성 */
-  // async createCart(userId: string): Promise<CartResponseDTO> {
-  //   const newCart = await this._cartRepository.save({ userId, products: [] });
-  //   return new CartResponseDTO(newCart);
-  // }
-
   /** 장바구니 업데이트 */
-  async updateCart(
-    cartId: string,
-    updatedCart: Omit<ICart, "id" | "user">
-  ): Promise<void> {
-    await this._cartRepository.update(cartId, updatedCart);
+  async updateCart(cartId: string, updatedCart: Partial<ICart>): Promise<void> {
+    const findCart = await this._cartRepository.findById(cartId);
+
+    if (!findCart) throw new HttpException(404, "장바구니를 찾을 수 없습니다.");
+
+    await this._cartRepository.update(cartId, {
+      ...updatedCart,
+      cartItem: updatedCart?.cartItem || findCart.cartItem,
+    });
     return;
   }
 }

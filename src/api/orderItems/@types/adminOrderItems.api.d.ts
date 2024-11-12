@@ -39,11 +39,11 @@ declare type adminCreateOrderItemRequestBody = {
 
 declare type adminCreateOrderItemRequestPath = {};
 
-declare type adminCreateOrderItemRequestParams = {};
+declare type adminCreateOrderItemRequestParams = {orderId: string};
 
 /** 주문 상품 생성 요청 */
 declare type adminCreateOrderItemRequest = {
-  params?: adminCreateOrderItemRequestParams;
+  params: adminCreateOrderItemRequestParams;
   path?: adminCreateOrderItemRequestPath;
   body: adminCreateOrderItemRequestBody;
 };
@@ -53,7 +53,7 @@ declare type adminCreateOrderItemResponse = IOrderItemResponseDTO;
 
 declare type adminUpdateOrderItemRequestBody = Omit<
   IOrderItem,
-  "id" | "product" | "user"
+  "id" | "product"
 >;
 
 declare type adminUpdateOrderItemRequestPath = {

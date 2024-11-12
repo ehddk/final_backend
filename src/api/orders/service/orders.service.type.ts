@@ -4,7 +4,9 @@ export interface OrdersService {
   /** 주문 생성 */
   createOrder(
     userId: string,
-    order: Omit<IOrder, "id" | "user" | "createdAt">
+    order: Omit<IOrder, "id" | "user" | "createdAt"> & {
+      orderItem: IOrderItem[]; // orderItems 추가
+    }
   ): Promise<OrderResponseDTO>;
   /** 주문 목록 조회 */
   getOrders({ limit, offset }: { limit?: number; offset?: number }): Promise<{
@@ -24,7 +26,4 @@ export interface OrdersService {
   ): Promise<void>;
   /** 주문 삭제 */
   deleteOrder(orderId: string): Promise<void>;
-
-  /** 상품 ID로 상품 정보 조회 */
-  getOrderItemById(productId: string): Promise<IOrderItem | null>;
 }
