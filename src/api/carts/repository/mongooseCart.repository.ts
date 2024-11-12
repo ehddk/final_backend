@@ -28,6 +28,24 @@ export class MongooseCartRepository implements CartRepository {
     }
   }
 
+  /** userId로 장바구니 조회 */
+  async findOneByUserId(userId: string): Promise<ICart | null> {
+    try {
+      const findCart = await MongooseCart.findOne({ "user.id": userId }) // user.id를 기준으로 찾기
+        .populate("user")
+        .populate("cartItem");
+
+      return findCart;
+    } catch (error: any) {
+      const message = error.message.toString();
+      if (message.includes("Cast to ObjectId failed")) {
+        return null;
+      }
+
+      throw error;
+    }
+  }
+
   /** 장바구니 업데이트 */
   async update(cartId: string, updateCartInfo: Partial<ICart>): Promise<void> {
     await MongooseCart.findByIdAndUpdate(cartId, {

@@ -11,9 +11,15 @@ export class CartsServiceImpl implements CartsService {
   ) {}
 
   /** 장바구니 생성 */
-  async createCart(params: Omit<ICart, "id">): Promise<CartResponseDTO> {
+  async createCart(
+    params: Omit<ICart, "id" | "user"> & {
+      cartItem?: ICartItem[];
+      user: IUser; // user 필드를 IUser 타입으로 수정
+    }
+  ): Promise<CartResponseDTO> {
     const cart = await this._cartRepository.save({
       ...params,
+      user: params.user,
       cartItem: params.cartItem || [],
     });
 

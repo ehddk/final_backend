@@ -8,6 +8,7 @@ export interface CartsService {
   createCart(
     params: Omit<ICart, "id" | "user"> & {
       cartItem?: ICartItem[];
+      user: IUser;
     }
   ): Promise<CartResponseDTO>;
 

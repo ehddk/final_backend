@@ -2,7 +2,7 @@
 
 declare type createCartRequestPath = {};
 
-declare type createCartRequestBody = Omit<ICart, "id" | "user">;
+declare type createCartRequestBody = Omit<ICart, "id">;
 
 declare type createCartRequestParams = {};
 

@@ -28,6 +28,7 @@ export default class CartsController {
         shippingFee: req.body.shippingFee,
         totalPaymentAmount: req.body.totalPaymentAmount,
         cartItem: req.body.cartItem || [],
+        user: req.body.user,
       });
 
       res.send(cart);

@@ -1,5 +1,5 @@
 export class CartItemResponseDTO {
-  cartItemId: string;
+  id: string;
   product: {
     productName: string;
     sales: number;
@@ -8,7 +8,7 @@ export class CartItemResponseDTO {
   totalPrice: number;
 
   constructor(params: ICartItem) {
-    this.cartItemId = params.id;
+    this.id = params.id;
     this.product = {
       productName: params.product.productName,
       sales: params.product.sales,
