@@ -25,7 +25,7 @@ export class UsersServiceImpl implements UserService {
 
   async getUsers(): Promise<GetUsersResponseDTO[]> {
     const users = await this._userRepository.findAll();
-
+    console.log('유저 찾기',users)
     const newList = await Promise.all(
       users.map((user) => new GetUsersResponseDTO(user))
     );

@@ -10,12 +10,14 @@ interface IProfile {
   /** 휴대폰번호 */
   phoneNum: string;
   /** 배송지 */
-  delivery: IDelivery[];
+  //delivery: IDelivery | string;
+  delivery:IDelivery[];
 }
 
 interface IUser {
   /** ID */
   id: string;
+  name?:string;
   /** 아이디 */
   loginId: string;
   /** 비밀번호 */
@@ -29,7 +31,7 @@ interface IUser {
   /** 프로필 */
   profile: IProfile;
   /** 카트 */
-  cart: ICart;
+  cart?: ICart;
   /** 주문 목록 */
   orders?: IOrder[];
 }

@@ -29,6 +29,7 @@ export default class UsersController {
           phoneNum: req.body.profile.phoneNum,
           firstName: req.body.profile.firstName,
         },
+
         cart: {
           // totalProductPrice: req.body.cart.totalProductPrice,
           // shippingFee: req.body.cart.shippingFee,

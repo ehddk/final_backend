@@ -52,6 +52,10 @@ const CART_ITEM_ROUTES = {
   ADMIN_CART_ITEMS_API: "/admin-api/cartItems",
 } as const;
 
+/**배송지 라우터 */
+const DELIVERY_ROUTES={
+  DELIVERY_API:"/api/deliveries"
+}
 export const ROUTES_INDEX = {
   ...CART_ITEM_ROUTES,
   ...CART_ROUTES,
@@ -60,4 +64,5 @@ export const ROUTES_INDEX = {
   ...PRODUCT_ROUTES,
   ...AUTH_ROUTES,
   ...USER_ROUTES,
+  ...DELIVERY_ROUTES
 } as const;

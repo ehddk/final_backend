@@ -10,7 +10,17 @@ export class MongooseUserRepository implements UserRepository {
     return newUser;
   }
   async findAll(): Promise<IUser[]> {
-    const values = await MongooseUser.find().populate("profile");
+    const values = await MongooseUser
+    .find()
+    .populate({
+      path:'profile',
+      populate:{
+        path:'delivery',
+        model: 'Delivery',
+      }
+    })
+    .exec();
+    console.log('values',values)
     return values;
   }
 

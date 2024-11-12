@@ -1,4 +1,5 @@
-import { IDelivery } from "@/api/delivery/@types/delivery.type";
+
+import { IDelivery } from "@/api/deliveries/@types/delivery.type";
 
 export class Profile implements IProfile {
   id: string;
