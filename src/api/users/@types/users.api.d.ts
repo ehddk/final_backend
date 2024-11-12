@@ -17,7 +17,10 @@ type signUpRequest = {
 /** 회원가입 (사용자페이지) 응답 */
 type signUpResponse = IUser;
 
-type getMyInfoRequestPath = {userId:string;};
+type getMyInfoRequestPath = {
+  /** 유저 ID */
+  userId:string;
+};
 
 type getMyInfoRequestParams = {};
 
@@ -31,4 +34,4 @@ type getMyInfoRequest = {
 };
 
 /** 내 정보 조회 (사용자페이지) 응답 */
-type getMyInfoResponse = IUser;
+type getMyInfoResponse = IUser | null;

@@ -14,9 +14,10 @@ export class MongooseUserRepository implements UserRepository {
     return values;
   }
 
-  async findById(userId: string): Promise<IUser | null> {
+  async findById(id: string): Promise<IUser | null> {
     try {
-      const findUser = await MongooseUser.findById(userId)
+
+      const findUser = await MongooseUser.findById(id)
         // .populate({
         //   path: "orders",
         //   populate: {
@@ -38,21 +39,26 @@ export class MongooseUserRepository implements UserRepository {
       throw error;
     }
   }
+  async findByLoginId(loginId: string): Promise<IUser | null> {
+    const findUser = await MongooseUser.findOne({ loginId });
+
+    return findUser ?? null;
+  }
   async findByEmail(email: string): Promise<IUser | null> {
     const findUser = await MongooseUser.findOne({ email });
 
     return findUser ?? null;
   }
-  async update(userId: string, updateUserInfo: Partial<IUser>): Promise<void> {
-    await MongooseUser.findByIdAndUpdate(userId, updateUserInfo).populate(
+  async update(id: string, updateUserInfo: Partial<IUser>): Promise<void> {
+    await MongooseUser.findByIdAndUpdate(id, updateUserInfo).populate(
       "profile",
       "orders"
     );
 
     return;
   }
-  async delete(userId: string): Promise<void> {
-    await MongooseUser.deleteOne({ _id: userId });
+  async delete(id: string): Promise<void> {
+    await MongooseUser.deleteOne({ _id: id });
 
     return;
   }

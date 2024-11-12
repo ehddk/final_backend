@@ -40,6 +40,7 @@ userRouter.get(
 );
 userRouter.put(
   extractPath(USER_ROUTES.UPDATE_MY_INFO, ROUTES_INDEX.USERS_API),
+  authRoleMiddleware(["user", "admin"]),
   authUserMiddleware,
   usersController.updateMyInfo
 );
