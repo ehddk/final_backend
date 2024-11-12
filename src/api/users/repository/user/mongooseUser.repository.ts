@@ -10,7 +10,17 @@ export class MongooseUserRepository implements UserRepository {
     return newUser;
   }
   async findAll(): Promise<IUser[]> {
-    const values = await MongooseUser.find().populate("profile");
+    const values = await MongooseUser
+    .find()
+    .populate({
+      path:'profile',
+      populate:{
+        path:'delivery',
+        model: 'Delivery',
+      }
+    })
+    .exec();
+    console.log('values',values)
     return values;
   }
 
@@ -37,6 +47,11 @@ export class MongooseUserRepository implements UserRepository {
 
       throw error;
     }
+  }
+  async findByLoginId(loginId: string): Promise<IUser | null> {
+    const findUser = await MongooseUser.findOne({ loginId });
+
+    return findUser ?? null;
   }
   async findByEmail(email: string): Promise<IUser | null> {
     const findUser = await MongooseUser.findOne({ email });

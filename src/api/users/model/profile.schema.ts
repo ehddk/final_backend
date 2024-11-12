@@ -18,7 +18,7 @@ const profileSchema = new mongoose.Schema<IProfile>({
   delivery: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Delivery",
-    required: true,
+    //required: false,
     strictPopulate: false
   },
 });

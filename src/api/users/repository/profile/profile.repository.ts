@@ -6,7 +6,8 @@ export interface ProfileRepository {
   /** 프로필 목록 조회 */
   findAll(): Promise<IProfile[]>;
   /** 프로필 조회 */
-  findById(id: string): Promise<IProfile | null>;
+  findById(userId: string): Promise<IProfile | null>;
+  findByUserId(userId:string):Promise<IProfile | null>;
   /** 프로필 수정 */
   update(
     profileId: string,

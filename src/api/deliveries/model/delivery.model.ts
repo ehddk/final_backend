@@ -2,7 +2,7 @@ import { IDelivery } from "../@types/delivery.type";
 
 export class Delivery implements IDelivery {
     id:string;
-    userId: string;
+    userId: IUser;
     name:string; //배송지와 연결된 유저명
     postalCode:number; //우편번호
     defaultAddress: string; // 기본 주소
@@ -12,7 +12,7 @@ export class Delivery implements IDelivery {
    
     constructor(user:IUser,params: IDelivery) {
       this.id=params.id;
-      this.userId = user.id;
+      this.userId = user;
       this.name = params.name;
       this.postalCode = params.postalCode;
       this.defaultAddress = params.defaultAddress;

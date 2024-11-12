@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema<IUser>(
     cart: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Cart",
-      required: true,
+      required: false,
       strictPopulate: false
     },
   },

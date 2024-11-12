@@ -44,7 +44,7 @@ const CART_ROUTES = {
 
 /**배송지 라우터 */
 const DELIVERY_ROUTES={
-  DELIVERY_API:"/api/:userId/deliveries"
+  DELIVERY_API:"/api/deliveries"
 }
 export const ROUTES_INDEX = {
   ...CART_ROUTES,

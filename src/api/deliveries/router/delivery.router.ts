@@ -7,6 +7,8 @@ import { ROUTES_INDEX } from "@/routers";
 import { deleteDeliveryValidator, getDeliveryDetailValidator, getDeliveryValidator, updateDeliveryValidator } from "../dto/validations/delivery.validation";
 import { validate } from "@/api/common/middlewares/validation.middleware";
 import { authUserMiddleware } from "@/api/common/middlewares/authUser.middleware";
+import { MongooseProfileRepository } from "@/api/users/repository/profile/mongooseProfile.repository";
+import { MongooseUserRepository } from "@/api/users/repository/user/mongooseUser.repository";
 
 export const deliveryRouter= express.Router();
 
@@ -18,7 +20,7 @@ const DELIVERY_ROUTES={
     DELETE_DELIVERY:"/api/deliveries/:deliveryId",
 } 
 const deliveryController= new DeliveryController(
-    new DeliveryServicesImpl(new MongooseDeliveryRepository)
+    new DeliveryServicesImpl(new MongooseDeliveryRepository(),new MongooseProfileRepository(),new MongooseUserRepository)
 );
 deliveryRouter.get(
     extractPath(DELIVERY_ROUTES.GET_DELIVERIES,ROUTES_INDEX.DELIVERY_API),

@@ -11,7 +11,7 @@ export interface UserService {
   createUser(
     params: Omit<IUser, "id" | "role" | "profile" | "cart"> & {
       profile: Omit<IProfile, "id" | "delivery">;
-      cart: Omit<ICart, "id" | "orderItems">;
+      cart?: Omit<ICart, "id" | "orderItems">;
     }
   ): Promise<UserResponseDTO>;
   /** 유저 수정 */
