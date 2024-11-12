@@ -5,11 +5,19 @@ export interface CartsService {
   getCart(id: string): Promise<CartResponseDTO | null>;
 
   /** 장바구니 생성 */
-  //createCart(userId: string): Promise<CartResponseDTO>;
+  createCart(
+    params: Omit<ICart, "id" | "user"> & {
+      cartItem?: ICartItem[];
+    }
+  ): Promise<CartResponseDTO>;
 
   /** 장바구니 업데이트 */
   updateCart(
     cartId: string,
-    updatedCart: Omit<ICart, "id" | "user">
+    updatedCart: Partial<
+      Omit<ICart, "id"> & {
+        cartItem?: ICartItem[];
+      }
+    >
   ): Promise<void>;
 }

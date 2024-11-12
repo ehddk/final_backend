@@ -12,21 +12,29 @@ export class MongooseCartRepository implements CartRepository {
 
   /** ID로 장바구니 조회 */
   async findById(id: string): Promise<ICart | null> {
-    return MongooseCart.findById(id).populate({
-      path: "user",
-      populate: { path: "profile" },
-    });
+    try {
+      const findCart = await MongooseCart.findById(id)
+        .populate("user")
+        .populate("cartItem");
+
+      return findCart;
+    } catch (error: any) {
+      const message = error.message.toString();
+      if (message.includes("Cast to ObjectId failed")) {
+        return null;
+      }
+
+      throw error;
+    }
   }
 
   /** 장바구니 업데이트 */
-  async update(
-    cartId: string,
-    updatedInfo: Partial<ICart>
-  ): Promise<ICart> {
-    const cart = await MongooseCart.findByIdAndUpdate(cartId, updatedInfo, {
-      new: true,
-    });
-    if (!cart) throw new HttpException(404, "장바구니를 찾을 수 없습니다.");
-    return cart;
+  async update(cartId: string, updateCartInfo: Partial<ICart>): Promise<void> {
+    await MongooseCart.findByIdAndUpdate(cartId, {
+      ...updateCartInfo,
+      cartItem: updateCartInfo.cartItem || undefined, // 예약 목록 업데이트
+    }).populate("cartItem");
+
+    return;
   }
 }

@@ -75,19 +75,26 @@ export default class AdminOrdersController {
     res: Response,
     next: NextFunction
   ) {
-    const { ...rest } = req.body;
-    const { productId } = req.query.productId;
-
-    const body = {
-      ...rest,
-      userId: req.user.userId, 
-      product: productId,
-    };
+    const {
+      shippingAddress,
+      deliveryRequest,
+      paymentMethod,
+      orderItem,
+      cartToOrder,
+      orderStatus,
+    } = req.body;
 
     try {
       const createdOrder = await this._ordersService.createOrder(
         req.user.userId,
-        body
+        {
+          shippingAddress,
+          deliveryRequest,
+          paymentMethod,
+          orderItem,
+          cartToOrder,
+          orderStatus,
+        }
       );
       res.send(createdOrder);
     } catch (error) {

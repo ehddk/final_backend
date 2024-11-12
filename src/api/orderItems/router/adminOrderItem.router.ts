@@ -9,7 +9,7 @@ import {
   getOrderItemsValidator,
   updateOrderItemValidator,
 } from "@/api/orderItems/dto/validations/orderItem.validation";
-import { MongooseUserRepository } from "@/__api/users/repository/user/mongooseUser.repository"; //추후 변경필요
+import { MongooseUserRepository } from "@/api/users/repository/user/mongooseUser.repository";
 import { MongooseOrderItemRepository } from "@/api/orderItems/repository/mongooseOrderItem.repository";
 import { extractPath } from "@/utils/path.util";
 import { ROUTES_INDEX } from "@/routers";

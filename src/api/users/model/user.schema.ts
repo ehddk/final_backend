@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema<IUser>(
       type: String,
       unique: true,
       required: true,
-    },  
+    },
     password: {
       type: String,
     },
@@ -28,13 +28,16 @@ const userSchema = new mongoose.Schema<IUser>(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Profile",
       required: true,
-      strictPopulate: false
+      strictPopulate: false,
     },
-    // cart: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Cart",
-    //   strictPopulate: false
-    // },
+    cart: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cart",
+      required: true,
+      strictPopulate: false,
+    },
+    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
+
   },
   {
     timestamps: {
