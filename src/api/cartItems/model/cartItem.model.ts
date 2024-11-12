@@ -1,4 +1,4 @@
-import { IProduct } from "@/api/product/@types/product.type";
+import { IProduct } from "@/api/products/@types/product.type";
 
 export class CartItem implements ICartItem {
   id: string;
