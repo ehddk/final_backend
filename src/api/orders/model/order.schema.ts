@@ -2,11 +2,6 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema<IOrder>(
   {
-    orderItem: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "OrderItem",
-      required: true,
-    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -14,7 +9,7 @@ const orderSchema = new mongoose.Schema<IOrder>(
     },
     shippingAddress: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "ShippingAddress",
+      ref: "Delivery",
       required: true,
     },
     deliveryRequest: {
@@ -23,24 +18,39 @@ const orderSchema = new mongoose.Schema<IOrder>(
     },
     paymentMethod: {
       type: String,
-      enum: Object.values(PAYMENT_METHOD),
+      enum: ["CREDIT_CARD", "SIMPLE_PAY", "MOBILE_PAYMENT", "KAKAO_PAY"],
       required: true,
     },
-    totalProductPrice: {
-      type: Number,
-      required: true,
-    },
-    shippingFee: {
-      type: Number,
-      required: true,
-    },
-    totalPaymentAmount: {
-      type: Number,
+    orderItem: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "OrderItem",
+        required: true,
+      },
+    ],
+    cartToOrder: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cart",
       required: true,
     },
     orderStatus: {
       type: String,
-      enum: Object.values(ORDER_STATUS),
+      enum: [
+        "PAYMENT_PENDING",
+        "PAYMENT_COMPLETED",
+        "PREPARING_FOR_SHIPPING",
+        "SHIPPING",
+        "SHIPPED",
+        "ORDER_CANCELED",
+        "PARTIAL_REFUND_REQUESTED",
+        "FULL_REFUND_REQUESTED",
+        "PARTIAL_REFUNDED",
+        "FULL_REFUNDED",
+        "PARTIAL_EXCHANGE_REQUESTED",
+        "PARTIAL_EXCHANGED",
+        "FULL_EXCHANGE_REQUESTED",
+        "FULL_EXCHANGED",
+      ],
       required: true,
     },
   },

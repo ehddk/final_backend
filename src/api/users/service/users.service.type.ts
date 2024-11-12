@@ -6,12 +6,12 @@ export interface UserService {
   /** 유저 목록 조회 */
   getUsers(): Promise<GetUsersResponseDTO[]>;
   /** 유저 조회 */
-  getUser(userId: string): Promise<GetUserResponseDTO | null>;
+  getUser(id: string): Promise<GetUserResponseDTO | null>;
   /** 유저 생성 */
   createUser(
     params: Omit<IUser, "id" | "role" | "profile" | "cart"> & {
       profile: Omit<IProfile, "id" | "delivery">;
-      cart?: Omit<ICart, "id" | "orderItems">;
+      cart: Omit<ICart, "id" | "orderItems" | "user" | "totalProductPrice" | "shippingFee" | "totalPaymentAmount">;
     }
   ): Promise<UserResponseDTO>;
   /** 유저 수정 */
@@ -24,7 +24,7 @@ export interface UserService {
     >
   ): Promise<void>;
   /** 유저 삭제 */
-  deleteUser(userId: string): Promise<void>;
+  deleteUser(id: string): Promise<void>;
   /** 유저 대량 삭제 */
   deleteUsers(ids: string[]): Promise<void>;
 }

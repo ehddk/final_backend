@@ -6,5 +6,5 @@ export interface CartRepository {
   findById(id: string): Promise<ICart | null>;
 
   /** 장바구니 업데이트 */
-  update(cartId: string, updatedCartInfo: Partial<ICart>): Promise<ICart>;
+  update(cartId: string, updateCartInfo: Partial<ICart>): Promise<void>;
 }

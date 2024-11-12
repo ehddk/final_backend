@@ -2,11 +2,10 @@ import mongoose from "mongoose";
 
 const cartSchema = new mongoose.Schema<ICart>(
   {
-    orderItems: [
+    cartItem: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "OrderItem",
-        required: true,
+        ref: "CartItem",
       },
     ],
     totalProductPrice: {

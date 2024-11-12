@@ -52,11 +52,11 @@ export default class AdminUserController {
     try {
       const { userId } = req.params;
 
-      const user = await this._userService.getUser(userId);
+      await this._userService.getUser(userId);
 
       console.log("회원 상세 조회 완료")
 
-      res.send(user);
+      res.status(204).send();
     } catch (error) {
       next(error);
     }
@@ -83,6 +83,7 @@ export default class AdminUserController {
         password: hashedPassword,
         salt,
       });
+      console.log(newUser)
       console.log("회원 생성 완료")
       res.send(newUser);
     } catch (error) {

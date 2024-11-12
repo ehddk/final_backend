@@ -8,8 +8,6 @@ export class User implements IUser {
   profile: IProfile;
  // cart: ICart;
 
-
-
   constructor(params: IUser) {
     this.id = params.id;
     this.loginId = params.loginId;

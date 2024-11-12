@@ -63,6 +63,7 @@ export default class AdminOrderItemsController {
     next: NextFunction
   ) {
     const { product, quantity } = req.body;
+    const { orderId } = req.query;
 
     const totalPrice = product.sales * quantity;
     const orderItemStatus = "PAYMENT_PENDING";
@@ -70,7 +71,8 @@ export default class AdminOrderItemsController {
     try {
       const createdOrderItem = await this._orderItemsService.createOrderItem(
         req.user.userId,
-        { product, quantity, totalPrice, orderItemStatus }
+        { product, quantity, totalPrice, orderItemStatus, orderId },
+        
       );
       res.send(createdOrderItem);
     } catch (error) {

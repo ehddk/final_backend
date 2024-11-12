@@ -1,3 +1,4 @@
+
 import { IDelivery } from "@/api/deliveries/@types/delivery.type";
 
 export class Profile implements IProfile {

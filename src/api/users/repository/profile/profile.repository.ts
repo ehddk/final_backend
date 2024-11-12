@@ -2,7 +2,7 @@ export interface ProfileRepository {
   // case B
 
   /** 프로필 생성 */
-  save(profile: Omit<IProfile, "id">): Promise<IProfile>;
+  save(profile: Omit<IProfile, "id" | "delivery">): Promise<IProfile>;
   /** 프로필 목록 조회 */
   findAll(): Promise<IProfile[]>;
   /** 프로필 조회 */

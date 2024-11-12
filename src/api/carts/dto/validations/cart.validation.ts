@@ -14,7 +14,7 @@ export const getCartValidator = {
 };
 
 const updateCartBodyValidator = yup.object({
-  orderItems: yup
+  cartItems: yup
     .array()
     .of(
       yup.object({

@@ -10,36 +10,39 @@ import { MongooseCartRepository } from "@/api/carts/repository/mongooseCart.repo
 import { extractPath } from "@/utils/path.util";
 import { ROUTES_INDEX } from "@/routers";
 import { authUserMiddleware } from "@/api/common/middlewares/authUser.middleware";
+import { MongooseCartItemRepository } from "@/api/cartItems/repository/mongooseCartItem.repository";
 const cartRouter = express.Router();
 
 const CART_ROUTES = {
+  /** 장바구니 생성 */
+  CREATE_CART: `/api/carts`,
   /** 장바구니 조회 */
   GET_CART: `/api/carts/:cartId`,
-  /** 장바구니 생성 */
-  // CREATE_CART: `/api/carts`,
   /** 장바구니 업데이트 */
   UPDATE_CART: `/api/carts/:cartId`,
 } as const;
 
 const cartsController = new CartsController(
-  new CartsServiceImpl(new MongooseCartRepository())
+  new CartsServiceImpl(
+    new MongooseCartRepository(),
+    new MongooseCartItemRepository()
+  )
 );
 
-// 장바구니 목록 조회
+// 장바구니 생성
+cartRouter.post(
+  extractPath(CART_ROUTES.CREATE_CART, ROUTES_INDEX.CARTS_API),
+  authUserMiddleware,
+  cartsController.createCart
+);
+
+// 장바구니 조회
 cartRouter.get(
   extractPath(CART_ROUTES.GET_CART, ROUTES_INDEX.CARTS_API),
   authUserMiddleware,
   validate(getCartValidator),
   cartsController.getCart
 );
-
-// 장바구니 생성
-// cartRouter.post(
-//   extractPath(CART_ROUTES.CREATE_CART, ROUTES_INDEX.CARTS_API),
-//   authUserMiddleware,
-//   validate(createCartValidator),
-//   cartsController.createCart
-//);
 
 // 장바구니 업데이트
 cartRouter.put(
