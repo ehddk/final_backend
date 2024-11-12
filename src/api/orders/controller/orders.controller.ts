@@ -69,16 +69,22 @@ export default class OrdersController {
     res: Response,
     next: NextFunction
   ) {
-    const userId = req.user.userId;
     const orderStatus = "PAYMENT_PENDING";
-    const { shippingAddress, deliveryRequest, paymentMethod, cart } = req.body;
+    const {
+      shippingAddress,
+      deliveryRequest,
+      paymentMethod,
+      orderItem,
+      cartToOrder,
+    } = req.body;
 
     try {
-      const order = await this._ordersService.createOrder(userId, {
+      const order = await this._ordersService.createOrder(req.user.userId, {
         shippingAddress,
         deliveryRequest,
         paymentMethod,
-        cart,
+        orderItem,
+        cartToOrder,
         orderStatus,
       });
 

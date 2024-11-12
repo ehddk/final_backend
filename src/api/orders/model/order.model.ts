@@ -7,7 +7,8 @@ class Order implements IOrder {
   deliveryRequest?: string;
   createdAt: Date;
   paymentMethod: PaymentMethod;
-  cart: ICart;
+  cartToOrder: ICart;
+  orderItem: IOrderItem[];
   orderStatus: OrderStatus;
 
   constructor(params: IOrder) {
@@ -17,7 +18,8 @@ class Order implements IOrder {
     this.deliveryRequest = params.deliveryRequest;
     this.createdAt = params.createdAt;
     this.paymentMethod = params.paymentMethod;
-    this.cart = params.cart;
+    this.cartToOrder = params.cartToOrder;
+    this.orderItem = params.orderItem;
     this.orderStatus = params.orderStatus;
   }
 }

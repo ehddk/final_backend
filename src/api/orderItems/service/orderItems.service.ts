@@ -17,7 +17,7 @@ export class OrderItemsServiceImpl implements OrderItemsService {
 
   async createOrderItem(
     userId: string,
-    orderItem: Omit<IOrderItem, "id" | "user">
+    orderItem: Omit<IOrderItem, "id">
   ): Promise<OrderItemResponseDTO> {
     const user = await this._userRepository.findById(userId);
 
@@ -27,13 +27,23 @@ export class OrderItemsServiceImpl implements OrderItemsService {
 
     const newOrderItem = await this._orderItemRepository.save({
       ...orderItem,
-      user,
     });
+    // 해당 주문을 찾아 orderItem 배열에 새 항목을 추가
+    const updatedOrders =
+      user.orders?.map((order) => {
+        if (order.id === orderItem.orderId) {
+          // 주문 ID가 일치하면 해당 주문의 orderItem 배열에 새로운 항목을 추가
+          return {
+            ...order,
+            orderItem: [...order.orderItem, newOrderItem], // 새 항목 추가
+          };
+        }
+        return order;
+      }) || [];
 
-    const newOrderItems = user.carts?.orderItems?.concat(newOrderItem);
-
+    // 수정된 주문 목록을 사용자 정보에 반영
     await this._userRepository.update(user.id, {
-      orderItems: newOrderItems,
+      orders: updatedOrders,
     });
 
     return new OrderItemResponseDTO(newOrderItem);
@@ -55,7 +65,7 @@ export class OrderItemsServiceImpl implements OrderItemsService {
   }
   async updateOrderItem(
     orderItemId: string,
-    updatedOrderItem: Omit<IOrderItem, "id" | "product" | "user">
+    updatedOrderItem: Omit<IOrderItem, "id" | "product">
   ): Promise<void> {
     await this._orderItemRepository.update(orderItemId, updatedOrderItem);
 

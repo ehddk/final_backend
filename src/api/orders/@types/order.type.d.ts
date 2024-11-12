@@ -33,8 +33,10 @@ interface IOrder {
   createdAt: Date;
   /** 결제수단 */
   paymentMethod: PaymentMethod;
-  /** 장바구니 정보 (상품 정보, 가격정보) */
-  cart: ICart;
+  /** 주문 상품 정보 (상품 정보, 가격정보) */
+  orderItem: IOrderItem[];
+  /** 장바구니->주문에 필요한 정보 */
+  cartToOrder: ICart;
   /** 주문상태 */
   orderStatus: OrderStatus;
 }
@@ -62,25 +64,29 @@ interface IOrderResponseDTO {
   orderDate: string;
   /** 결제수단 */
   paymentMethod: PaymentMethod;
-  /** 장바구니 정보 (상품 정보, 가격정보) */
-  cart: {
-    cartItem: {
-      product: {
-        productName: string;
-        sales: number;
-      };
-      /** 주문 수량 */
-      quantity: number;
-      /** 주문 총 가격 */
-      totalPrice: number;
+  /** 주문 상품 정보 (상품 정보, 가격정보) */
+  orderItem: {
+    product: {
+      productName: string;
+      sales: number;
     };
-    /** 상품 총 가격 */
+    /** 주문 수량 */
+    quantity: number;
+    /** 주문 총 가격 */
+    totalPrice: number;
+    /** 주문 상태 (주문상품별) */
+    orderItemStatus: OrderItemStatus;
+  };
+  /** 장바구니->주문에 필요한 정보 */
+  cartToOrder: {
+    /** 총 상품 가격 */
     totalProductPrice: number;
     /** 배송비 */
     shippingFee: number;
     /** 결제예정금액 */
     totalPaymentAmount: number;
   };
+
   /** 주문상태 */
   orderStatus: OrderStatus;
 }

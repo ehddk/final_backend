@@ -40,11 +40,11 @@ declare type createOrderItemRequestBody = {
   quantity: number;
 };
 
-declare type createOrderItemRequestParams = {};
+declare type createOrderItemRequestParams = {orderId: string};
 
 /** 주문 상품 생성 요청 */
 declare type createOrderItemRequest = {
-  params?: createOrderItemRequestParams;
+  params: createOrderItemRequestParams;
   path?: createOrderItemRequestPath;
   body: createOrderItemRequestBody;
 };
@@ -57,7 +57,10 @@ declare type updateOrderItemRequestPath = {
   orderItemId: string;
 };
 
-declare type updateOrderItemRequestBody = Omit<IOrderItem, "id" | "product" | "user">;
+declare type updateOrderItemRequestBody = Omit<
+  IOrderItem,
+  "id" | "product"
+>;
 
 declare type updateOrderItemRequestParams = {};
 

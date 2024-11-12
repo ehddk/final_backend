@@ -15,18 +15,20 @@ export class OrderResponseDTO {
   deliveryRequest?: string;
   orderDate: Date; // createdAt
   paymentMethod: PaymentMethod;
-  cart: {
-    cartItem: {
-      product: {
-        productName: string;
-        sales: number;
-      };
-      /** 주문 수량 */
-      quantity: number;
-      /** 주문 총 가격 */
-      totalPrice: number;
-    }[];
-    /** 상품 총 가격 */
+  orderItem: {
+    product: {
+      productName: string;
+      sales: number;
+    };
+    /** 주문 수량 */
+    quantity: number;
+    /** 주문 총 가격 */
+    totalPrice: number;
+    /** 주문 상태 (주문상품별) */
+    orderItemStatus: OrderItemStatus;
+  }[];
+  cartToOrder: {
+    /** 총 상품 가격 */
     totalProductPrice: number;
     /** 배송비 */
     shippingFee: number;
@@ -53,22 +55,23 @@ export class OrderResponseDTO {
     this.deliveryRequest = params.deliveryRequest; // 배송 요청사항 (선택 사항)
     this.orderDate = params.createdAt; // 주문 날짜 (string으로 전달)
     this.paymentMethod = params.paymentMethod; // 결제 수단
-    const cartItem: ICartItem[] | undefined = params.cart.cartItem;
-    this.cart = {
-      cartItem: cartItem
-        ? cartItem.map((item: ICartItem) => ({
-            product: {
-              productName: item.product.productName,
-              sales: item.product.sales,
-            },
-            quantity: item.quantity,
-            totalPrice: item.totalPrice,
-          }))
-        : [],
-      totalProductPrice: params.cart.totalProductPrice,
-      shippingFee: params.cart.shippingFee,
-      totalPaymentAmount: params.cart.totalPaymentAmount,
+    this.orderItem = params.orderItem
+      ? params.orderItem.map((item: IOrderItem) => ({
+        product: {
+          productName: item.product.productName, 
+          sales: item.product.sales, 
+        },
+          quantity: item.quantity,
+          totalPrice: item.totalPrice,
+          orderItemStatus: item.orderItemStatus,
+        }))
+      : [];
+    this.cartToOrder = {
+      totalProductPrice: params.cartToOrder.totalProductPrice,
+      shippingFee: params.cartToOrder.shippingFee,
+      totalPaymentAmount: params.cartToOrder.totalPaymentAmount,
     };
+
     this.orderStatus = params.orderStatus; // 주문 상태
   }
 }

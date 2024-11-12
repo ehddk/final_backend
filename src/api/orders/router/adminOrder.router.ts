@@ -14,6 +14,7 @@ import { MongooseOrderRepository } from "@/api/orders/repository/mongooseOrder.r
 import { extractPath } from "@/utils/path.util";
 import { ROUTES_INDEX } from "@/routers";
 import { authUserMiddleware } from "@/api/common/middlewares/authUser.middleware";
+import { MongooseOrderItemRepository } from "@/api/orderItems/repository/mongooseOrderItem.repository";
 
 const adminOrderRouter = express.Router();
 
@@ -35,6 +36,7 @@ const adminOrdersController = new AdminOrdersController(
   new OrdersServiceImpl(
     new MongooseOrderRepository(),
     new MongooseUserRepository(),
+    new MongooseOrderItemRepository()
   )
 );
 

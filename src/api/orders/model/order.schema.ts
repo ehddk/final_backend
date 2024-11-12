@@ -21,7 +21,14 @@ const orderSchema = new mongoose.Schema<IOrder>(
       enum: ["CREDIT_CARD", "SIMPLE_PAY", "MOBILE_PAYMENT", "KAKAO_PAY"],
       required: true,
     },
-    cart: {
+    orderItem: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "OrderItem",
+        required: true,
+      },
+    ],
+    cartToOrder: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Cart",
       required: true,

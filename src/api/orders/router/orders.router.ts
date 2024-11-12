@@ -13,6 +13,7 @@ import OrdersController from "@/api/orders/controller/orders.controller";
 import { OrdersServiceImpl } from "@/api/orders/service/orders.service";
 import { MongooseOrderRepository } from "@/api/orders/repository/mongooseOrder.repository";
 import { MongooseUserRepository } from "@/api/users/repository/user/mongooseUser.repository";
+import { MongooseOrderItemRepository } from "@/api/orderItems/repository/mongooseOrderItem.repository";
 
 const orderRouter = express.Router();
 
@@ -31,6 +32,7 @@ const ordersController = new OrdersController(
   new OrdersServiceImpl(
     new MongooseOrderRepository(),
     new MongooseUserRepository(),
+    new MongooseOrderItemRepository()
   )
 );
 

@@ -47,8 +47,9 @@ declare type createOrderRequestBody = {
   deliveryRequest?: string; // 선택 사항
   /** 결제 수단 */
   paymentMethod: PaymentMethod;
+  orderItem: IOrderItem[];
   /** 장바구니 정보 (상품 정보, 가격정보) */
-  cart: ICart;
+  cartToOrder: ICart;
   /** 주문 상태 */
   orderStatus: OrderStatus;
 };
