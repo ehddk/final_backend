@@ -23,15 +23,33 @@ export class MongooseUserRepository implements UserRepository {
     return values;
   }
 
-  async findById(id: string): Promise<IUser | null> {
+  async findById(userId: string): Promise<IUser | null> {
     try {
-      const findUser = await MongooseUser.findById(id).populate(
-        "profile",
-        "cart",
-        "orders"
-      );
+      console.log('기본 userId:', userId); 
+      const basicUser = await MongooseUser.findById(userId);
+      console.log('populate없이', basicUser);
 
-      return findUser;
+      const findUser = await MongooseUser.findById(userId)
+        .populate('profile')
+            // .populate('delivery')
+            // .populate('cart')
+            // .populate('orders')
+            .exec();
+
+      console.log('Found user:', findUser);
+      const fullUser = await MongooseUser.findById(userId)
+      .populate({
+        path:'profile',
+        populate:{
+          path: 'delivery',
+          model: 'Delivery' 
+        }
+    })
+      // .populate('cart')
+      // .populate('orders')
+      .exec();
+  //console.log('Full 유저:', fullUser);
+      return fullUser;
     } catch (error: any) {
       const message = error.message.toString();
       if (message.includes("Cast to ObjectId failed")) {
