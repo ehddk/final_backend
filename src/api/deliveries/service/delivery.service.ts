@@ -30,6 +30,9 @@ export class DeliveryServicesImpl implements DeliveryService{
     }
     async getDeliveryDetail(userId:string,deliveryId:string):Promise<DeliveryResponseDTO | null>{
         try{
+            if(!deliveryId){
+                throw new Error('해당 배송지ID가 없습니다.')
+            }
             const delivery = await this._deliveryRepository.findById(userId,deliveryId);
             if(!delivery){
                 throw new HttpException(404,"해당 배송지를 찾을 수 없습니다.")
@@ -48,12 +51,13 @@ export class DeliveryServicesImpl implements DeliveryService{
              if (!user) {
             throw new Error('해당 유저를 찾을 수 없습니다.');
         }
-           // console.log('유저 찾기 :',user)
+         //   console.log('유저 찾기 :',user)
             //배송지 생성하기
             const newDelivery=await this._deliveryRepository.save(
                 userId,
                 delivery
             )
+          //  console.log('new',newDelivery)
            // console.log('배송지의 userId:', newDelivery.userId);
             //user profile 찾기
             // const userProfile = await this._profileRepository.findByUserId(userId);
@@ -73,7 +77,7 @@ export class DeliveryServicesImpl implements DeliveryService{
                 { $push: { delivery:newDelivery} }, //delivery에 새로운배송지 등록.이때 $set 생략해도됨!!
                 { new: true } // 새로운 내용을 반환
             ).exec();
-            console.log('user.profile.delivery',)
+           // console.log('user.profile.delivery',updatedProfile)
             //console.log('Updated profile:', updatedProfile);
             return newDelivery;
         }catch(error){
@@ -83,25 +87,28 @@ export class DeliveryServicesImpl implements DeliveryService{
     /**배송지 수정 */
     async updateDelivery(userId:string,deliveryId:string,updatedDeliveryInfo:Omit<IDelivery,"id">):Promise<void>{
        try{ //1.유저 찾기
-        const user=await this._userRepository.findById(userId);
+        const user=await this._userRepository.findById(userId)
         if (!user) {
             throw new Error('해당 유저를 찾을 수 없습니다.');
         }
+       // console.log('수정 ㅈ중 유저',user)
         //2.배송지 찾기
         const findDelivery = await this._deliveryRepository.findById(userId, deliveryId);
         if (!findDelivery) {
             throw new Error('해당 배송지를 찾을 수 없습니다.');
         }
-      
+        //console.log('수정 ㅈ중 배송지 찾기',findDelivery)
         //3.새로운 배송지로 수정하기
         await this._deliveryRepository.update(userId,deliveryId,updatedDeliveryInfo);
-        const updatedDelivery = await this._deliveryRepository.update(
-            userId,
-            deliveryId,
-            updatedDeliveryInfo
-        )    
-        return;
+        // const updatedDelivery = await this._deliveryRepository.update(
+        //     userId,
+        //     deliveryId,
+        //     updatedDeliveryInfo
+        // )    
+        // return;
+        
     }catch(error){
+        console.error('배송지 수정 중 에러:', error);
         throw new Error('배송지 수정 중 오류 발생!!')
     }
 }

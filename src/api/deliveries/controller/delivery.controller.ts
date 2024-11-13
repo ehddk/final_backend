@@ -119,7 +119,8 @@ export default class DeliveryController{
         try{
           const userId = req.user.userId;
           await this._deliveryService.updateDelivery(userId,deliveryId,req.body);
-          res.status(204).json();
+          //res.status(204).json();
+          res.send('수정 성공')
         }catch(error){
           next(error)
       }

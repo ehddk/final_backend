@@ -64,7 +64,7 @@ export default class AdminProductController{
             })
             
             res.send(product)
-            console.log('dpro',product)
+           // console.log('dpro',product)
         }catch(error){
             next(error)
         }
@@ -79,7 +79,7 @@ export default class AdminProductController{
             const {productId}= req.params;
         try{
            await this._adminProductService.updateProduct(productId,req.body);
-           res.status(204).json();
+         res.send('수정 성공')
         }catch(error){
             next(error)
         }
