@@ -4,6 +4,8 @@ import express from "express";
 import ProductController from "../controller/product.controller"
 import { ProductsServiceImpl } from "../service/products.service";
 import { MongooseProductRepository } from "../repository/mongooseProduct.repository";
+import { ROUTES_INDEX } from "@/routers";
+import { extractPath } from "@/utils/path.util";
 //import AdminProductController from "../controller/adminProduct.controller";
 
 export const productRouter=express.Router();
@@ -22,10 +24,11 @@ const productController = new ProductController(
 );
 
 productRouter.get(
-
-    PRODUCT_ROUTES.GET_PRODUCTS,productController.getProducts
+    extractPath(PRODUCT_ROUTES.GET_PRODUCTS,ROUTES_INDEX.PRODUCTS_API),
+    productController.getProducts
     // productController.getProducts
 )
 productRouter.get(
-    PRODUCT_ROUTES.GET_PRODUCT_DETAILS,productController.getProductDetail
+    extractPath(PRODUCT_ROUTES.GET_PRODUCT_DETAILS,ROUTES_INDEX.PRODUCTS_API),
+    productController.getProductDetail
 )
