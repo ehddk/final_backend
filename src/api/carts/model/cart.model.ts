@@ -1,9 +1,9 @@
 export class Cart implements ICart {
   id: string;
   cartItem?: ICartItem[];
-  totalProductPrice: number;
-  shippingFee: number;
-  totalPaymentAmount: number;
+  totalProductPrice?: number;
+  shippingFee?: number;
+  totalPaymentAmount?: number;
   user: IUser;
 
   constructor(params: ICart) {

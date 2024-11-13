@@ -35,11 +35,13 @@ declare type adminGetOrderItemDetailResponse = IOrderItemResponseDTO | null;
 declare type adminCreateOrderItemRequestBody = {
   product: IProduct;
   quantity: number;
+  totalPrice: number;
+  orderId: string;
 };
 
 declare type adminCreateOrderItemRequestPath = {};
 
-declare type adminCreateOrderItemRequestParams = {orderId: string};
+declare type adminCreateOrderItemRequestParams = {};
 
 /** 주문 상품 생성 요청 */
 declare type adminCreateOrderItemRequest = {

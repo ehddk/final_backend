@@ -38,6 +38,7 @@ declare type createOrderItemRequestPath = {};
 declare type createOrderItemRequestBody = {
   product: IProduct;
   quantity: number;
+  totalPrice: number;
   orderId: string;
 };
 

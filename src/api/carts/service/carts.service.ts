@@ -4,20 +4,16 @@ import { CartsService } from "@/api/carts/service/carts.service.type";
 import HttpException from "@/api/common/exceptions/http.exception";
 
 export class CartsServiceImpl implements CartsService {
-  constructor(
-    private readonly _cartRepository: CartRepository,
-  ) {}
+  constructor(private readonly _cartRepository: CartRepository) {}
 
   /** 장바구니 생성 */
   async createCart(
-    params: Omit<ICart, "id" | "user"> & {
+    params: Omit<ICart, "id"> & {
       cartItem?: ICartItem[];
-      user: IUser; // user 필드를 IUser 타입으로 수정
     }
   ): Promise<CartResponseDTO> {
     const cart = await this._cartRepository.save({
       ...params,
-      user: params.user,
       cartItem: params.cartItem || [],
     });
 

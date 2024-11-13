@@ -3,9 +3,9 @@ import { CartItemResponseDTO } from "@/api/cartItems/dto/cartItemResponse.dto";
 export class CartResponseDTO {
   id: string;
   cartItem?: CartItemResponseDTO[];
-  totalProductPrice: number;
-  shippingFee: number;
-  totalPaymentAmount: number;
+  totalProductPrice?: number;
+  shippingFee?: number;
+  totalPaymentAmount?: number;
   user: IUser;
 
   constructor(params: ICart) {

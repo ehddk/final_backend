@@ -6,9 +6,8 @@ export interface CartsService {
 
   /** 장바구니 생성 */
   createCart(
-    params: Omit<ICart, "id" | "user"> & {
+    params: Omit<ICart, "id"> & {
       cartItem?: ICartItem[];
-      user: IUser;
     }
   ): Promise<CartResponseDTO>;
 
