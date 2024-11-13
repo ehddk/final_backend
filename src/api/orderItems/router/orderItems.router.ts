@@ -9,10 +9,10 @@ import {
 } from "@/api/orderItems/dto/validations/orderItem.validation";
 import { validate } from "@/api/common/middlewares/validation.middleware";
 import { MongooseOrderItemRepository } from "@/api/orderItems/repository/mongooseOrderItem.repository";
-import { MongooseUserRepository } from "@/api/users/repository/user/mongooseUser.repository";
 import { extractPath } from "@/utils/path.util";
 import { ROUTES_INDEX } from "@/routers";
 import { authUserMiddleware } from "@/api/common/middlewares/authUser.middleware";
+import { MongooseOrderRepository } from "@/api/orders/repository/mongooseOrder.repository";
 
 const orderItemRouter = express.Router();
 
@@ -30,7 +30,7 @@ const ORDER_ITEM_ROUTES = {
 const orderItemsController = new OrderItemsController(
   new OrderItemsServiceImpl(
     new MongooseOrderItemRepository(),
-    new MongooseUserRepository()
+    new MongooseOrderRepository()
   )
 );
 

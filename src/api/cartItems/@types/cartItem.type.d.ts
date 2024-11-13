@@ -1,6 +1,7 @@
 interface ICartItem {
   /** 주문 상품 ID */
   id: string;
+  user: IUser;
   /** 주문 상품 제목 */
   product: IProduct;
   /** 주문 수량 */
@@ -12,6 +13,9 @@ interface ICartItem {
 interface ICartItemResponseDTO {
   /** 주문 상품 ID */
   cartItemId: string;
+  user: {
+    id: string;
+  };
   /** 주문 상품 제목 */
   product: {
     productName: string;

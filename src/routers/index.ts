@@ -3,7 +3,7 @@ const ORDER_ROUTES = {
   /** 관리자 주문 API */
   ADMIN_ORDERS_API: "/admin-api/orders",
   /** 주문 API */
-  ORDERS_API: "/api/orders",
+  ORDERS_API: "/api/user/orders",
 } as const;
 
 /**  상품 라우터 */
@@ -33,13 +33,13 @@ const ORDER_ITEM_ROUTES = {
   /** 관리자 주문 API */
   ADMIN_ORDER_ITEMS_API: "/admin-api/orderItems",
   /** 주문 API */
-  ORDER_ITEMS_API: "/api/orderItems",
+  ORDER_ITEMS_API: "/api/user/order/orderItems",
 } as const;
 
 /**  장바구니 라우터 */
 const CART_ROUTES = {
   /** 장바구니 API */
-  CARTS_API: "/api/carts",
+  CARTS_API: "/api/user/carts",
   /** 장바구니 API */
   ADMIN_CARTS_API: "/admin-api/carts",
 } as const;
@@ -47,15 +47,15 @@ const CART_ROUTES = {
 /**  장바구니 아이템 라우터 */
 const CART_ITEM_ROUTES = {
   /** 장바구니 API */
-  CART_ITEMS_API: "/api/cartItems",
+  CART_ITEMS_API: "/api/user/cart/cartItems",
   /** 장바구니 API */
   ADMIN_CART_ITEMS_API: "/admin-api/cartItems",
 } as const;
 
 /**배송지 라우터 */
-const DELIVERY_ROUTES={
-  DELIVERY_API:"/api/deliveries"
-}
+const DELIVERY_ROUTES = {
+  DELIVERY_API: "/api/deliveries",
+};
 export const ROUTES_INDEX = {
   ...CART_ITEM_ROUTES,
   ...CART_ROUTES,
@@ -64,5 +64,5 @@ export const ROUTES_INDEX = {
   ...PRODUCT_ROUTES,
   ...AUTH_ROUTES,
   ...USER_ROUTES,
-  ...DELIVERY_ROUTES
+  ...DELIVERY_ROUTES,
 } as const;

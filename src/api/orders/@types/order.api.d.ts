@@ -42,14 +42,18 @@ declare type createOrderRequestPath = {};
 
 declare type createOrderRequestBody = {
   /** 배송지 */
-  shippingAddress: IDelivery;
+  deliveryAddress: string;
   /** 배송 요청 사항 */
   deliveryRequest?: string; // 선택 사항
   /** 결제 수단 */
   paymentMethod: PaymentMethod;
   orderItem: IOrderItem[];
-  /** 장바구니 정보 (상품 정보, 가격정보) */
-  cartToOrder: ICart;
+  /** 총 상품 가격 */
+  totalProductPrice: number;
+  /** 배송비 */
+  shippingFee: number;
+  /** 결제예정금액 */
+  totalPaymentAmount: number;
   /** 주문 상태 */
   orderStatus: OrderStatus;
 };
@@ -72,8 +76,6 @@ declare type updateOrderRequestPath = {
 };
 
 declare type updateOrderRequestBody = {
-  /** 배송지 */
-  shippingAddress?: IDelivery;
   /** 배송 요청사항 */
   deliveryRequest?: string;
   /** 주문상태 */

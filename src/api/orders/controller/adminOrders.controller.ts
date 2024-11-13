@@ -76,23 +76,26 @@ export default class AdminOrdersController {
     next: NextFunction
   ) {
     const {
-      shippingAddress,
+      deliveryAddress,
       deliveryRequest,
       paymentMethod,
       orderItem,
-      cartToOrder,
       orderStatus,
+      totalProductPrice,
+      shippingFee,
+      totalPaymentAmount,
     } = req.body;
 
     try {
       const createdOrder = await this._ordersService.createOrder(
         req.user.userId,
         {
-          shippingAddress,
+          deliveryAddress,
           deliveryRequest,
           paymentMethod,
-          orderItem,
-          cartToOrder,
+          totalProductPrice,
+          shippingFee,
+          totalPaymentAmount,
           orderStatus,
         }
       );

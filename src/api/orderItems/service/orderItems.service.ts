@@ -3,51 +3,47 @@ import { OrderItemResponseDTO } from "@/api/orderItems/dto/orderItemResponse.dto
 import { OrderItemRepository } from "@/api/orderItems/repository/orderItem.repository";
 import { OrderItemsService } from "@/api/orderItems/service/orderItems.service.type";
 import HttpException from "@/api/common/exceptions/http.exception";
+import { OrderRepository } from "@/api/orders/repository/order.repository";
 
 export class OrderItemsServiceImpl implements OrderItemsService {
   private readonly _orderItemRepository: OrderItemRepository;
-  private readonly _userRepository: UserRepository;
+  private readonly _orderRepository: OrderRepository;
   constructor(
     orderItemRepository: OrderItemRepository,
-    userRepository: UserRepository
+    orderRepository: OrderRepository
   ) {
     this._orderItemRepository = orderItemRepository;
-    this._userRepository = userRepository;
+    this._orderRepository = orderRepository;
   }
 
   async createOrderItem(
-    userId: string,
+    orderId: string,
     orderItem: Omit<IOrderItem, "id">
   ): Promise<OrderItemResponseDTO> {
-    const user = await this._userRepository.findById(userId);
+    const order = await this._orderRepository.findById(orderId);
 
-    if (!user) {
-      throw new HttpException(404, "회원정보를 찾을 수 없습니다.");
+    if (!order) {
+      throw new HttpException(404, "주문을 찾을 수 없습니다.");
     }
 
-    const newOrderItem = await this._orderItemRepository.save({
+    const newOrderItem: IOrderItem = {
       ...orderItem,
-    });
-    // 해당 주문을 찾아 orderItem 배열에 새 항목을 추가
-    const updatedOrders =
-      user.orders?.map((order) => {
-        if (order.id === orderItem.orderId) {
-          // 주문 ID가 일치하면 해당 주문의 orderItem 배열에 새로운 항목을 추가
-          return {
-            ...order,
-            orderItem: [...order.orderItem, newOrderItem], // 새 항목 추가
-          };
-        }
-        return order;
-      }) || [];
+      id: "", // MongoDB에서 자동 생성될 ID로 대체
+      orderItemStatus: "PAYMENT_PENDING",
+    };
 
-    // 수정된 주문 목록을 사용자 정보에 반영
-    await this._userRepository.update(user.id, {
-      orders: updatedOrders,
+    // 데이터베이스에 새로운 주문 항목 저장
+    const savedOrderItem = await this._orderItemRepository.save(newOrderItem);
+
+    // 주문의 orderItem 배열에 새로운 항목 추가
+    const updatedOrderItems = order.orderItem.concat(savedOrderItem);
+    await this._orderRepository.update(order.id, {
+      orderItem: updatedOrderItems,
     });
 
     return new OrderItemResponseDTO(newOrderItem);
   }
+
   async getOrderItems(): Promise<OrderItemResponseDTO[]> {
     const orderItems = await this._orderItemRepository.findAll();
     return orderItems.map((orderItem) => new OrderItemResponseDTO(orderItem));

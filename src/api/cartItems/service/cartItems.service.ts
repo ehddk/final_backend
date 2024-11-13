@@ -19,10 +19,7 @@ export class CartItemsServiceImpl implements CartItemsService {
     this._cartItemRepository = cartItemRepository;
     this._cartRepository = cartRepository;
     this._userRepository = userRepository;
-    this._cartsService = new CartsServiceImpl(
-      cartRepository,
-      cartItemRepository
-    );
+    this._cartsService = new CartsServiceImpl(cartRepository);
   }
 
   async createCartItem(
@@ -45,6 +42,7 @@ export class CartItemsServiceImpl implements CartItemsService {
         user: user,
       });
     }
+
     const newCartItem = await this._cartItemRepository.save({
       ...cartItem,
     });
@@ -79,12 +77,11 @@ export class CartItemsServiceImpl implements CartItemsService {
   }
   async updateCartItem(
     cartItemId: string,
-    updatedCartItem: Omit<ICartItem, "id" | "product">
+    updatedCartItem: Omit<ICartItem, "id" | "product" | "user">
   ): Promise<void> {
     await this._cartItemRepository.update(cartItemId, updatedCartItem);
-
-    return;
   }
+
   async deleteCartItem(cartItemId: string): Promise<void> {
     await this._cartItemRepository.delete(cartItemId);
   }

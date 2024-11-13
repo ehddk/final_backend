@@ -14,6 +14,7 @@ import { OrdersServiceImpl } from "@/api/orders/service/orders.service";
 import { MongooseOrderRepository } from "@/api/orders/repository/mongooseOrder.repository";
 import { MongooseUserRepository } from "@/api/users/repository/user/mongooseUser.repository";
 import { MongooseOrderItemRepository } from "@/api/orderItems/repository/mongooseOrderItem.repository";
+import { OrderItemsServiceImpl } from "@/api/orderItems/service/orderItems.service";
 
 const orderRouter = express.Router();
 
@@ -31,9 +32,12 @@ const ORDER_ROUTES = {
 const ordersController = new OrdersController(
   new OrdersServiceImpl(
     new MongooseOrderRepository(),
-    new MongooseUserRepository(),
-    new MongooseOrderItemRepository()
-  )
+    new MongooseUserRepository()
+  ),
+  new OrderItemsServiceImpl(
+    new MongooseOrderItemRepository(),
+    new MongooseOrderRepository()
+  ) // 추가된 OrderItemsService 인스턴스
 );
 
 orderRouter.get(

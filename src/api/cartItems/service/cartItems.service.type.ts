@@ -4,7 +4,7 @@ export interface CartItemsService {
   /** 장바구니 주문 상품 생성 */
   createCartItem(
     userId: string,
-    cartItem: Omit<ICartItem, "id">
+    cartItem: Omit<ICartItem, "id" | "user">
   ): Promise<CartItemResponseDTO>;
   /** 장바구니 주문 상품 목록 조회 (페이지네이션 없이) */
   getCartItems(): Promise<CartItemResponseDTO[]>;
@@ -13,7 +13,7 @@ export interface CartItemsService {
   /** 장바구니 주문 상품 수정 */
   updateCartItem(
     cartItemId: string,
-    updatedCartItem: Omit<ICartItem, "id" | "product">
+    updatedCartItem: Omit<ICartItem, "id" | "product" | "user">
   ): Promise<void>;
   /** 장바구니 주문 상품 삭제 */
   deleteCartItem(cartItemId: string): Promise<void>;

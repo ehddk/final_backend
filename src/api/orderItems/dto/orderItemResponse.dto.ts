@@ -1,6 +1,8 @@
 export class OrderItemResponseDTO {
   orderItemId: string;
-  orderId: string;
+  user: {
+    id: string;
+  };
   product: {
     productName: string;
     sales: number;
@@ -11,7 +13,9 @@ export class OrderItemResponseDTO {
 
   constructor(params: IOrderItem) {
     this.orderItemId = params.id;
-    this.orderId = params.orderId;
+    this.user = {
+      id: params.user.id,
+    };
     this.product = {
       productName: params.product.productName,
       sales: params.product.sales,

@@ -2,12 +2,10 @@ import { CartResponseDTO } from "@/api/carts/dto/cartResponse.dto";
 import { CartRepository } from "@/api/carts/repository/cart.repository";
 import { CartsService } from "@/api/carts/service/carts.service.type";
 import HttpException from "@/api/common/exceptions/http.exception";
-import { CartItemRepository } from "@/api/cartItems/repository/cartItem.repository";
 
 export class CartsServiceImpl implements CartsService {
   constructor(
     private readonly _cartRepository: CartRepository,
-    private readonly _cartItemRepository: CartItemRepository
   ) {}
 
   /** 장바구니 생성 */

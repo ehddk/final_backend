@@ -25,7 +25,7 @@ export class GetUserResponseDTO {
     this.profile = {
       id: user.profile.id,
       firstName: user.profile.firstName,
-      delivery: user.profile.delivery,
+      delivery: user.profile.delivery ?? [],
     };
 
     this.cart = user.cart
