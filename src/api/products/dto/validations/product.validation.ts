@@ -11,50 +11,27 @@ export const adminGetProductDetailValidator={
    path:adminGetProductDetailPathValidator
 }   
 
-/**제품등록 */
-const adminCreateProductBodyValidator={
-    productName:yup 
+export const adminCreateProductBodyValidator = yup.object().shape({
+    productName: yup
         .string()
         .required("제품명은 필수 입력값입니다.")
-        .max(300,"300자 이하로 입력해주세요."),
-    price:yup   
+        .max(300, "300자 이하로 입력해주세요."),
+    price: yup
         .number()
         .required("가격은 필수 입력값입니다."),
-    sales:yup   
+    sales: yup
         .number()
         .required("판매가는 필수 입력값입니다."),
-    rdate:yup   
+    rdate: yup
         .date()
         .optional(),
-    thumbnail:yup   
+    thumbnail: yup
         .string()
         .required("대표 이미지는 필수 입력값입니다."),
-    img:yup
+    img: yup
         .string()
-        .required("상세 이미지는 필수 입력값입니다."),
-    delivery:yup
-        .string()
-        .optional(),
-    seller:yup
-        .string()
-        .optional(),
-    description:yup
-        .string()
-        .required("설명은 필수 입력값입니다."),
-    packageType:yup
-        .string()
-        .optional(),
-    detail:yup
-        .string()
-        .optional(),
-    category:yup
-        .string()
-        .optional(),
-}
-
-export const adminCreateProductValidator={
-    body:adminCreateProductBodyValidator
-}
+        .required("상세 이미지는 필수 입력값입니다.")
+});
 /**제품 수정 */
 const adminUpdateProductPathValidator=yup.object({
     productId:yup
@@ -68,16 +45,15 @@ const adminUpdateProductBodyValidator = yup.object({
         .max(300,"300자 이하로 입력해주세요."),
     price:yup   
         .number()
-        .required("가격은 필수 입력값입니다."),
+        .optional(),
     sales:yup   
-        .number()
-        .required("판매가는 필수 입력값입니다."),
+        .number(),
     thumbnail:yup   
         .string()
-        .required("대표 이미지는 필수 입력값입니다."),
+        .optional(),
     img:yup
         .string()
-        .required("상세 이미지는 필수 입력값입니다."),
+        .optional(),
     delivery:yup
         .string()
         .optional(),
@@ -86,7 +62,7 @@ const adminUpdateProductBodyValidator = yup.object({
         .optional(),
     description:yup
         .string()
-        .required("설명은 필수 입력값입니다."),
+        .optional(),
     packageType:yup
         .string()
         .optional(),
