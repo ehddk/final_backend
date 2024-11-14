@@ -28,7 +28,7 @@ constructor(productRepository:ProductRepository){
          //const product=this.products.find(item=>item.id === productId);
          return product || null;
      }catch(error){
-         throw  new Error(`제품 상세 조회 중 오류가 발생했습니다`);
+         throw  new Error(`해당 제품이 없습니다.`);
      }
      }
   

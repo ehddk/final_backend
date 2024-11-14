@@ -1,10 +1,11 @@
-import mongoose from "mongoose"
+import mongoose, { Schema } from "mongoose"
 import { IDelivery } from "../@types/delivery.type"
 
 const deliverySchema = new mongoose.Schema<IDelivery>(
     {
         userId:{
-            type:String,
+            type:Schema.Types.ObjectId,
+            ref:'User',
             required: true
         },
         //배송지와 연결된 유저명
