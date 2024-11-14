@@ -76,15 +76,15 @@ export class MongooseUserRepository implements UserRepository {
 
     return findUser ?? null;
   }
-  async update(id: string, updateUserInfo: Partial<IUser>): Promise<void> {
-    await MongooseUser.findByIdAndUpdate(id, updateUserInfo).populate(
+  async update(userId: string, updateUserInfo: Partial<IUser>): Promise<void> {
+    await MongooseUser.findByIdAndUpdate(userId, updateUserInfo).populate(
       "profile",
     );
 
     return;
   }
-  async delete(id: string): Promise<void> {
-    await MongooseUser.deleteOne({ _id: id });
+  async delete(userId: string): Promise<void> {
+    await MongooseUser.deleteOne({ _id: userId });
 
     return;
   }

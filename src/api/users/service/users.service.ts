@@ -36,8 +36,8 @@ export class UsersServiceImpl implements UserService {
 
     return newList;
   }
-  async getUser(id: string): Promise<GetUserResponseDTO | null> {
-    const user = await this._userRepository.findById(id);
+  async getUser(userId: string): Promise<GetUserResponseDTO | null> {
+    const user = await this._userRepository.findById(userId);
 
     if (!user) throw new HttpException(404, "유저를 찾을 수 없습니다.");
 
@@ -46,8 +46,8 @@ export class UsersServiceImpl implements UserService {
     return dtoUser;
   }
 
-  async updateUser(id: string, params: Partial<IUser>): Promise<void> {
-    const findUser = await this._userRepository.findById(id);
+  async updateUser(userId: string, params: Partial<IUser>): Promise<void> {
+    const findUser = await this._userRepository.findById(userId);
 
     if (!findUser) throw new HttpException(404, "유저를 찾을 수 없습니다.");
 
@@ -56,7 +56,7 @@ export class UsersServiceImpl implements UserService {
       params?.profile || {}
     );
 
-    await this._userRepository.update(id, {
+    await this._userRepository.update(userId, {
       ...params,
       profile: updateProfile,
     });
@@ -64,14 +64,14 @@ export class UsersServiceImpl implements UserService {
     return;
   }
 
-  async deleteUser(id: string): Promise<void> {
-    const findUser = await this._userRepository.findById(id);
+  async deleteUser(userId: string): Promise<void> {
+    const findUser = await this._userRepository.findById(userId);
 
     if (!findUser) throw new HttpException(404, "유저를 찾을 수 없습니다.");
 
     await this._profileRepository.delete(findUser.profile.id);
     await this._cartRepository.delete(findUser.cart.id);
-    await this._userRepository.delete(id);
+    await this._userRepository.delete(findUser.id);
 
     return;
   }
