@@ -48,6 +48,7 @@ const createUserBodyValidator = yup.object({
       .oneOf(["M", "F"], "성별은 남자는 M 여자는 F로 입력되어야 합니다.")
       .optional(),
     firstName: yup.string().required("이름은 필수 입력값입니다."),
+    // firstName: yup.string().optional(),
     lastName: yup.string().optional(),
     thubmnail: yup.string().optional(),
   }),

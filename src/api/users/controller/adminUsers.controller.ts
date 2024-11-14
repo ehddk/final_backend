@@ -52,11 +52,11 @@ export default class AdminUserController {
     try {
       const { userId } = req.params;
 
-      await this._userService.getUser(userId);
+      const user = await this._userService.getUser(userId);
 
       console.log("회원 상세 조회 완료")
 
-      res.status(204).send();
+      res.status(200).send(user);
     } catch (error) {
       next(error);
     }
@@ -103,11 +103,11 @@ export default class AdminUserController {
     next: NextFunction
   ) {
     try {
-      await this._userService.updateUser(req.params.userId, req.body);
+      const user = await this._userService.updateUser(req.params.userId, req.body);
 
       console.log("회원 수정 완료")
 
-      res.status(204).send();
+      res.status(200).send(user);
     } catch (error: any) {
       next(error);
     }

@@ -36,9 +36,9 @@ type adminGetUserRequestBody = {
 
 /** 유저 상세 조회 (관리자) 요청 */
 type adminGetUserRequest = {
-  params?: getUserRequestParams;
+  params?: adminGetUserRequestParams;
   path: adminGetUserRequestPath;
-  body?: getUserRequestBody;
+  body?: adminGetUserRequestBody;
 };
 
 /** 유저 상세 조회 (관리자) 응답 */

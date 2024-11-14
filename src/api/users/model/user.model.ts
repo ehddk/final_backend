@@ -1,5 +1,6 @@
 export class User implements IUser {
   id: string;
+  name?: string;
   loginId: string;
   password?: string | undefined;
   email: string;
@@ -7,9 +8,11 @@ export class User implements IUser {
   salt?: string | undefined;
   profile: IProfile;
   cart: ICart;
+  orders?: IOrder[];
 
   constructor(params: IUser) {
     this.id = params.id;
+    this.name = params.name;
     this.loginId = params.loginId;
     this.password = params.password;
     this.email = params.email;
@@ -17,5 +20,6 @@ export class User implements IUser {
     this.salt = params.salt;
     this.profile = params.profile;
     this.cart = params.cart;
+    this.orders = params.orders;
   }
 }

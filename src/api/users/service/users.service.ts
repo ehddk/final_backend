@@ -6,6 +6,7 @@ import { GetUserResponseDTO } from "@/api/users/dto/getUserResponse.dto";
 import { GetUsersResponseDTO } from "@/api/users/dto/getUsersResponse.dto";
 import { ProfileRepository } from "@/api/users/repository/profile/profile.repository";
 import { CartRepository } from "@/api/carts/repository/cart.repository";
+import mongoose from "mongoose";
 
 export class UsersServiceImpl implements UserService {
   constructor(
@@ -70,7 +71,6 @@ export class UsersServiceImpl implements UserService {
 
     await this._profileRepository.delete(findUser.profile.id);
     await this._cartRepository.delete(findUser.cart.id);
-
     await this._userRepository.delete(id);
 
     return;
