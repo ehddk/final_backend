@@ -25,18 +25,7 @@ export class MongooseUserRepository implements UserRepository {
 
   async findById(userId: string): Promise<IUser | null> {
     try {
-      console.log('기본 userId:', userId); 
-      const basicUser = await MongooseUser.findById(userId);
-      console.log('populate없이', basicUser);
-
-      const findUser = await MongooseUser.findById(userId)
-        .populate('profile')
-            // .populate('delivery')
-            // .populate('cart')
-            // .populate('orders')
-            .exec();
-
-      console.log('Found user:', findUser);
+      
       const fullUser = await MongooseUser.findById(userId)
       .populate({
         path:'profile',
@@ -45,10 +34,10 @@ export class MongooseUserRepository implements UserRepository {
           model: 'Delivery' 
         }
     })
-      // .populate('cart')
+      .populate('cart')
       // .populate('orders')
       .exec();
-  //console.log('Full 유저:', fullUser);
+  console.log('Full 유저:', fullUser);
       return fullUser;
     } catch (error: any) {
       const message = error.message.toString();

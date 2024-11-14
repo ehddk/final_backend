@@ -69,9 +69,15 @@ export class UsersServiceImpl implements UserService {
 
     if (!findUser) throw new HttpException(404, "유저를 찾을 수 없습니다.");
 
-    await this._profileRepository.delete(findUser.profile.id);
-    await this._cartRepository.delete(findUser.cart.id);
-    await this._userRepository.delete(findUser.id);
+console.log("start")
+
+console.log(await Promise.allSettled([
+  this._profileRepository.delete(findUser.profile?.id),
+  this._cartRepository.delete(findUser.cart?.id),
+  this._userRepository.delete(findUser.id),
+]))
+
+console.log("end")
 
     return;
   }

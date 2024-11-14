@@ -10,8 +10,7 @@ export interface UserService {
   /** 유저 생성 */
   createUser(
     params: Omit<IUser, "id" | "role" | "profile" | "cart"> & {
-      profile: Omit<IProfile, "id" | "delivery"> } & {
-        cart: Omit<ICart, "id" | "cartItem" | "totalProductPrice" | "shippingFee" | "totalPaymentAmount" | "user">;
+      profile: Omit<IProfile, "id" | "delivery"> 
     }
   ): Promise<UserResponseDTO>;
   /** 유저 수정 */

@@ -29,9 +29,6 @@ export default class UsersController {
           phoneNum: req.body.profile.phoneNum,
           firstName: req.body.profile.firstName,
         },
-        cart: {
-          id: req.body.cart.id
-        },
       });
 
       console.log(user);
