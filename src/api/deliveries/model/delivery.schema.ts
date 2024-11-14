@@ -35,4 +35,4 @@ const deliverySchema = new mongoose.Schema<IDelivery>(
     }
 )
 
-export const MonoogseDelivery = mongoose.model<IDelivery>("Delivery",deliverySchema)
+export const MongooseDelivery = mongoose.model<IDelivery>("Delivery",deliverySchema)
