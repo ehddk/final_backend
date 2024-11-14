@@ -9,11 +9,13 @@ export class CartsServiceImpl implements CartsService {
   /** 장바구니 생성 */
   async createCart(
     params: Omit<ICart, "id"> & {
+      userId: string;
       cartItem?: ICartItem[];
     }
   ): Promise<CartResponseDTO> {
     const cart = await this._cartRepository.save({
       ...params,
+      userId: params.userId,
       cartItem: params.cartItem || [],
     });
 
@@ -21,15 +23,15 @@ export class CartsServiceImpl implements CartsService {
   }
 
   /** 장바구니 조회 */
-  async getCart(): Promise<CartResponseDTO[]> {
-        const cart = await this._cartRepository.findAll();
-    
-        const newList = await Promise.all(
-          cart.map((cart) => new CartResponseDTO(cart))
-        );
-    
-        return newList;
-      }
+  async getCart(userId: string): Promise<CartResponseDTO> {
+    const cart = await this._cartRepository.findOneByUserId(userId);
+
+    if (!cart) {
+      throw new HttpException(404, "아이디를 찾을 수 없습니다.");
+    }
+
+    return new CartResponseDTO(cart);
+  }
 
   /** 장바구니 업데이트 */
   async updateCart(cartId: string, updatedCart: Partial<ICart>): Promise<void> {
