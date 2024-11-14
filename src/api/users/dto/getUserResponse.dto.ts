@@ -28,6 +28,7 @@ export class GetUserResponseDTO {
       delivery: user.profile.delivery ?? [],
     };
 
+    if(user.cart){
     this.cart = {
       id: user.cart.id,
       cartItem: user.cart.cartItem ?? [],
@@ -35,6 +36,15 @@ export class GetUserResponseDTO {
       shippingFee: user.cart.shippingFee ?? 0,
       totalPaymentAmount: user.cart.totalPaymentAmount ?? 0,
     };
+  }else{
+    this.cart = {
+      id: '',
+      cartItem: [],
+      totalProductPrice: 0,
+      shippingFee: 0,
+      totalPaymentAmount: 0
+    };
+  }
     this.orders = user.orders?.map((order) => new OrderResponseDTO(order));
   }
 }

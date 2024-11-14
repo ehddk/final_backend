@@ -4,7 +4,7 @@ export class Cart implements ICart {
   totalProductPrice?: number;
   shippingFee?: number;
   totalPaymentAmount?: number;
-  user: IUser;
+  user?: IUser;
 
   constructor(params: ICart) {
     this.id = params.id;
