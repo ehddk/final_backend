@@ -23,6 +23,11 @@ const cartSchema = new mongoose.Schema<ICart>(
       required: true,
       default: 0, // 기본값을 0으로 설정
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   {
     timestamps: {

@@ -6,7 +6,7 @@ export interface CartsService {
 
   /** 장바구니 생성 */
   createCart(
-    params: Omit<ICart, "id"> & {
+    params: Omit<ICart, "id" | "user"> & {
       cartItem?: ICartItem[];
     }
   ): Promise<CartResponseDTO>;
@@ -15,7 +15,7 @@ export interface CartsService {
   updateCart(
     cartId: string,
     updatedCart: Partial<
-      Omit<ICart, "id"> & {
+      Omit<ICart, "id" | "user"> & {
         cartItem?: ICartItem[];
       }
     >

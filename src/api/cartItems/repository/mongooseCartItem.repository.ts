@@ -15,8 +15,20 @@ export class MongooseCartItemRepository implements CartItemRepository {
   }
 
   async findById(id: string): Promise<ICartItem | null> {
-    const cartItem = await MongooseCartItem.findById(id);
-    return cartItem;
+    try {
+      const cartItem = await MongooseCartItem.findById(id)
+        .populate("product")
+        .exec();
+
+      return cartItem;
+    } catch (error: any) {
+      const message = error.message.toString();
+      if (message.includes("Cast to ObjectId failed")) {
+        return null;
+      }
+
+      throw error;
+    }
   }
 
   async update(

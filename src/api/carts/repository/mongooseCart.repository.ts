@@ -31,7 +31,7 @@ export class MongooseCartRepository implements CartRepository {
   async findOneByUserId(userId: string): Promise<ICart | null> {
     try {
       const findCart = await MongooseCart.findOne({ "user.id": userId }) // user.id를 기준으로 찾기
-        .populate("cartItem");
+        .populate("user");
 
       return findCart;
     } catch (error: any) {
