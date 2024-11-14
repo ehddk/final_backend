@@ -26,7 +26,6 @@ const cartSchema = new mongoose.Schema<ICart>(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
     },
   },
   {

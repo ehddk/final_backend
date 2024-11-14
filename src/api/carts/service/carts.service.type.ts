@@ -2,7 +2,7 @@ import { CartResponseDTO } from "@/api/carts/dto/cartResponse.dto";
 
 export interface CartsService {
   /** 장바구니 조회 */
-  getCart(id: string): Promise<CartResponseDTO | null>;
+  getCart(): Promise<CartResponseDTO[]>;
 
   /** 장바구니 생성 */
   createCart(

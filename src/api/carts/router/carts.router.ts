@@ -1,7 +1,7 @@
 import express from "express";
 import CartsController from "@/api/carts/controller/carts.controller";
 import { CartsServiceImpl } from "@/api/carts/service/carts.service";
-import { updateCartValidator } from "@/api/carts/dto/validations/cart.validation";
+// import { updateCartValidator } from "@/api/carts/dto/validations/cart.validation";
 import { validate } from "@/api/common/middlewares/validation.middleware";
 import { MongooseCartRepository } from "@/api/carts/repository/mongooseCart.repository";
 import { extractPath } from "@/utils/path.util";
@@ -40,7 +40,7 @@ cartRouter.get(
 cartRouter.put(
   extractPath(CART_ROUTES.UPDATE_CART, ROUTES_INDEX.CARTS_API),
   authUserMiddleware,
-  validate(updateCartValidator),
+  // validate(updateCartValidator),
   cartsController.updateCart
 );
 

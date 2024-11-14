@@ -9,7 +9,7 @@ interface ICart {
   shippingFee?: number;
   /** 결제예정금액 */
   totalPaymentAmount?: number;
-  user: IUser;
+  user?: IUser;
 }
 
 interface ICartResponseDTO {

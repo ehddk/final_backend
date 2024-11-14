@@ -10,6 +10,11 @@ export class MongooseCartRepository implements CartRepository {
     return newCart;
   }
 
+  async findAll(): Promise<ICart[]> {
+        const values = await MongooseCart.find().populate("cartItem");
+        return values;
+      }
+
   /** ID로 장바구니 조회 */
   async findById(id: string): Promise<ICart | null> {
     try {
