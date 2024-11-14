@@ -8,8 +8,8 @@ export class GetUsersResponseDTO {
     firstName: string;
     delivery?: IDelivery[] | string;
   };
-  cart: {
-    id: string;
+  cart?: {
+    id?: string;
   };
 
   constructor(user: IUser) {
@@ -25,7 +25,7 @@ export class GetUsersResponseDTO {
           : "배송지 미등록",
     };
     this.cart = {
-      id: user.cart.id,
+      id: user?.cart?.id,
     };
   }
 }

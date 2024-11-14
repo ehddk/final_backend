@@ -3,6 +3,9 @@ import mongoose from "@/vendors/mongoose";
 
 const userSchema = new mongoose.Schema<IUser>(
   {
+    name: {
+      type: String,
+    },
     loginId: {
       type: String,
       unique: true,
@@ -32,10 +35,10 @@ const userSchema = new mongoose.Schema<IUser>(
     },
     cart: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      // required: true,
       ref: "Cart",
     },
-    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
+    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order", strictPopulate: false}],
   },
   {
     timestamps: {

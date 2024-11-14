@@ -58,6 +58,13 @@ export class MongooseUserRepository implements UserRepository {
 
       throw error;
     }
+//   const findUser = await MongooseUser.findById(userId).populate(
+//     "profile",
+//     // "cart",
+//     // "orders"
+//   );
+
+// return findUser ?? null;
   }
   async findByLoginId(loginId: string): Promise<IUser | null> {
     const findUser = await MongooseUser.findOne({ loginId });

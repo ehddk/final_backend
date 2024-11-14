@@ -15,6 +15,14 @@ import { MongooseCartRepository } from "@/api/carts/repository/mongooseCart.repo
 
 const adminUsersRouter = express.Router();
 
+const adminUserController = new AdminUserController(
+  new UsersServiceImpl(
+    new MongooseUserRepository(),
+    new MongooseProfileRepository(),
+    new MongooseCartRepository()
+  )
+);
+
 /** 관리자 유저 관련 API 경로 객체  */
 const ADMIN_USER_ROUTES = {
   /** 유저 목록 조회 (관리자) */
@@ -29,20 +37,13 @@ const ADMIN_USER_ROUTES = {
   DELETE_USER: `/admin-api/users/:userId`,
 } as const;
 
-const adminUserController = new AdminUserController(
-  new UsersServiceImpl(
-    new MongooseUserRepository(),
-    new MongooseProfileRepository(),
-    new MongooseCartRepository()
-  )
-);
-
 adminUsersRouter.get(
   extractPath(ADMIN_USER_ROUTES.GET_USERS, ROUTES_INDEX.ADMIN_USERS_API),
   adminUserController.getUsers
 );
 adminUsersRouter.get(
   extractPath(ADMIN_USER_ROUTES.GET_USER, ROUTES_INDEX.ADMIN_USERS_API),
+  // authRoleMiddleware(["user", "admin"]),
   adminUserController.getUser
 );
 adminUsersRouter.post(

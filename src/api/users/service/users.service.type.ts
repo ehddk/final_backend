@@ -17,7 +17,7 @@ export interface UserService {
   updateUser(
     userId: string,
     params: Partial<
-      Omit<IUser, "id" | "role" | "profile"> & {
+      Omit<IUser, "id" | "role" | "profile" | "orders"> & {
         profile: Omit<IProfile, "id" | "delivery">;
       }
     >

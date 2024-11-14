@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from "@/vendors/mongoose";
 
 const orderSchema = new mongoose.Schema<IOrder>(
   {

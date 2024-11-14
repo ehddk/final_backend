@@ -52,29 +52,53 @@ export default class UsersController {
     res: Response,
     next: NextFunction
   ) {
-    const user = await this._userService.getUser(req.user.userId);
+    // const user = await this._userService.getUser(req.user.userId);
 
-    console.log(req.user);
-    console.log("회원 상세 조회 완료");
+    // console.log(req.user);
+    // console.log("회원 상세 조회 완료");
 
-    res.send(user);
+    // res.send(user);
+    try {
+      const { userId } = req.params;
+
+      const user = await this._userService.getUser(userId);
+
+      console.log("회원 상세 조회 완료")
+
+      res.status(200).send(user);
+    } catch (error) {
+      next(error);
+    }
   }
 
   /** 내 정보 수정 (사용자 페이지) */
-  async updateMyInfo(req: Request, res: Response, next: NextFunction) {
+  async updateMyInfo(
+    req: Request<
+      updateMyInfoRequest["path"],
+      updateMyInfoResponse,
+      updateMyInfoRequest["body"],
+      updateMyInfoRequest["params"]
+    >,
+      res: Response,
+      next: NextFunction) {
     try {
-      const { userId } = req.user;
+      // const { userId } = req.user;
 
-      const user = await this._userService.updateUser(userId, {
-        profile: {
-          ...req.body.profile,
-        },
-      });
+      // const user = await this._userService.updateUser(userId, {
+      //   profile: {
+      //     ...req.body.profile,
+      //   },
+      // });
 
-      console.log(req.user);
-      console.log("회원 수정 완료");
+      // console.log(req.user);
+      // console.log("회원 수정 완료");
 
-      res.send(user);
+      // res.send(user);
+      const user = await this._userService.updateUser(req.params.userId, req.body);
+
+      console.log("회원 수정 완료")
+
+      res.status(200).send(user);
     } catch (error) {
       next(error);
     }

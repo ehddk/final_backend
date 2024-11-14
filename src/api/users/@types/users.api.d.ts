@@ -35,3 +35,17 @@ type getMyInfoRequest = {
 
 /** 내 정보 조회 (사용자페이지) 응답 */
 type getMyInfoResponse = IUser | null;
+
+
+/** 내 정보 수정 (사용자페이지) */
+type updateMyInfoRequestPath = {userId:string;};
+type updateMyInfoRequestParams = {};
+type updateMyInfoRequestBody = Partial<IUser>;
+
+type updateMyInfoRequest = {
+  path: updateMyInfoRequestPath;
+  params?: updateMyInfoRequestParams;
+  body: updateMyInfoRequestBody;
+}
+
+type updateMyInfoResponse = void;
