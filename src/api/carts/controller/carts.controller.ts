@@ -47,9 +47,8 @@ export default class CartsController {
     res: Response,
     next: NextFunction
   ) {
-    const { cartId } = req.params;
     try {
-      const cart = await this._cartsService.getCart(cartId);
+      const cart = await this._cartsService.getCart(req.user.userId);
 
       res.send(cart);
     } catch (error) {

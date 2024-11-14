@@ -1,18 +1,6 @@
 import { REGEX } from "@/api/common/validations";
 import * as yup from "yup";
 
-/** 장바구니 조회 Validator */
-const getCartPathValidator = yup.object({
-  cartId: yup
-    .string()
-    .matches(REGEX.EMPTY_VARIABLE_PATH, "cartId는 필수 입력값입니다."),
-});
-
-/** 장바구니 조회 Validator */
-export const getCartValidator = {
-  path: getCartPathValidator,
-};
-
 const updateCartBodyValidator = yup.object({
   cartItems: yup
     .array()

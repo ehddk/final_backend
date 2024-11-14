@@ -15,12 +15,6 @@ export const getOrderItemDetailValidator = {
 };
 
 const createOrderItemBodyValidator = yup.object({
-  product: yup
-    .object({
-      id: yup.string().required("상품 ID는 필수 입력값입니다."),
-    })
-    .required("상품 정보는 필수 입력값입니다."),
-
   quantity: yup
     .number()
     .required("수량은 필수 입력값입니다.")
@@ -33,12 +27,6 @@ export const createOrderItemValidator = {
 };
 
 const updateOrderItemBodyValidator = yup.object({
-  product: yup
-    .object({
-      id: yup.string().required("상품 ID는 필수 입력값입니다."),
-    })
-    .required("상품 정보는 필수 입력값입니다."),
-
   quantity: yup
     .number()
     .required("수량은 필수 입력값입니다.")

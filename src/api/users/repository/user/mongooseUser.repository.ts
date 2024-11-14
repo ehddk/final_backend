@@ -72,8 +72,6 @@ export class MongooseUserRepository implements UserRepository {
   async update(id: string, updateUserInfo: Partial<IUser>): Promise<void> {
     await MongooseUser.findByIdAndUpdate(id, updateUserInfo).populate(
       "profile",
-      "cart",
-      "orders"
     );
 
     return;

@@ -26,24 +26,14 @@ export class CartItemsServiceImpl implements CartItemsService {
     userId: string,
     cartItem: Omit<ICartItem, "id">
   ): Promise<CartItemResponseDTO> {
-    let cart = await this._cartRepository.findOneByUserId(userId);
-
+    const cart = await this._cartRepository.findOneByUserId(userId);
     if (!cart) {
-      const user = await this._userRepository.findById(userId);
-      if (!user) {
-        throw new HttpException(404, "사용자를 찾을 수 없습니다.");
-      }
-
-      cart = await this._cartsService.createCart({
-        cartItem: [],
-        totalProductPrice: 0, // 필요한 필드 추가
-        shippingFee: 0, // 필요한 필드 추가
-        totalPaymentAmount: 0, // 필요한 필드 추가
-      });
+      throw new HttpException(404, "장바구니를 찾을 수 없습니다.");
     }
 
     const newCartItem = await this._cartItemRepository.save({
       ...cartItem,
+      cart,
     });
 
     const newCartItems = cart.cartItem?.concat(newCartItem);
