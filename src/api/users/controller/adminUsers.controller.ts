@@ -128,6 +128,7 @@ export default class AdminUserController {
       const { userId } = req.params;
 
       await this._userService.deleteUser(userId);
+      console.log(userId);
 
       console.log("회원 삭제 완료")
 
