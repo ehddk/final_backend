@@ -6,8 +6,8 @@ export class ProductResponseDTO{
     price:number;
     sales:number;
     rdate:Date; //등록일
-    thumbnail:string;  //대표이미지
-    img: string       //상세 이미지
+    thumbnail:File | Blob | null; ;  //대표이미지
+    img: File | Blob | null;      //상세 이미지
     delivery: string  //배송방법 
     seller ?: string  //판매자 
     description:  string //제품 상세설명 

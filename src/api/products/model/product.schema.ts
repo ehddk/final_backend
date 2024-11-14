@@ -23,12 +23,12 @@ const productSchema = new mongoose.Schema<IProduct>(
     //대표 이미지
     thumbnail:{
         type:String,
-        required:false,
+        required:true,
     },
     //상세 이미지
     img:{
         type:String,
-        required:false,
+        required:true,
     },  
     //배송방법 
     delivery:{

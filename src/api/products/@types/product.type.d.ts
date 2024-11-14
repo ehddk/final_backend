@@ -4,8 +4,8 @@ interface IProduct{
     price:number;
     sales:number;
     rdate:Date;
-    thumbnail:string;
-    img: string       //상세 이미지
+    thumbnail:File | Blob | null; 
+    img: File | Blob | null;      //상세 이미지
     delivery: string  //배송방법 
     seller ?: string  //판매자 
     description:  string //제품 상세설명 
