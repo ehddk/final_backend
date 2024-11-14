@@ -15,11 +15,11 @@ const profileSchema = new mongoose.Schema<IProfile>({
     unique: true,
     length: 20,
   },
-  delivery: {
+  delivery: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Delivery",
     strictPopulate: false
-  },
+  }],
 });
 
 export const MongooseProfile = mongoose.model<IProfile>(

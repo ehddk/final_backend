@@ -5,7 +5,7 @@ import { MongooseProductRepository } from "../repository/mongooseProduct.reposit
 import { extractPath } from "@/utils/path.util";
 import { ROUTES_INDEX } from "@/routers";
 import { validate } from "@/api/common/middlewares/validation.middleware";
-import { adminCreateProductValidator, adminDeleteProductValidator, adminGetProductDetailValidator, adminUpdateProductValidator } from "../dto/validations/product.validation";
+import { adminCreateProductBodyValidator, adminDeleteProductValidator, adminGetProductDetailValidator, adminUpdateProductValidator } from "../dto/validations/product.validation";
 
 export const adminProductRouter = express.Router();
 
@@ -44,7 +44,7 @@ adminProductRouter.get(
 )
 adminProductRouter.post(
     extractPath(ADMIN_PRODUCT_ROUTES.CREATE_PRODUCT,ROUTES_INDEX.ADMIN_PRODUCTS_API),
-    validate(adminCreateProductValidator),
+    validate({body:adminCreateProductBodyValidator}),
     adminProductController.createProduct
 )
 

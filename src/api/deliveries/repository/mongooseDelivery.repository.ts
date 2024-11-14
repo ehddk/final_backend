@@ -3,6 +3,8 @@ import { DeliveryRepository } from "./delivery.repository";
 import {MonoogseDelivery} from "../model/delivery.schema";
 import HttpException from "@/api/common/exceptions/http.exception";
 import mongoose from "mongoose";
+import { MongooseProfile } from "@/api/users/model/profile.schema";
+import { MongooseUser } from "@/api/users/model/user.schema";
 
 export class MongooseDeliveryRepository implements DeliveryRepository{
 
@@ -19,14 +21,49 @@ export class MongooseDeliveryRepository implements DeliveryRepository{
         throw new HttpException(500,'배송지 등록중에 오류 발생')
     }
     }
-    async findAll(userId: string):Promise<IDelivery[]>{
+    async findAll(userId:string):Promise<IDelivery[]>{
         const deliveries=await MonoogseDelivery.find();
         return deliveries;
     }
 
     async findById(userId: string,deliveryId: string): Promise<IDelivery | null> {
-            const delivery= await MonoogseDelivery.findById(deliveryId);
-            return delivery;
+      try{
+        console.log('Finding delivery with:', { userId, deliveryId });
+        const user=await MongooseUser.findById(userId)
+          .populate({
+            path:'profile',
+            populate:{
+              path:'delivery',
+              model: 'Delivery' 
+            }
+          })
+          .exec();
+       console.log('Found user with profile:', user);
+        //   if (!user?.profile.delivery) {
+        //     console.log('No delivery found in profile');
+        //     return null;
+        // }
+       // console.log('user?,.prof',user?.profile.delivery)
+        const delivery= user?.profile.delivery.find(
+          item=>item._id.toString() === deliveryId
+        )
+        //console.log('해당 배송지 내용',delivery)
+        // const delivery= user.profile.delivery.find(
+        //   item=>
+        // )
+        // const delivery= user
+        // console.log('devsdsd',delivery)
+        // return delivery || null;
+          if(!delivery){
+            throw new Error('해당 배송지ID가 없습니다. ')
+          }
+      return delivery || null;
+      }
+      catch(error){
+        console.error('Error in findById:', error);
+            throw error;
+      }
+         
     }
 
     async update(userId: string,deliveryId:string,updateDeliveryInfo:Partial<IDelivery>):Promise<IDelivery>{
