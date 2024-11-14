@@ -7,9 +7,8 @@ const orderSchema = new mongoose.Schema<IOrder>(
       ref: "User",
       required: true,
     },
-    shippingAddress: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Delivery",
+    deliveryAddress: {
+      type: String,
       required: true,
     },
     deliveryRequest: {
@@ -28,9 +27,16 @@ const orderSchema = new mongoose.Schema<IOrder>(
         required: true,
       },
     ],
-    cartToOrder: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Cart",
+    totalProductPrice: {
+      type: Number,
+      required: true,
+    },
+    shippingFee: {
+      type: Number,
+      required: true,
+    },
+    totalPaymentAmount: {
+      type: Number,
       required: true,
     },
     orderStatus: {

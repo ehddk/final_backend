@@ -2,16 +2,16 @@ import { CartResponseDTO } from "@/api/carts/dto/cartResponse.dto";
 import { CartRepository } from "@/api/carts/repository/cart.repository";
 import { CartsService } from "@/api/carts/service/carts.service.type";
 import HttpException from "@/api/common/exceptions/http.exception";
-import { CartItemRepository } from "@/api/cartItems/repository/cartItem.repository";
 
 export class CartsServiceImpl implements CartsService {
-  constructor(
-    private readonly _cartRepository: CartRepository,
-    private readonly _cartItemRepository: CartItemRepository
-  ) {}
+  constructor(private readonly _cartRepository: CartRepository) {}
 
   /** 장바구니 생성 */
-  async createCart(params: Omit<ICart, "id">): Promise<CartResponseDTO> {
+  async createCart(
+    params: Omit<ICart, "id"> & {
+      cartItem?: ICartItem[];
+    }
+  ): Promise<CartResponseDTO> {
     const cart = await this._cartRepository.save({
       ...params,
       cartItem: params.cartItem || [],
@@ -41,5 +41,9 @@ export class CartsServiceImpl implements CartsService {
       cartItem: updatedCart?.cartItem || findCart.cartItem,
     });
     return;
+  }
+
+  async deleteCart(cartId: string): Promise<void> {
+    await this._cartRepository.delete(cartId);
   }
 }

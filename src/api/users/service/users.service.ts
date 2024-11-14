@@ -5,19 +5,22 @@ import { UserService } from "@/api/users/service/users.service.type";
 import { GetUserResponseDTO } from "@/api/users/dto/getUserResponse.dto";
 import { GetUsersResponseDTO } from "@/api/users/dto/getUsersResponse.dto";
 import { ProfileRepository } from "@/api/users/repository/profile/profile.repository";
+import { CartRepository } from "@/api/carts/repository/cart.repository";
 
 export class UsersServiceImpl implements UserService {
   constructor(
     private readonly _userRepository: UserRepository,
-    private readonly _profileRepository: ProfileRepository
+    private readonly _profileRepository: ProfileRepository,
+    private readonly _cartRepository: CartRepository
   ) {}
 
   async createUser(params: Omit<IUser, "userId">): Promise<UserResponseDTO> {
     const profile = await this._profileRepository.save(params.profile);
-
+    const cart = await this._cartRepository.save(params.cart);
     const user = await this._userRepository.save({
       ...params,
       profile,
+      cart,
     });
 
     return new UserResponseDTO(user);
@@ -25,7 +28,7 @@ export class UsersServiceImpl implements UserService {
 
   async getUsers(): Promise<GetUsersResponseDTO[]> {
     const users = await this._userRepository.findAll();
-    console.log('유저 찾기',users)
+    console.log("유저 찾기", users);
     const newList = await Promise.all(
       users.map((user) => new GetUsersResponseDTO(user))
     );
@@ -66,6 +69,7 @@ export class UsersServiceImpl implements UserService {
     if (!findUser) throw new HttpException(404, "유저를 찾을 수 없습니다.");
 
     await this._profileRepository.delete(findUser.profile.id);
+    await this._cartRepository.delete(findUser.cart.id);
 
     await this._userRepository.delete(id);
 
@@ -73,7 +77,9 @@ export class UsersServiceImpl implements UserService {
   }
 
   async deleteUsers(ids: string[]): Promise<void> {
-    await Promise.all((ids || []).map((userId) => this._userRepository.delete(userId)));
+    await Promise.all(
+      (ids || []).map((userId) => this._userRepository.delete(userId))
+    );
 
     return;
   }

@@ -4,7 +4,7 @@ export interface CartItemRepository {
   /** 장바구니 주문 상품 목록 조회 */
   findAll(): Promise<ICartItem[]>;
   /** ID로 장바구니 주문 상품 조회 */
-  findById(id: string): Promise<ICartItem | null>;
+  findById(userId: string): Promise<ICartItem | null>;
   /** 장바구니 주문 상품 수정 */
   update(
     cartItemId: string,

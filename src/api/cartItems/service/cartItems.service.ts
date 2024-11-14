@@ -3,26 +3,43 @@ import { CartItemsService } from "@/api/cartItems/service/cartItems.service.type
 import { CartRepository } from "@/api/carts/repository/cart.repository";
 import HttpException from "@/api/common/exceptions/http.exception";
 import { CartItemResponseDTO } from "@/api/cartItems/dto/cartItemResponse.dto";
+import { CartsServiceImpl } from "@/api/carts/service/carts.service";
+import { UserRepository } from "@/api/users/repository/user/user.repository";
 
 export class CartItemsServiceImpl implements CartItemsService {
   private readonly _cartItemRepository: CartItemRepository;
   private readonly _cartRepository: CartRepository;
+  private readonly _cartsService: CartsServiceImpl;
+  private readonly _userRepository: UserRepository;
   constructor(
     cartItemRepository: CartItemRepository,
-    cartRepository: CartRepository
+    cartRepository: CartRepository,
+    userRepository: UserRepository
   ) {
     this._cartItemRepository = cartItemRepository;
     this._cartRepository = cartRepository;
+    this._userRepository = userRepository;
+    this._cartsService = new CartsServiceImpl(cartRepository);
   }
 
   async createCartItem(
-    cartId: string,
+    userId: string,
     cartItem: Omit<ICartItem, "id">
   ): Promise<CartItemResponseDTO> {
-    const cart = await this._cartRepository.findById(cartId);
+    let cart = await this._cartRepository.findOneByUserId(userId);
 
     if (!cart) {
-      throw new HttpException(404, "회원정보를 찾을 수 없습니다.");
+      const user = await this._userRepository.findById(userId);
+      if (!user) {
+        throw new HttpException(404, "사용자를 찾을 수 없습니다.");
+      }
+
+      cart = await this._cartsService.createCart({
+        cartItem: [],
+        totalProductPrice: 0, // 필요한 필드 추가
+        shippingFee: 0, // 필요한 필드 추가
+        totalPaymentAmount: 0, // 필요한 필드 추가
+      });
     }
 
     const newCartItem = await this._cartItemRepository.save({
@@ -59,12 +76,11 @@ export class CartItemsServiceImpl implements CartItemsService {
   }
   async updateCartItem(
     cartItemId: string,
-    updatedCartItem: Omit<ICartItem, "id" | "product">
+    updatedCartItem: Omit<ICartItem, "id" | "product" | "user">
   ): Promise<void> {
     await this._cartItemRepository.update(cartItemId, updatedCartItem);
-
-    return;
   }
+
   async deleteCartItem(cartItemId: string): Promise<void> {
     await this._cartItemRepository.delete(cartItemId);
   }

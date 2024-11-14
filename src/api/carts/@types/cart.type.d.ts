@@ -4,13 +4,11 @@ interface ICart {
   /** 주문 상품 정보 */
   cartItem?: ICartItem[];
   /** 상품 총 가격 */
-  totalProductPrice: number;
+  totalProductPrice?: number;
   /** 배송비 */
-  shippingFee: number;
+  shippingFee?: number;
   /** 결제예정금액 */
-  totalPaymentAmount: number;
-  /** 구매 유저 정보 */
-  user: IUser;
+  totalPaymentAmount?: number;
 }
 
 interface ICartResponseDTO {

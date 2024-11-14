@@ -32,6 +32,7 @@ const userSchema = new mongoose.Schema<IUser>(
     },
     cart: {
       type: mongoose.Schema.Types.ObjectId,
+      required: true,
       ref: "Cart",
     },
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],

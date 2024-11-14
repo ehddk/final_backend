@@ -6,7 +6,7 @@ export interface CartsService {
 
   /** 장바구니 생성 */
   createCart(
-    params: Omit<ICart, "id" | "user"> & {
+    params: Omit<ICart, "id"> & {
       cartItem?: ICartItem[];
     }
   ): Promise<CartResponseDTO>;
@@ -20,4 +20,6 @@ export interface CartsService {
       }
     >
   ): Promise<void>;
+  /** 장바구니 삭제 */
+  deleteCart(cartId: string): Promise<void>;
 }

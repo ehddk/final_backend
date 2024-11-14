@@ -9,11 +9,11 @@ import {
   getOrderItemsValidator,
   updateOrderItemValidator,
 } from "@/api/orderItems/dto/validations/orderItem.validation";
-import { MongooseUserRepository } from "@/api/users/repository/user/mongooseUser.repository";
 import { MongooseOrderItemRepository } from "@/api/orderItems/repository/mongooseOrderItem.repository";
 import { extractPath } from "@/utils/path.util";
 import { ROUTES_INDEX } from "@/routers";
 import { authUserMiddleware } from "@/api/common/middlewares/authUser.middleware";
+import { MongooseOrderRepository } from "@/api/orders/repository/mongooseOrder.repository";
 
 const adminOrderItemRouter = express.Router();
 
@@ -34,7 +34,7 @@ const ADMIN_ORDER_ITEM_ROUTES = {
 const adminOrderItemsController = new AdminOrderItemsController(
   new OrderItemsServiceImpl(
     new MongooseOrderItemRepository(),
-    new MongooseUserRepository()
+    new MongooseOrderRepository()
   )
 );
 

@@ -17,6 +17,7 @@ interface IOrderItem {
   /** 주문 상품 ID */
   id: string;
   orderId: string;
+  user: IUser;
   product: IProduct;
   /** 주문 수량 */
   quantity: number;
@@ -30,6 +31,9 @@ interface IOrderItemResponseDTO {
   /** 주문 상품 ID */
   orderItemId: string;
   orderId: string;
+  user: {
+    id: string;
+  };
   /** 주문 상품 제목 */
   product: {
     productName: string;
@@ -41,9 +45,4 @@ interface IOrderItemResponseDTO {
   totalPrice: number;
   /** 주문 상태 (주문상품별) */
   orderItemStatus: OrderItemStatus;
-  /** 유저 */
-  user: {
-    id: string;
-    name: string;
-  };
 }

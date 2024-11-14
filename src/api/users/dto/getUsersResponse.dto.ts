@@ -6,16 +6,26 @@ export class GetUsersResponseDTO {
   email: string;
   profile: {
     firstName: string;
-    delivery?:IDelivery[] | string;
-  } 
+    delivery?: IDelivery[] | string;
+  };
+  cart: {
+    id: string;
+  };
+
   constructor(user: IUser) {
     this.userId = user.id;
     this.email = user.email;
-    const deliveryData= user.profile?.delivery;
+    const deliveryData = user.profile?.delivery;
 
     this.profile = {
-      firstName: user.profile?.firstName || '이름 없음', 
-      delivery:Array.isArray(deliveryData) && deliveryData.length > 0 ? deliveryData : '배송지 미등록'
+      firstName: user.profile?.firstName || "이름 없음",
+      delivery:
+        Array.isArray(deliveryData) && deliveryData.length > 0
+          ? deliveryData
+          : "배송지 미등록",
+    };
+    this.cart = {
+      id: user.cart.id,
     };
   }
 }

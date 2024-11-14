@@ -14,7 +14,23 @@ export class MongooseCartRepository implements CartRepository {
   async findById(id: string): Promise<ICart | null> {
     try {
       const findCart = await MongooseCart.findById(id)
-        .populate("user")
+        .populate("cartItem");
+
+      return findCart;
+    } catch (error: any) {
+      const message = error.message.toString();
+      if (message.includes("Cast to ObjectId failed")) {
+        return null;
+      }
+
+      throw error;
+    }
+  }
+
+  /** userId로 장바구니 조회 */
+  async findOneByUserId(userId: string): Promise<ICart | null> {
+    try {
+      const findCart = await MongooseCart.findOne({ "user.id": userId }) // user.id를 기준으로 찾기
         .populate("cartItem");
 
       return findCart;
@@ -34,6 +50,12 @@ export class MongooseCartRepository implements CartRepository {
       ...updateCartInfo,
       cartItem: updateCartInfo.cartItem || undefined, // 예약 목록 업데이트
     }).populate("cartItem");
+
+    return;
+  }
+
+  async delete(cartId: string): Promise<void> {
+    await MongooseCart.deleteOne({ _id: cartId });
 
     return;
   }

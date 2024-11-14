@@ -35,8 +35,7 @@ const ADMIN_ORDER_ROUTES = {
 const adminOrdersController = new AdminOrdersController(
   new OrdersServiceImpl(
     new MongooseOrderRepository(),
-    new MongooseUserRepository(),
-    new MongooseOrderItemRepository()
+    new MongooseUserRepository()
   )
 );
 

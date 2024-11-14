@@ -3,8 +3,8 @@ import { OrderItemResponseDTO } from "@/api/orderItems/dto/orderItemResponse.dto
 export interface OrderItemsService {
   /** 주문 상품 생성 */
   createOrderItem(
-    userId: string,
-    orderItem: Omit<IOrderItem, "id">
+    orderId: string,
+    orderItem: Omit<IOrderItem, "id" | "user">
   ): Promise<OrderItemResponseDTO>;
   /** 주문 상품 목록 조회 (페이지네이션 없이) */
   getOrderItems(): Promise<OrderItemResponseDTO[]>;
@@ -13,7 +13,7 @@ export interface OrderItemsService {
   /** 주문 상품 수정 */
   updateOrderItem(
     orderItemId: string,
-    updatedOrderItem: Omit<IOrderItem, "id" | "product">
+    updatedOrderItem: Omit<IOrderItem, "id" | "product" | "user">
   ): Promise<void>;
   /** 주문 상품 삭제 */
   deleteOrderItem(orderItemId: string): Promise<void>;
