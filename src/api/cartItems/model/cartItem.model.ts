@@ -12,6 +12,6 @@ export class CartItem implements ICartItem {
     this.product = params.product;
     this.quantity = params.quantity;
     this.totalPrice = params.totalPrice;
-    this.cart = param.cart;
+    this.cart = params.cart;
   }
 }

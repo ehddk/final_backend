@@ -2,6 +2,8 @@ export interface CartRepository {
   /** 장바구니 생성 */
   save(cart: Omit<ICart, "id">): Promise<ICart>;
 
+  findAll(): Promise<ICart[]>;
+
   /** ID로 장바구니 조회 */
   findById(id: string): Promise<ICart | null>;
 

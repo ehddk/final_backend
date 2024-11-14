@@ -48,7 +48,7 @@ export default class CartsController {
     next: NextFunction
   ) {
     try {
-      const cart = await this._cartsService.getCart(req.user.userId);
+      const cart = await this._cartsService.getCart();
 
       res.send(cart);
     } catch (error) {

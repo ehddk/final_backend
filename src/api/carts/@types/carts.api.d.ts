@@ -38,10 +38,7 @@ declare type updateCartResponse = void;
 
 // 장바구니 조회
 
-declare type getCartRequestPath = {
-  /** 장바구니 ID */
-  cartId: string;
-};
+declare type getCartRequestPath = {};
 
 declare type getCartRequestBody = {};
 
@@ -50,7 +47,7 @@ declare type getCartRequestParams = {};
 /** 장바구니 목록 조회 요청 */
 declare type getCartRequest = {
   params?: getCartRequestParams;
-  path: getCartRequestPath;
+  path?: getCartRequestPath;
   body?: getCartRequestBody;
 };
 
