@@ -5,13 +5,11 @@ export class CartItem implements ICartItem {
   product: IProduct;
   quantity: number;
   totalPrice: number;
-  user: IUser;
 
   constructor(params: ICartItem) {
     this.id = params.id;
     this.product = params.product;
     this.quantity = params.quantity;
     this.totalPrice = params.totalPrice;
-    this.user = params.user;
   }
 }

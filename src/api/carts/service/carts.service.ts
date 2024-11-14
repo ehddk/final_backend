@@ -42,4 +42,8 @@ export class CartsServiceImpl implements CartsService {
     });
     return;
   }
+
+  async deleteCart(cartId: string): Promise<void> {
+    await this._cartRepository.delete(cartId);
+  }
 }

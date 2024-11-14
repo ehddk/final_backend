@@ -11,6 +11,7 @@ import { MongooseProfileRepository } from "@/api/users/repository/profile/mongoo
 import { extractPath } from "@/utils/path.util";
 import { ROUTES_INDEX } from "@/routers";
 import { authRoleMiddleware } from "@/api/common/middlewares/authRole.middleware";
+import { MongooseCartRepository } from "@/api/carts/repository/mongooseCart.repository";
 
 const adminUsersRouter = express.Router();
 
@@ -31,7 +32,8 @@ const ADMIN_USER_ROUTES = {
 const adminUserController = new AdminUserController(
   new UsersServiceImpl(
     new MongooseUserRepository(),
-    new MongooseProfileRepository()
+    new MongooseProfileRepository(),
+    new MongooseCartRepository()
   )
 );
 

@@ -31,7 +31,7 @@ interface IUser {
   /** 프로필 */
   profile: IProfile;
   /** 카트 */
-  cart?: ICart;
+  cart: ICart;
   /** 주문 목록 */
   orders?: IOrder[];
 }

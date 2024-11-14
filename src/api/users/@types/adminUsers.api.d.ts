@@ -16,6 +16,9 @@ type adminGetUsersResponse = Array<{
   profile: {
     firstName: string;
   };
+  cart: {
+    id: string;
+  };
 }>;
 
 type adminGetUserRequestPath = {

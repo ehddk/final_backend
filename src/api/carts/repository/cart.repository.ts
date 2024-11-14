@@ -10,4 +10,7 @@ export interface CartRepository {
 
   /** 장바구니 업데이트 */
   update(cartId: string, updateCartInfo: Partial<ICart>): Promise<void>;
+
+  /** 장바구니 삭제 */
+  delete(cartId: string): Promise<void>;
 }

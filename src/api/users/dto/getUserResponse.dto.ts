@@ -10,7 +10,7 @@ export class GetUserResponseDTO {
     firstName: string;
     delivery: IDelivery[];
   };
-  cart?: {
+  cart: {
     id: string;
     cartItem: ICartItem[];
     totalProductPrice: number;
@@ -28,15 +28,13 @@ export class GetUserResponseDTO {
       delivery: user.profile.delivery ?? [],
     };
 
-    this.cart = user.cart
-      ? {
-          id: user.cart.id,
-          cartItem: user.cart.cartItem ?? [],
-          totalProductPrice: user.cart.totalProductPrice ?? 0,
-          shippingFee: user.cart.shippingFee ?? 0,
-          totalPaymentAmount: user.cart.totalPaymentAmount ?? 0,
-        }
-      : undefined;
+    this.cart = {
+      id: user.cart.id,
+      cartItem: user.cart.cartItem ?? [],
+      totalProductPrice: user.cart.totalProductPrice ?? 0,
+      shippingFee: user.cart.shippingFee ?? 0,
+      totalPaymentAmount: user.cart.totalPaymentAmount ?? 0,
+    };
     this.orders = user.orders?.map((order) => new OrderResponseDTO(order));
   }
 }

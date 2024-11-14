@@ -39,7 +39,6 @@ export class CartItemsServiceImpl implements CartItemsService {
         totalProductPrice: 0, // 필요한 필드 추가
         shippingFee: 0, // 필요한 필드 추가
         totalPaymentAmount: 0, // 필요한 필드 추가
-        user: user,
       });
     }
 

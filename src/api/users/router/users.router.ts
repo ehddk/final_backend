@@ -9,13 +9,15 @@ import { extractPath } from "@/utils/path.util";
 import { ROUTES_INDEX } from "@/routers";
 import { authUserMiddleware } from "@/api/common/middlewares/authUser.middleware";
 import { authRoleMiddleware } from "@/api/common/middlewares/authRole.middleware";
+import { MongooseCartRepository } from "@/api/carts/repository/mongooseCart.repository";
 
 const userRouter = express.Router();
 
 const usersController = new UsersController(
   new UsersServiceImpl(
     new MongooseUserRepository(),
-    new MongooseProfileRepository()
+    new MongooseProfileRepository(),
+    new MongooseCartRepository()
   )
 );
 

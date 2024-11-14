@@ -62,9 +62,7 @@ export default class AdminCartItemsController {
     res: Response,
     next: NextFunction
   ) {
-    const { product, quantity } = req.body;
-
-    const totalPrice = product.sales * quantity;
+    const { product, quantity, totalPrice } = req.body;
 
     try {
       const createdCartItem = await this._cartItemsService.createCartItem(

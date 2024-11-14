@@ -6,11 +6,6 @@ const cartItemSchema = new mongoose.Schema<ICartItem>({
     ref: "Product",
     required: true,
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
   quantity: {
     type: Number,
     required: true,

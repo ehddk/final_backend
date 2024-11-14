@@ -4,7 +4,6 @@ export class CartItemResponseDTO {
     productName: string;
     sales: number;
   };
-  user: IUser;
   quantity: number;
   totalPrice: number;
 
@@ -14,7 +13,6 @@ export class CartItemResponseDTO {
       productName: params.product.productName,
       sales: params.product.sales,
     };
-    this.user = params.user;
     this.quantity = params.quantity;
     this.totalPrice = params.totalPrice;
   }

@@ -9,7 +9,7 @@ export interface UserService {
   getUser(id: string): Promise<GetUserResponseDTO | null>;
   /** 유저 생성 */
   createUser(
-    params: Omit<IUser, "id" | "role" | "profile"> & {
+    params: Omit<IUser, "id" | "role" | "profile" | "cart"> & {
       profile: Omit<IProfile, "id" | "delivery">;
     }
   ): Promise<UserResponseDTO>;

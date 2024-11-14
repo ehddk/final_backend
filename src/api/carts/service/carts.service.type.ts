@@ -20,4 +20,6 @@ export interface CartsService {
       }
     >
   ): Promise<void>;
+  /** 장바구니 삭제 */
+  deleteCart(cartId: string): Promise<void>;
 }

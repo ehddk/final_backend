@@ -6,15 +6,21 @@ export class GetUsersResponseDTO {
   email: string;
   profile: {
     firstName: string;
-    delivery?:IDelivery[]
+    delivery?: IDelivery[];
+  };
+  cart: {
+    id: string;
   };
   constructor(user: IUser) {
-    console.log('Delivery:', user.profile?.delivery);
+    console.log("Delivery:", user.profile?.delivery);
     this.userId = user.id;
     this.email = user.email;
     this.profile = {
       firstName: user.profile.firstName,
-      delivery:user.profile?.delivery
+      delivery: user.profile?.delivery,
+    };
+    this.cart = {
+      id: user.cart.id,
     };
   }
 }
