@@ -4,7 +4,7 @@ export interface OrderItemsService {
   /** 주문 상품 생성 */
   createOrderItem(
     orderId: string,
-    orderItem: Omit<IOrderItem, "id" | "user" | "productName" | "sales">
+    orderItem: Omit<IOrderItem, "id" | "user">
   ): Promise<OrderItemResponseDTO>;
   /** 주문 상품 목록 조회 (페이지네이션 없이) */
   getOrderItems(): Promise<OrderItemResponseDTO[]>;

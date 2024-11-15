@@ -19,9 +19,9 @@ interface ICartResponseDTO {
   cartItem: {
     product: {
       id: string;
+      productName: string;
+      sales: number;
     };
-    productName: string;
-    sales: number;
     quantity: number;
     totalPrice: number; // 상품별 총 가격
   };

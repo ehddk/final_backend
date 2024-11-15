@@ -52,9 +52,7 @@ export class CartItemsServiceImpl implements CartItemsService {
       id: "",
       ...cartItem,
       cartId: cart.id,
-      product: product.id.toString(),
-      productName: cartItem.productName,
-      sales: cartItem.sales,
+      product,
       quantity: cartItem.quantity,
       totalPrice: cartItem.totalPrice,
     };

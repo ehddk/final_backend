@@ -2,9 +2,10 @@ export class CartItemResponseDTO {
   id: string;
   product: {
     id: string;
+    productName: string;
+    sales: number;
   };
-  productName: string;
-  sales: number;
+
   quantity: number;
   totalPrice: number;
   cartId: string;
@@ -13,9 +14,9 @@ export class CartItemResponseDTO {
     this.id = params.id;
     this.product = {
       id: params.product.id,
+      productName: params.product.productName,
+      sales: params.product.sales,
     };
-    this.productName = params.product.productName;
-    this.sales = params.product.sales;
     this.quantity = params.quantity;
     this.totalPrice = params.totalPrice;
     this.cartId = params.cartId;

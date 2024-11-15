@@ -6,12 +6,6 @@ const cartItemSchema = new mongoose.Schema<ICartItem>({
     ref: "Product",
     required: true,
   },
-  productName: {
-    type: String,
-  },
-  sales: {
-    type: Number,
-  },
   quantity: {
     type: Number,
     required: true,

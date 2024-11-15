@@ -67,6 +67,7 @@ interface IOrderResponseDTO {
   /** 주문 상품 정보 (상품 정보, 가격정보) */
   orderItem: {
     product: {
+      id: string;
       productName: string;
       sales: number;
     };

@@ -34,8 +34,6 @@ declare type adminGetCartItemDetailResponse = ICartItemResponseDTO | null;
 
 declare type adminCreateCartItemRequestBody = {
   product: IProduct;
-  productName: string;
-  sales: number;
   quantity: number;
   totalPrice: number;
   cartId: string;

@@ -45,7 +45,7 @@ export class OrderItemsServiceImpl implements OrderItemsService {
       ...orderItem,
       id: "", // MongoDB에서 자동 생성될 ID로 대체
       orderId: order.id,
-      product: product.id.toString(),
+      product,
       quantity: orderItem.quantity,
       totalPrice: orderItem.totalPrice,
       orderItemStatus: "PAYMENT_PENDING",

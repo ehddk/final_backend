@@ -37,8 +37,6 @@ declare type createCartItemRequestPath = {};
 
 declare type createCartItemRequestBody = {
   product: IProduct;
-  productName: string;
-  sales: number;
   quantity: number;
   totalPrice: number;
   cartId: string;

@@ -12,6 +12,7 @@ export class OrderResponseDTO {
   paymentMethod: PaymentMethod;
   orderItem: {
     product: {
+      id: string;
       productName: string;
       sales: number;
     };
@@ -49,6 +50,7 @@ export class OrderResponseDTO {
     this.orderItem = params.orderItem
       ? params.orderItem.map((item: IOrderItem) => ({
           product: {
+            id: item.product.id,
             productName: item.product.productName,
             sales: item.product.sales,
           },
