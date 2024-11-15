@@ -4,9 +4,13 @@ export class OrderItemResponseDTO {
     id: string;
   };
   product: {
-    productName: string;
-    sales: number;
+    id: string;
   };
+  order: {
+    id: string;
+  }
+  productName: string;
+  sales: number;
   quantity: number;
   totalPrice: number;
   orderItemStatus: OrderItemStatus;
@@ -17,9 +21,13 @@ export class OrderItemResponseDTO {
       id: params.user.id,
     };
     this.product = {
-      productName: params.product.productName,
-      sales: params.product.sales,
+      id: params.product.id,
     };
+    this.order = {
+      id: params.order.id,
+    };
+    this.productName = params.product.productName;
+    this.sales = params.product.sales;
     this.quantity = params.quantity;
     this.totalPrice = params.totalPrice;
     this.orderItemStatus = params.orderItemStatus;

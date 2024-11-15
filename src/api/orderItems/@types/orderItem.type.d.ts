@@ -16,9 +16,11 @@ type OrderItemStatus = keyof typeof ORDER_ITEM_STATUS;
 interface IOrderItem {
   /** 주문 상품 ID */
   id: string;
-  orderId: string;
+  order: IOrder;
   user: IUser;
   product: IProduct;
+  productName: string;
+  sales: number;
   /** 주문 수량 */
   quantity: number;
   /** 주문 총 가격 */
@@ -30,14 +32,15 @@ interface IOrderItem {
 interface IOrderItemResponseDTO {
   /** 주문 상품 ID */
   orderItemId: string;
-  orderId: string;
+  orderId: {
+    id: string;
+  };
   user: {
     id: string;
   };
   /** 주문 상품 제목 */
   product: {
-    productName: string;
-    sales: number;
+    id: string;
   };
   /** 주문 수량 */
   quantity: number;
