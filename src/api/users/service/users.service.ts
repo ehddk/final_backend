@@ -16,15 +16,25 @@ export class UsersServiceImpl implements UserService {
   ) {}
 
   async createUser(params: Omit<IUser, "userId">): Promise<UserResponseDTO> {
-    const profile = await this._profileRepository.save(params.profile);
-    const cart = await this._cartRepository.save(params.cart);
-    const user = await this._userRepository.save({
-      ...params,
-      profile,
-      cart,
-    });
-
-    return new UserResponseDTO(user);
+    // 트랙잭션으로 중복 막기
+    // 모두 성공적으로 처리되거나 혹은 그렇지 못했을 경우 롤백.
+    const session = await mongoose.startSession();
+    session.startTransaction(); //트렌젝션을 시작.
+    try{
+      const profile = await this._profileRepository.save(params.profile);
+      const cart = await this._cartRepository.save(params.cart);
+      const user = await this._userRepository.save({
+        ...params,
+        profile,
+        cart,
+      });
+      return new UserResponseDTO(user);
+    }catch(error){ 
+      await session.abortTransaction(); //실패시 모두 rollback
+      throw error;
+    }finally{ //종료
+      session.endSession();
+    }
   }
 
   async getUsers(): Promise<GetUsersResponseDTO[]> {

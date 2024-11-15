@@ -1,6 +1,6 @@
 import { IDelivery } from "../@types/delivery.type";
 import { DeliveryRepository } from "./delivery.repository";
-import {MonoogseDelivery} from "../model/delivery.schema";
+import { MongooseDelivery } from "../model/delivery.schema";
 import HttpException from "@/api/common/exceptions/http.exception";
 import mongoose from "mongoose";
 import { MongooseProfile } from "@/api/users/model/profile.schema";
@@ -11,7 +11,7 @@ export class MongooseDeliveryRepository implements DeliveryRepository{
     async save(userId: string,delivery:Omit<IDelivery,"id" | "userId">):Promise<IDelivery>{
 
         try{
-            const newDelivery = new MonoogseDelivery({
+            const newDelivery = new MongooseDelivery({
                 userId,
                 ...delivery
             });
@@ -22,8 +22,9 @@ export class MongooseDeliveryRepository implements DeliveryRepository{
     }
     }
     async findAll(userId:string):Promise<IDelivery[]>{
-        const deliveries=await MonoogseDelivery.find();
-        return deliveries;
+      //return await this.MongooseDelivery.find({ user: userId }).lean();
+         const deliveries=await MongooseDelivery.find({ userId: userId });
+       return deliveries;
     }
 
     async findById(userId: string,deliveryId: string): Promise<IDelivery | null> {
@@ -67,7 +68,7 @@ export class MongooseDeliveryRepository implements DeliveryRepository{
     }
 
     async update(userId: string,deliveryId:string,updateDeliveryInfo:Partial<IDelivery>):Promise<IDelivery>{
-        const results=await MonoogseDelivery.findOneAndUpdate({ _id: deliveryId,userId:userId },updateDeliveryInfo);
+        const results=await MongooseDelivery.findOneAndUpdate({ _id: deliveryId,userId:userId },updateDeliveryInfo);
         console.log('resuttt',results)
         console.log("deliveryId:", deliveryId, "userId:", userId);
 
@@ -78,7 +79,7 @@ export class MongooseDeliveryRepository implements DeliveryRepository{
     }
     async delete(userId:string,deliveryId:string):Promise<void>{
         try {
-            const result = await MonoogseDelivery.deleteOne({
+            const result = await MongooseDelivery.deleteOne({
               _id: new mongoose.Types.ObjectId(deliveryId),
               userId: userId 
             });
