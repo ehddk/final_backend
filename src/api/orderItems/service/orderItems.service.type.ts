@@ -4,7 +4,7 @@ export interface OrderItemsService {
   /** 주문 상품 생성 */
   createOrderItem(
     orderId: string,
-    orderItem: Omit<IOrderItem, "id" | "user" | "order">
+    orderItem: Omit<IOrderItem, "id" | "user" | "product" | "productName" | "sales">
   ): Promise<OrderItemResponseDTO>;
   /** 주문 상품 목록 조회 (페이지네이션 없이) */
   getOrderItems(): Promise<OrderItemResponseDTO[]>;
@@ -13,7 +13,7 @@ export interface OrderItemsService {
   /** 주문 상품 수정 */
   updateOrderItem(
     orderItemId: string,
-    updatedOrderItem: Omit<IOrderItem, "id" | "product" | "user" | "order" >
+    updatedOrderItem: Omit<IOrderItem, "id" | "product" | "user" | "orderId">
   ): Promise<void>;
   /** 주문 상품 삭제 */
   deleteOrderItem(orderItemId: string): Promise<void>;

@@ -10,7 +10,7 @@ interface ICartItem {
   /** 주문 총 가격 */
   totalPrice: number;
   /** 장바구니 */
-  cart: ICart;
+  cartId: string;
 }
 
 interface ICartItemResponseDTO {
@@ -26,7 +26,5 @@ interface ICartItemResponseDTO {
   quantity: number;
   /** 주문 총 가격 */
   totalPrice: number;
-  cart: {
-    id: string;
-  };
+  cartId: string;
 }

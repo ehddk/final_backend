@@ -42,7 +42,7 @@ export default class OrderItemsController {
     res: Response,
     next: NextFunction
   ) {
-    const { product, quantity, totalPrice, productName, sales } =
+    const { quantity, totalPrice, orderId } =
       req.body;
 
     const orderItemStatus = "PAYMENT_PENDING";
@@ -50,12 +50,10 @@ export default class OrderItemsController {
       const createdOrderItem = await this._orderItemsService.createOrderItem(
         req.user.userId,
         {
-          product,
           quantity,
           totalPrice,
           orderItemStatus,
-          productName,
-          sales,
+          orderId,
         }
       );
 

@@ -3,13 +3,11 @@ export class CartItemResponseDTO {
   product: {
     id: string;
   };
-  productName?: string;
-  sales?: number;
+  productName: string;
+  sales: number;
   quantity: number;
   totalPrice: number;
-  cart: {
-    id: string;
-  };
+  cartId: string;
 
   constructor(params: ICartItem) {
     this.id = params.id;
@@ -20,6 +18,6 @@ export class CartItemResponseDTO {
     this.sales = params.product.sales;
     this.quantity = params.quantity;
     this.totalPrice = params.totalPrice;
-    this.cart = { id: params.cart.id };
+    this.cartId = params.cartId;
   }
 }

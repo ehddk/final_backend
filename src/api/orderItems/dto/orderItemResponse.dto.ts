@@ -6,9 +6,7 @@ export class OrderItemResponseDTO {
   product: {
     id: string;
   };
-  order: {
-    id: string;
-  }
+  orderId: string;
   productName: string;
   sales: number;
   quantity: number;
@@ -23,9 +21,7 @@ export class OrderItemResponseDTO {
     this.product = {
       id: params.product.id,
     };
-    this.order = {
-      id: params.order.id,
-    };
+    this.orderId = params.orderId;
     this.productName = params.product.productName;
     this.sales = params.product.sales;
     this.quantity = params.quantity;

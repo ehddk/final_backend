@@ -7,7 +7,8 @@ export class CartItem implements ICartItem {
   sales: number;
   quantity: number;
   totalPrice: number;
-  cart: ICart;
+  cartId: string;
+
 
   constructor(params: ICartItem) {
     this.id = params.id;
@@ -16,6 +17,6 @@ export class CartItem implements ICartItem {
     this.sales = params.sales;
     this.quantity = params.quantity;
     this.totalPrice = params.totalPrice;
-    this.cart = params.cart;
+    this.cartId = params.cartId;
   }
 }

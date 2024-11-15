@@ -2,7 +2,7 @@ import { IProduct } from "@/api/products/@types/product.type";
 
 export class OrderItem implements IOrderItem {
   id: string;
-  order: IOrder;
+  orderId: string;
   user: IUser;
   product: IProduct;
   productName: string;
@@ -13,7 +13,7 @@ export class OrderItem implements IOrderItem {
 
   constructor(params: IOrderItem) {
     this.id = params.id;
-    this.order = params.order;
+    this.orderId = params.orderId;
     this.user = params.user;
     this.product = params.product;
     this.productName = params.productName;

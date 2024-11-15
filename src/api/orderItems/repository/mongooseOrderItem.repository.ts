@@ -1,11 +1,22 @@
 import HttpException from "@/api/common/exceptions/http.exception";
 import { MongooseOrderItem } from "@/api/orderItems/model/orderItem.schema";
 import { OrderItemRepository } from "@/api/orderItems/repository/orderItem.repository";
+import { MongooseOrder } from "@/api/orders/model/order.schema";
 
 export class MongooseOrderItemRepository implements OrderItemRepository {
-  async save(orderItem: Omit<IOrderItem, "id">): Promise<IOrderItem> {
+  async save(
+    orderId: string,
+    orderItem: Omit<IOrderItem, "id">
+  ): Promise<IOrderItem> {
+    // Order를 찾아 유효성 검증
+    const order = await MongooseOrder.findById(orderId);
+    if (!order) {
+      throw new Error(`Order with id ${orderId} not found`);
+    }
+
     const newOrderItem = new MongooseOrderItem({
       ...orderItem,
+      orderId: order._id,
     });
 
     await newOrderItem.save();
@@ -13,26 +24,24 @@ export class MongooseOrderItemRepository implements OrderItemRepository {
     return newOrderItem;
   }
   async findAll(): Promise<IOrderItem[]> {
-    const values = await MongooseOrderItem.find()
-      .populate({
-        path: "user",
-        populate: {
-          path: "profile",
-        },
-      })
-      .sort({ createdAt: -1 }); // 최신순 정렬
-
-    return values;
+    
+    return await MongooseOrderItem.find();
   }
   async findById(id: string): Promise<IOrderItem | null> {
-    const orderItem = await MongooseOrderItem.findById(id).populate({
-      path: "user",
-      populate: {
-        path: "profile",
-      },
-    });
+    try {
+    const orderItem = await MongooseOrderItem.findById(id)
+    .populate({ path: "product" })
+    .exec();
     return orderItem;
+  } catch (error: any) {
+    const message = error.message.toString();
+    if (message.includes("Cast to ObjectId failed")) {
+      return null;
+    }
+
+    throw error;
   }
+}
   async update(
     orderItemId: string,
     updateOrderItemInfo: Partial<IOrderItem>

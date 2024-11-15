@@ -38,6 +38,8 @@ declare type adminCreateCartItemRequestBody = {
   sales: number;
   quantity: number;
   totalPrice: number;
+  cartId: string;
+
 };
 
 declare type adminCreateCartItemRequestPath = {};

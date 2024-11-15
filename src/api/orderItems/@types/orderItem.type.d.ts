@@ -16,7 +16,7 @@ type OrderItemStatus = keyof typeof ORDER_ITEM_STATUS;
 interface IOrderItem {
   /** 주문 상품 ID */
   id: string;
-  order: IOrder;
+  orderId: string;
   user: IUser;
   product: IProduct;
   productName: string;
@@ -32,9 +32,7 @@ interface IOrderItem {
 interface IOrderItemResponseDTO {
   /** 주문 상품 ID */
   orderItemId: string;
-  orderId: {
-    id: string;
-  };
+  orderId: string;
   user: {
     id: string;
   };

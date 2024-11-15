@@ -29,11 +29,17 @@ export class OrderItemsServiceImpl implements OrderItemsService {
     const newOrderItem: IOrderItem = {
       ...orderItem,
       id: "", // MongoDB에서 자동 생성될 ID로 대체
+      product: orderItem.product,
+      quantity: orderItem.quantity,
+      totalPrice: orderItem.totalPrice,
       orderItemStatus: "PAYMENT_PENDING",
     };
 
     // 데이터베이스에 새로운 주문 항목 저장
-    const savedOrderItem = await this._orderItemRepository.save(newOrderItem);
+    const savedOrderItem = await this._orderItemRepository.save(
+      orderId,
+      newOrderItem
+    );
 
     // 주문의 orderItem 배열에 새로운 항목 추가
     const updatedOrderItems = order.orderItem.concat(savedOrderItem);

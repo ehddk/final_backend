@@ -33,11 +33,11 @@ declare type adminGetOrderItemDetailRequest = {
 declare type adminGetOrderItemDetailResponse = IOrderItemResponseDTO | null;
 
 declare type adminCreateOrderItemRequestBody = {
-  product: IProduct;
   productName: string;
   sales: number;
   quantity: number;
   totalPrice: number;
+  orderId: string;
 };
 
 declare type adminCreateOrderItemRequestPath = {};

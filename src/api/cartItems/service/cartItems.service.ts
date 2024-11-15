@@ -3,47 +3,66 @@ import { CartItemsService } from "@/api/cartItems/service/cartItems.service.type
 import { CartRepository } from "@/api/carts/repository/cart.repository";
 import HttpException from "@/api/common/exceptions/http.exception";
 import { CartItemResponseDTO } from "@/api/cartItems/dto/cartItemResponse.dto";
-import { CartsServiceImpl } from "@/api/carts/service/carts.service";
 import { UserRepository } from "@/api/users/repository/user/user.repository";
+import { ProductRepository } from "@/api/products/repository/product.repository";
 
 export class CartItemsServiceImpl implements CartItemsService {
   private readonly _cartItemRepository: CartItemRepository;
   private readonly _cartRepository: CartRepository;
-  private readonly _cartsService: CartsServiceImpl;
+  private readonly _productRepository: ProductRepository;
   private readonly _userRepository: UserRepository;
   constructor(
     cartItemRepository: CartItemRepository,
     cartRepository: CartRepository,
-    userRepository: UserRepository
+    userRepository: UserRepository,
+    productRepository: ProductRepository
   ) {
     this._cartItemRepository = cartItemRepository;
     this._cartRepository = cartRepository;
     this._userRepository = userRepository;
-    this._cartsService = new CartsServiceImpl(cartRepository);
+    this._productRepository = productRepository;
   }
 
   async createCartItem(
-    cartId: string,
-    cartItem: Omit<ICartItem, "id" | "cart">
+    userId: string,
+    cartItem: Omit<ICartItem, "id">
   ): Promise<CartItemResponseDTO> {
-    const cart = await this._cartRepository.findById(cartId);
+    const cart = await this._cartRepository.findOneByUserId(userId);
+    console.log("userId:", userId);
+    console.log("cart:", cart);
     if (!cart) {
       throw new HttpException(404, "장바구니를 찾을 수 없습니다.");
+    }
+    console.log("cartItem:", cartItem);
+    console.log("cartItem.product:", cartItem.product);
+    const productId =
+      typeof cartItem.product === "string"
+        ? cartItem.product
+        : cartItem.product?.id;
+    if (!productId) {
+      throw new HttpException(400, "상품 ID가 유효하지 않습니다.");
+    }
+    const product = await this._productRepository.findById(productId);
+    console.log("product:", product);
+    if (!product) {
+      throw new HttpException(404, "해당 상품를 찾을 수 없습니다.");
     }
 
     const newCartItem: ICartItem = {
       id: "",
-      cart,
-      product: cartItem.product,
+      ...cartItem,
+      cartId: cart.id,
+      product: product.id.toString(),
       productName: cartItem.productName,
       sales: cartItem.sales,
-      /** 주문 수량 */
       quantity: cartItem.quantity,
-      /** 주문 총 가격 */
       totalPrice: cartItem.totalPrice,
     };
 
-    const savedCartItem = await this._cartItemRepository.save(newCartItem);
+    const savedCartItem = await this._cartItemRepository.save(
+      cart.id,
+      newCartItem
+    );
 
     const updatedCartItem = cart.cartItem
       ? cart.cartItem.concat(savedCartItem)
@@ -53,6 +72,7 @@ export class CartItemsServiceImpl implements CartItemsService {
     });
     return new CartItemResponseDTO(savedCartItem);
   }
+
   async getCartItems(): Promise<CartItemResponseDTO[]> {
     const cartItems = await this._cartItemRepository.findAll();
     const newList = await Promise.all(

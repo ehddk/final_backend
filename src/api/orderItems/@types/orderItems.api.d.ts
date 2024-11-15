@@ -36,11 +36,11 @@ declare type getOrderItemDetailResponse = IOrderItemResponseDTO | null;
 declare type createOrderItemRequestPath = {};
 
 declare type createOrderItemRequestBody = {
-  product: IProduct;
   productName: string;
   sales: number;
   quantity: number;
   totalPrice: number;
+  orderId: string;
 };
 
 declare type createOrderItemRequestParams = {};
