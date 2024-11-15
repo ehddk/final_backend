@@ -14,8 +14,12 @@ export default class AuthController {
 
       const result = await this._authService.login(loginId, password);
 
-      res.send(result);
+      res.status(200).json({
+        message: "로그인 성공",
+        data: result,
+      });
     } catch (error) {
+      res.status(500).json({ message: "로그인 실패" });
       next(error);
     }
   }

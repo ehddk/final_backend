@@ -31,9 +31,14 @@ export default class AdminUserController {
   ) {
     try {
       const users = await this._userService.getUsers();
-      console.log("회원 목록 조회 완료")
-      res.send(users);
+      // console.log("회원 목록 조회 완료")
+      // res.send(users);
+      res.status(200).json({
+        message: "관리자 회원 목록 조회 성공",
+        data: users,
+      });
     } catch (error) {
+      res.status(400).json({ message: "관리자 회원 목록 조회 실패" });
       next(error);
     }
   }
@@ -54,11 +59,16 @@ export default class AdminUserController {
 
       const user = await this._userService.getUser(userId);
 
-      console.log("회원 상세 조회 완료")
+      // console.log("회원 상세 조회 완료")
 
-      res.status(200).send(user);
+      // res.status(200).send(user);
+      res.status(200).json({
+        message: "관리자 회원 상세 조회 성공",
+        data: user,
+      });
     } catch (error) {
-      next(error);
+      res.status(404).json({ message: "관리자 회원 상세 조회 실패" });
+      // next(error);
     }
   }
 
@@ -84,10 +94,15 @@ export default class AdminUserController {
         salt,
       });
       console.log(newUser)
-      console.log("회원 생성 완료")
-      res.send(newUser);
+      // console.log("회원 생성 완료")
+      // res.send(newUser);
+      res.status(200).json({
+        message: "관리자 회원 생성 성공",
+        data: newUser,
+      });
     } catch (error) {
-      next(error);
+      res.status(409).json({ message: "관리자 회원 생성 실패" });
+      // next(error);
     }
   }
 
@@ -105,11 +120,16 @@ export default class AdminUserController {
     try {
       const user = await this._userService.updateUser(req.params.userId, req.body);
 
-      console.log("회원 수정 완료")
+      // console.log("회원 수정 완료")
 
-      res.status(200).send(user);
+      // res.status(200).send(user);
+      res.status(200).json({
+        message: "관리자 회원 수정 성공",
+        data: user,
+      });
     } catch (error: any) {
-      next(error);
+      res.status(400).json({ message: "관리자 회원 수정 실패" });
+      // next(error);
     }
   }
 
@@ -128,13 +148,17 @@ export default class AdminUserController {
       const { userId } = req.params;
 
       await this._userService.deleteUser(userId);
-      console.log(userId);
+      // console.log(userId);
 
-      console.log("회원 삭제 완료")
+      // console.log("회원 삭제 완료")
 
-      res.status(204).send();
+      // res.status(204).send();
+      res.status(200).json({
+        message: "관리자 회원 삭제 성공"
+      });
     } catch (error) {
-      next(error);
+      res.status(404).json({ message: "관리자 회원 삭제 실패" });
+      // next(error);
     }
   }
 }
