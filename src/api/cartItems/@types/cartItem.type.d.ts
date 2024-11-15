@@ -3,6 +3,8 @@ interface ICartItem {
   id: string;
   /** 주문 상품 제목 */
   product: IProduct;
+  productName: string;
+  sales: number;
   /** 주문 수량 */
   quantity: number;
   /** 주문 총 가격 */
@@ -17,9 +19,9 @@ interface ICartItemResponseDTO {
   /** 주문 상품 제목 */
   product: {
     id: string;
-    productName: string;
-    sales: number;
   };
+  productName: string;
+  sales: number;
   /** 주문 수량 */
   quantity: number;
   /** 주문 총 가격 */

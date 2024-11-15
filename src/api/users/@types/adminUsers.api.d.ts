@@ -13,9 +13,8 @@ type adminGetUsersRequest = {
 type adminGetUsersResponse = Array<{
   userId: string;
   email: string;
-  profile: {
-    firstName: string;
-  };
+  firstName: string;
+
   cart: {
     id: string;
   };

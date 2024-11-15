@@ -7,6 +7,12 @@ const orderSchema = new mongoose.Schema<IOrder>(
       ref: "User",
       required: true,
     },
+    firstName: {
+      type: String,
+    },
+    phoneNum: {
+      type: String,
+    },
     deliveryAddress: {
       type: String,
       required: true,

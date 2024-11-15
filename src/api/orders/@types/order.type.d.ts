@@ -25,6 +25,8 @@ interface IOrder {
   id: string;
   /** 주문 회원 정보  */
   user: IUser;
+  firstName: string;
+  phoneNum: string;
   /** 배송지 */
   deliveryAddress: string;
   /** 배송요청사항 */
@@ -51,11 +53,10 @@ interface IOrderResponseDTO {
 
   /** 주문 회원정보 */
   user: {
-    profile: {
-      firstName: string;
-      phoneNum: string;
-    };
+    id: string;
   };
+  firstName: string;
+  phoneNum: string;
   deliveryAddress: string;
   /** 배송요청사항 */
   deliveryRequest?: string;

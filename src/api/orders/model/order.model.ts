@@ -1,6 +1,8 @@
 export class Order implements IOrder {
   id: string;
   user: IUser;
+  firstName: string;
+  phoneNum: string;
   deliveryAddress: string;
   deliveryRequest?: string;
   createdAt: Date;
@@ -14,6 +16,8 @@ export class Order implements IOrder {
   constructor(params: IOrder) {
     this.id = params.id;
     this.user = params.user;
+    this.firstName = params.firstName;
+    this.phoneNum = params.phoneNum;
     this.deliveryAddress = params.deliveryAddress;
     this.deliveryRequest = params.deliveryRequest;
     this.createdAt = params.createdAt;

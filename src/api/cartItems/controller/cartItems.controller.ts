@@ -42,13 +42,16 @@ export default class CartItemsController {
     res: Response,
     next: NextFunction
   ) {
+    const { productName, sales, quantity, totalPrice } = req.body;
+
     try {
       const cartItem = await this._cartItemsService.createCartItem(
         req.user.userId,
         {
-          product: req.body.product,
-          quantity: req.body.quantity,
-          totalPrice: req.body.totalPrice,
+          productName,
+          sales,
+          quantity,
+          totalPrice,
         }
       );
 

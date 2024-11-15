@@ -23,26 +23,35 @@ export class CartItemsServiceImpl implements CartItemsService {
   }
 
   async createCartItem(
-    userId: string,
-    cartItem: Omit<ICartItem, "id">
+    cartId: string,
+    cartItem: Omit<ICartItem, "id" | "cart">
   ): Promise<CartItemResponseDTO> {
-    const cart = await this._cartRepository.findOneByUserId(userId);
+    const cart = await this._cartRepository.findById(cartId);
     if (!cart) {
       throw new HttpException(404, "장바구니를 찾을 수 없습니다.");
     }
 
-    const newCartItem = await this._cartItemRepository.save({
-      ...cartItem,
+    const newCartItem: ICartItem = {
+      id: "",
       cart,
-    });
+      product: cartItem.product,
+      productName: cartItem.productName,
+      sales: cartItem.sales,
+      /** 주문 수량 */
+      quantity: cartItem.quantity,
+      /** 주문 총 가격 */
+      totalPrice: cartItem.totalPrice,
+    };
 
-    const newCartItems = cart.cartItem?.concat(newCartItem);
+    const savedCartItem = await this._cartItemRepository.save(newCartItem);
 
+    const updatedCartItem = cart.cartItem
+      ? cart.cartItem.concat(savedCartItem)
+      : [savedCartItem];
     await this._cartRepository.update(cart.id, {
-      cartItem: newCartItems,
+      cartItem: updatedCartItem,
     });
-
-    return new CartItemResponseDTO(newCartItem);
+    return new CartItemResponseDTO(savedCartItem);
   }
   async getCartItems(): Promise<CartItemResponseDTO[]> {
     const cartItems = await this._cartItemRepository.findAll();
