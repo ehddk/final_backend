@@ -8,7 +8,7 @@ interface ICartItem {
   /** 주문 총 가격 */
   totalPrice: number;
   /** 장바구니 */
-  cart: ICart;
+  cartId: string;
 }
 
 interface ICartItemResponseDTO {
@@ -18,13 +18,13 @@ interface ICartItemResponseDTO {
   product: {
     id: string;
     productName: string;
-    sales: number;
+  sales: number;
   };
+  productName: string;
+  sales: number;
   /** 주문 수량 */
   quantity: number;
   /** 주문 총 가격 */
   totalPrice: number;
-  cart: {
-    id: string;
-  };
+  cartId: string;
 }

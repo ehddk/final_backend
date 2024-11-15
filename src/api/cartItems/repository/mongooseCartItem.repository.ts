@@ -1,23 +1,42 @@
 import HttpException from "@/api/common/exceptions/http.exception";
 import { MongooseCartItem } from "@/api/cartItems/model/cartItem.schema";
 import { CartItemRepository } from "@/api/cartItems/repository/cartItem.repository";
+import { MongooseCart } from "@/api/carts/model/cart.schema";
+import { MongooseProduct } from "@/api/products/model/product.schema";
 
 export class MongooseCartItemRepository implements CartItemRepository {
-  async save(cartItem: Omit<ICartItem, "id">): Promise<ICartItem> {
-    const newCartItem = new MongooseCartItem(cartItem);
+  async save(
+    cartId: string,
+    cartItem: Omit<ICartItem, "id">
+  ): Promise<ICartItem> {
+    const cart = await MongooseCart.findById(cartId);
+    if (!cart) {
+      throw new Error(`Cart with id ${cartId} not found`);
+    }
+    const productId = cartItem.product.id || cartItem.product;
+    const product = await MongooseProduct.findById(productId);
+    if (!product) {
+      throw new Error(`Cart with id ${productId} not found`);
+    }
+
+    const newCartItem = new MongooseCartItem({
+      ...cartItem,
+      cartId: cart.id,
+      product: product,
+    });
 
     await newCartItem.save();
 
     return newCartItem;
   }
   async findAll(): Promise<ICartItem[]> {
-    return await MongooseCartItem.find();
+    return await MongooseCartItem.find().populate("product");
   }
 
   async findById(id: string): Promise<ICartItem | null> {
     try {
       const cartItem = await MongooseCartItem.findById(id)
-        .populate("product")
+        .populate({ path: "product" })
         .exec();
 
       return cartItem;

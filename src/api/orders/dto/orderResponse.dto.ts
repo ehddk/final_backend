@@ -2,17 +2,17 @@
 export class OrderResponseDTO {
   orderId: string;
   user: {
-    profile: {
-      firstName: string;
-      phoneNum: string;
-    };
+    id: string;
   };
+  firstName?: string;
+  phoneNum?: string;
   deliveryAddress: string;
   deliveryRequest?: string;
   orderDate: Date; // createdAt
   paymentMethod: PaymentMethod;
   orderItem: {
     product: {
+      id: string;
       productName: string;
       sales: number;
     };
@@ -35,11 +35,10 @@ export class OrderResponseDTO {
   constructor(params: IOrder) {
     this.orderId = params.id; // 주문 ID
     this.user = {
-      profile: {
-        firstName: params.user.profile.firstName, // 사용자 이름
-        phoneNum: params.user.profile.phoneNum,
-      }
+      id: params.user.id
     };
+    this.firstName = params.user.profile.firstName; // 사용자 이름
+    this.phoneNum = params.user.profile.phoneNum;
     this.deliveryAddress = params.deliveryAddress;
     this.deliveryRequest = params.deliveryRequest; // 배송 요청사항 (선택 사항)
     this.orderDate = params.createdAt; // 주문 날짜 (string으로 전달)
@@ -51,6 +50,7 @@ export class OrderResponseDTO {
     this.orderItem = params.orderItem
       ? params.orderItem.map((item: IOrderItem) => ({
           product: {
+            id: item.product.id,
             productName: item.product.productName,
             sales: item.product.sales,
           },

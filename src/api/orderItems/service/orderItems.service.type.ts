@@ -13,7 +13,7 @@ export interface OrderItemsService {
   /** 주문 상품 수정 */
   updateOrderItem(
     orderItemId: string,
-    updatedOrderItem: Omit<IOrderItem, "id" | "product" | "user">
+    updatedOrderItem: Omit<IOrderItem, "id" | "user" | "orderId" | "product">
   ): Promise<void>;
   /** 주문 상품 삭제 */
   deleteOrderItem(orderItemId: string): Promise<void>;

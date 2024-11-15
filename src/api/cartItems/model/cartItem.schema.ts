@@ -16,9 +16,8 @@ const cartItemSchema = new mongoose.Schema<ICartItem>({
     required: true,
     min: 0,
   },
-  cart: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Cart",
+  cartId: {
+    type: String,
     required: true,
   },
 });

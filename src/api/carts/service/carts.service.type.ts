@@ -2,11 +2,12 @@ import { CartResponseDTO } from "@/api/carts/dto/cartResponse.dto";
 
 export interface CartsService {
   /** 장바구니 조회 */
-  getCart(): Promise<CartResponseDTO[]>;
+  getCart(userId: string): Promise<CartResponseDTO>;
 
   /** 장바구니 생성 */
   createCart(
-    params: Omit<ICart, "id" | "user"> & {
+    params: Omit<ICart, "id"> & {
+      userId: string;
       cartItem?: ICartItem[];
     }
   ): Promise<CartResponseDTO>;
@@ -15,7 +16,7 @@ export interface CartsService {
   updateCart(
     cartId: string,
     updatedCart: Partial<
-      Omit<ICart, "id" | "user"> & {
+      Omit<ICart, "id"> & {
         cartItem?: ICartItem[];
       }
     >

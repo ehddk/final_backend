@@ -11,6 +11,10 @@ const orderItemSchema = new mongoose.Schema<IOrderItem>({
     ref: "User",
     required: true,
   },
+  orderId: {
+    type: String,
+    required: true,
+  },
   quantity: {
     type: Number,
     required: true,

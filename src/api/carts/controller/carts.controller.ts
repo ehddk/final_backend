@@ -28,6 +28,7 @@ export default class CartsController {
         shippingFee: req.body.shippingFee,
         totalPaymentAmount: req.body.totalPaymentAmount,
         cartItem: req.body.cartItem || [],
+        userId: req.user.userId,
       });
 
       res.send(cart);
@@ -48,7 +49,8 @@ export default class CartsController {
     next: NextFunction
   ) {
     try {
-      const cart = await this._cartsService.getCart();
+      const userId = req.user.userId;
+      const cart = await this._cartsService.getCart(userId);
 
       res.send(cart);
     } catch (error) {

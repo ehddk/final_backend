@@ -1,6 +1,6 @@
 export interface OrderItemRepository {
   /** 주문 상품 생성 */
-  save(orderItem: Omit<IOrderItem, "id">): Promise<IOrderItem>;
+  save(orderId: string, orderItem: Omit<IOrderItem, "id">): Promise<IOrderItem>;
   /** 주문 상품 목록 조회 */
   findAll(): Promise<IOrderItem[]>;
   /** ID로 주문 상품 조회 */

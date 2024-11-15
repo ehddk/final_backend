@@ -10,7 +10,7 @@ export class OrdersServiceImpl implements OrdersService {
 
   constructor(
     orderRepository: OrderRepository,
-    userRepository: UserRepository,
+    userRepository: UserRepository
   ) {
     this._orderRepository = orderRepository;
     this._userRepository = userRepository;
@@ -30,6 +30,8 @@ export class OrdersServiceImpl implements OrdersService {
     const newOrder: IOrder = {
       id: "", // MongoDB에서 자동 생성될 ID로 대체
       user,
+      firstName: order.firstName,
+      phoneNum: order.phoneNum,
       deliveryAddress: order.deliveryAddress,
       deliveryRequest: order.deliveryRequest,
       createdAt: new Date(),

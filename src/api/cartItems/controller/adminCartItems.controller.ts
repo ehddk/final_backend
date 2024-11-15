@@ -62,16 +62,20 @@ export default class AdminCartItemsController {
     res: Response,
     next: NextFunction
   ) {
-    const { ...rest } = req.body;
+    const { product, quantity, totalPrice, cartId } =
+      req.body;
 
     try {
-      const createdCartItem = await this._cartItemsService.createCartItem(
+      const cartItem = await this._cartItemsService.createCartItem(
         req.user.userId,
-        { product: rest.product, 
-          quantity: rest.quantity, 
-          totalPrice: rest.totalPrice }
+        {
+          product,
+          quantity,
+          totalPrice,
+          cartId,
+        }
       );
-      res.send(createdCartItem);
+      res.send(cartItem);
     } catch (error) {
       next(error);
     }

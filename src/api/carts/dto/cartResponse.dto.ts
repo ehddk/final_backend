@@ -6,6 +6,7 @@ export class CartResponseDTO {
   totalProductPrice?: number;
   shippingFee?: number;
   totalPaymentAmount?: number;
+  userId: string;
 
   constructor(params: ICart) {
     this.id = params.id;
@@ -15,5 +16,6 @@ export class CartResponseDTO {
     this.totalProductPrice = params.totalProductPrice;
     this.shippingFee = params.shippingFee;
     this.totalPaymentAmount = params.totalPaymentAmount;
-  }
+    this.userId = params.userId;
+}
 }

@@ -1,6 +1,6 @@
 export interface CartRepository {
   /** 장바구니 생성 */
-  save(cart: Omit<ICart, "id">): Promise<ICart>;
+  save(cart: Omit<ICart, "id" >): Promise<ICart>;
 
   findAll(): Promise<ICart[]>;
 

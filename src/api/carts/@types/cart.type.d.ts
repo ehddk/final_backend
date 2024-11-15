@@ -9,7 +9,7 @@ interface ICart {
   shippingFee?: number;
   /** 결제예정금액 */
   totalPaymentAmount?: number;
-  user?: IUser;
+  userId: string;
 }
 
 interface ICartResponseDTO {
@@ -18,6 +18,7 @@ interface ICartResponseDTO {
   /** 장바구니 상품 정보 */
   cartItem: {
     product: {
+      id: string;
       productName: string;
       sales: number;
     };
@@ -30,7 +31,5 @@ interface ICartResponseDTO {
   shippingFee: number;
   /** 결제예정금액 (상품 가격 + 배송비)*/
   totalPaymentAmount: number;
-  user: {
-    id: string;
-  };
+  userId: string;
 }

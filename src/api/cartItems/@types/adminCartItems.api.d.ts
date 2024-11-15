@@ -36,6 +36,8 @@ declare type adminCreateCartItemRequestBody = {
   product: IProduct;
   quantity: number;
   totalPrice: number;
+  cartId: string;
+
 };
 
 declare type adminCreateCartItemRequestPath = {};
