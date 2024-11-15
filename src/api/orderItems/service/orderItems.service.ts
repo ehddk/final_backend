@@ -4,16 +4,20 @@ import { OrderItemRepository } from "@/api/orderItems/repository/orderItem.repos
 import { OrderItemsService } from "@/api/orderItems/service/orderItems.service.type";
 import HttpException from "@/api/common/exceptions/http.exception";
 import { OrderRepository } from "@/api/orders/repository/order.repository";
+import { ProductRepository } from "@/api/products/repository/product.repository";
 
 export class OrderItemsServiceImpl implements OrderItemsService {
   private readonly _orderItemRepository: OrderItemRepository;
   private readonly _orderRepository: OrderRepository;
+  private readonly _productRepository: ProductRepository;
   constructor(
     orderItemRepository: OrderItemRepository,
-    orderRepository: OrderRepository
+    orderRepository: OrderRepository,
+    productRepository: ProductRepository
   ) {
     this._orderItemRepository = orderItemRepository;
     this._orderRepository = orderRepository;
+    this._productRepository = productRepository;
   }
 
   async createOrderItem(
@@ -25,11 +29,23 @@ export class OrderItemsServiceImpl implements OrderItemsService {
     if (!order) {
       throw new HttpException(404, "주문을 찾을 수 없습니다.");
     }
-
+    const productId =
+      typeof orderItem.product === "string"
+        ? orderItem.product
+        : orderItem.product?.id;
+    if (!productId) {
+      throw new HttpException(400, "상품 ID가 유효하지 않습니다.");
+    }
+    const product = await this._productRepository.findById(productId);
+    console.log("product:", product);
+    if (!product) {
+      throw new HttpException(404, "해당 상품를 찾을 수 없습니다.");
+    }
     const newOrderItem: IOrderItem = {
       ...orderItem,
       id: "", // MongoDB에서 자동 생성될 ID로 대체
-      product: orderItem.product,
+      orderId: order.id,
+      product: product.id.toString(),
       quantity: orderItem.quantity,
       totalPrice: orderItem.totalPrice,
       orderItemStatus: "PAYMENT_PENDING",
@@ -37,17 +53,17 @@ export class OrderItemsServiceImpl implements OrderItemsService {
 
     // 데이터베이스에 새로운 주문 항목 저장
     const savedOrderItem = await this._orderItemRepository.save(
-      orderId,
+      order.id,
       newOrderItem
     );
 
-    // 주문의 orderItem 배열에 새로운 항목 추가
-    const updatedOrderItems = order.orderItem.concat(savedOrderItem);
+    const updatedOrderItem = order.orderItem
+      ? order.orderItem.concat(savedOrderItem)
+      : [savedOrderItem];
     await this._orderRepository.update(order.id, {
-      orderItem: updatedOrderItems,
+      orderItem: updatedOrderItem,
     });
-
-    return new OrderItemResponseDTO(newOrderItem);
+    return new OrderItemResponseDTO(savedOrderItem);
   }
 
   async getOrderItems(): Promise<OrderItemResponseDTO[]> {

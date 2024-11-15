@@ -42,7 +42,6 @@ declare type createCartItemRequestBody = {
   quantity: number;
   totalPrice: number;
   cartId: string;
-
 };
 
 declare type createCartItemRequestParams = {};

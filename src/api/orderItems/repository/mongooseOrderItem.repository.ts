@@ -2,6 +2,7 @@ import HttpException from "@/api/common/exceptions/http.exception";
 import { MongooseOrderItem } from "@/api/orderItems/model/orderItem.schema";
 import { OrderItemRepository } from "@/api/orderItems/repository/orderItem.repository";
 import { MongooseOrder } from "@/api/orders/model/order.schema";
+import { MongooseProduct } from "@/api/products/model/product.schema";
 
 export class MongooseOrderItemRepository implements OrderItemRepository {
   async save(
@@ -14,9 +15,16 @@ export class MongooseOrderItemRepository implements OrderItemRepository {
       throw new Error(`Order with id ${orderId} not found`);
     }
 
+    const productId = orderItem.product.id || orderItem.product;
+    const product = await MongooseProduct.findById(productId);
+    if (!product) {
+      throw new Error(`Cart with id ${productId} not found`);
+    }
+
     const newOrderItem = new MongooseOrderItem({
       ...orderItem,
       orderId: order._id,
+      product: product,
     });
 
     await newOrderItem.save();
@@ -25,7 +33,7 @@ export class MongooseOrderItemRepository implements OrderItemRepository {
   }
   async findAll(): Promise<IOrderItem[]> {
     
-    return await MongooseOrderItem.find();
+    return await MongooseOrderItem.find().populate("product");
   }
   async findById(id: string): Promise<IOrderItem | null> {
     try {

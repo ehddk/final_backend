@@ -30,7 +30,7 @@ export class MongooseCartItemRepository implements CartItemRepository {
     return newCartItem;
   }
   async findAll(): Promise<ICartItem[]> {
-    return await MongooseCartItem.find();
+    return await MongooseCartItem.find().populate("product");
   }
 
   async findById(id: string): Promise<ICartItem | null> {

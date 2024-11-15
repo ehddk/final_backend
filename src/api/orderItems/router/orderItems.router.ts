@@ -13,6 +13,7 @@ import { extractPath } from "@/utils/path.util";
 import { ROUTES_INDEX } from "@/routers";
 import { authUserMiddleware } from "@/api/common/middlewares/authUser.middleware";
 import { MongooseOrderRepository } from "@/api/orders/repository/mongooseOrder.repository";
+import { MongooseProductRepository } from "@/api/products/repository/mongooseProduct.repository";
 
 const orderItemRouter = express.Router();
 
@@ -30,7 +31,8 @@ const ORDER_ITEM_ROUTES = {
 const orderItemsController = new OrderItemsController(
   new OrderItemsServiceImpl(
     new MongooseOrderItemRepository(),
-    new MongooseOrderRepository()
+    new MongooseOrderRepository(),
+    new MongooseProductRepository()
   )
 );
 

@@ -1,17 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { OrdersService } from "@/api/orders/service/orders.service.type";
-import { OrderItemsService } from "@/api/orderItems/service/orderItems.service.type";
 
 export default class OrdersController {
   private readonly _ordersService: OrdersService;
-  private readonly _orderItemsService: OrderItemsService;
 
-  constructor(
-    _ordersService: OrdersService,
-    _orderItemsService: OrderItemsService
-  ) {
+  constructor(_ordersService: OrdersService) {
     this._ordersService = _ordersService;
-    this._orderItemsService = _orderItemsService;
 
     this.getOrders = this.getOrders.bind(this);
     this.getOrderDetail = this.getOrderDetail.bind(this);
@@ -88,7 +82,6 @@ export default class OrdersController {
 
     try {
       const order = await this._ordersService.createOrder(req.user.userId, {
- 
         deliveryAddress,
         deliveryRequest,
         paymentMethod,
@@ -99,11 +92,11 @@ export default class OrdersController {
       });
 
       // orderItem이 있는 경우 개별적으로 createOrderItem 호출
-      if (orderItem && Array.isArray(orderItem)) {
-        for (const item of orderItem) {
-          await this._orderItemsService.createOrderItem(order.orderId, item);
-        }
-      }
+      // if (orderItem && Array.isArray(orderItem)) {
+      //   for (const item of orderItem) {
+      //     await this._orderItemsService.createOrderItem(order.orderId, item);
+      //   }
+      // }
 
       res.send(order);
     } catch (error) {
