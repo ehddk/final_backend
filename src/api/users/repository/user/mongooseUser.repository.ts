@@ -18,6 +18,7 @@ export class MongooseUserRepository implements UserRepository {
           model: "Delivery",
         },
       })
+      .populate('cart')
       .exec();
     console.log("values", values);
     return values;

@@ -14,8 +14,10 @@ export class AuthServiceImpl implements AuthService {
     const findUser = await this._userRepository.findByLoginId(loginId);
 
     if (!findUser) {
+      console.log("존재하지 않는 회원입니다.")
       throw new HttpException(404, "존재하지 않는 회원입니다.");
     }
+    
 
     const isSamePassword = CryptoService.matchPassword(
       password,

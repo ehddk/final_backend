@@ -31,13 +31,18 @@ export default class UsersController {
         },
       });
 
-      console.log(user);
-      console.log("회원 생성 완료");
+      // console.log(user);
+      // console.log("회원 생성 성공");
 
-      res.send(user);
+      // res.send(user);
+      res.status(200).json({
+        message: "회원 생성 성공",
+        data: user,
+      });
     } catch (error) {
-      console.log(error);
-      next(error);
+      // console.log(error);
+      // next(error);
+      res.status(409).json({ message: "회원 생성 실패" });
     }
   }
 
@@ -63,11 +68,16 @@ export default class UsersController {
 
       const user = await this._userService.getUser(userId);
 
-      console.log("회원 상세 조회 완료")
+      // console.log("회원 상세 조회 완료")
 
-      res.status(200).send(user);
+      // res.status(200).send(user);
+      res.status(200).json({
+        message: "회원 조회 성공",
+        data: user,
+      });
     } catch (error) {
-      next(error);
+      // next(error);
+      res.status(404).json({ message: "회원 조회 실패" });
     }
   }
 
@@ -96,11 +106,16 @@ export default class UsersController {
       // res.send(user);
       const user = await this._userService.updateUser(req.params.userId, req.body);
 
-      console.log("회원 수정 완료")
+      // console.log("회원 수정 완료")
 
-      res.status(200).send(user);
+      // res.status(200).send(user);
+      res.status(200).json({
+        message: "회원 수정 성공",
+        data: user,
+      });
     } catch (error) {
-      next(error);
+      // next(error);
+      res.status(409).json({ message: "회원 수정 실패" });
     }
   }
 }
