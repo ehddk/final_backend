@@ -6,15 +6,6 @@ const orderItemSchema = new mongoose.Schema<IOrderItem>({
     ref: "Product",
     required: true,
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  orderId: {
-    type: String,
-    required: true,
-  },
   quantity: {
     type: Number,
     required: true,
@@ -27,6 +18,18 @@ const orderItemSchema = new mongoose.Schema<IOrderItem>({
   },
   orderItemStatus: {
     type: String,
+    enum: [
+      "PAYMENT_PENDING",
+      "PAYMENT_COMPLETED",
+      "PREPARING_FOR_SHIPPING",
+      "SHIPPING",
+      "SHIPPED",
+      "ORDER_CANCELED",
+      "REFUND_REQUESTED",
+      "REFUNDED",
+      "EXCHANGE_REQUESTED",
+      "EXCHANGED",
+    ],
     required: true,
   },
 });

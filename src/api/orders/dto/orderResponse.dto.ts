@@ -49,6 +49,7 @@ export class OrderResponseDTO {
       (this.orderStatus = params.orderStatus); // 주문 상태
     this.orderItem = params.orderItem
       ? params.orderItem.map((item: IOrderItem) => ({
+          id: item.id,
           product: {
             id: item.product.id,
             productName: item.product.productName,

@@ -52,8 +52,8 @@ interface IOrderResponseDTO {
   userId: string;
   /** 주문 회원정보 */
   userInfo: {
-      firstName: string;
-      phoneNum: string;
+    firstName: string;
+    phoneNum: string;
   };
   deliveryAddress: string;
   /** 배송요청사항 */

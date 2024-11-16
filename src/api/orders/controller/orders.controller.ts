@@ -85,6 +85,7 @@ export default class OrdersController {
         deliveryAddress,
         deliveryRequest,
         paymentMethod,
+        orderItem,
         totalProductPrice,
         shippingFee,
         totalPaymentAmount,

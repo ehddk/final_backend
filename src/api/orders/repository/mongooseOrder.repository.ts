@@ -43,7 +43,7 @@ export class MongooseOrderRepository implements OrderRepository {
   async save(order: Omit<IOrder, "id">): Promise<IOrder> {
     const newOrder = new MongooseOrder({
       ...order,
-      userInfo: order.userInfo
+      userInfo: order.userInfo,
     });
 
     await newOrder.save();
@@ -74,7 +74,7 @@ export class MongooseOrderRepository implements OrderRepository {
       orderId,
       updateOrderInfo,
       { new: true }
-    ).populate("cartItem");
+    ).populate("orderItem");
 
     if (!updatedOrder) {
       throw new HttpException(404, "주문을 찾을 수 없습니다.");

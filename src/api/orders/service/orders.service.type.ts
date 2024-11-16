@@ -7,7 +7,9 @@ export interface OrdersService {
     order: Omit<
       IOrder,
       "id" | "userId" | "userInfo" | "createdAt" | "orderItem"
-    >
+    > & {
+      orderItem: Omit<IOrderItem, "id">[];
+    }
   ): Promise<OrderResponseDTO>;
   /** 주문 목록 조회 */
   getOrders({ limit, offset }: { limit?: number; offset?: number }): Promise<{
@@ -21,7 +23,11 @@ export interface OrdersService {
   /** 주문 수정 */
   updateOrder(
     orderId: string,
-    updatedOrder: Partial<Pick<IOrder, "deliveryRequest" | "orderStatus">>
+    params: Partial<
+      Pick<IOrder, "deliveryRequest" | "orderStatus"> & {
+        orderItem: Omit<IOrderItem, "id">[];
+      }
+    >
   ): Promise<void>;
   /** 주문 삭제 */
   deleteOrder(orderId: string): Promise<void>;

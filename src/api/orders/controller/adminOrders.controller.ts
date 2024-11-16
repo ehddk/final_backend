@@ -93,6 +93,7 @@ export default class AdminOrdersController {
           deliveryAddress,
           deliveryRequest,
           paymentMethod,
+          orderItem,
           totalProductPrice,
           shippingFee,
           totalPaymentAmount,

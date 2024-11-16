@@ -1,29 +1,19 @@
 import HttpException from "@/api/common/exceptions/http.exception";
-import { MongooseOrderItem } from "@/api/orderItems/model/orderItem.schema";
-import { OrderItemRepository } from "@/api/orderItems/repository/orderItem.repository";
+import { MongooseOrderItem } from "@/api/orders/model/orderItem.schema";
+import { OrderItemRepository } from "@/api/orders/repository/orderItem.repository";
 import { MongooseOrder } from "@/api/orders/model/order.schema";
 import { MongooseProduct } from "@/api/products/model/product.schema";
 
 export class MongooseOrderItemRepository implements OrderItemRepository {
-  async save(
-    orderId: string,
-    orderItem: Omit<IOrderItem, "id">
-  ): Promise<IOrderItem> {
-    // Order를 찾아 유효성 검증
-    const order = await MongooseOrder.findById(orderId);
-    if (!order) {
-      throw new Error(`Order with id ${orderId} not found`);
-    }
-
-    const productId = orderItem.product.id || orderItem.product;
+  async save(orderItem: Omit<IOrderItem, "id">): Promise<IOrderItem> {
+    const productId = orderItem.product.id;
     const product = await MongooseProduct.findById(productId);
     if (!product) {
-      throw new Error(`Cart with id ${productId} not found`);
+      throw new Error(`Order with id ${productId} not found`);
     }
 
     const newOrderItem = new MongooseOrderItem({
       ...orderItem,
-      orderId: order._id,
       product: product,
     });
 
@@ -32,24 +22,23 @@ export class MongooseOrderItemRepository implements OrderItemRepository {
     return newOrderItem;
   }
   async findAll(): Promise<IOrderItem[]> {
-    
     return await MongooseOrderItem.find().populate("product");
   }
   async findById(id: string): Promise<IOrderItem | null> {
     try {
-    const orderItem = await MongooseOrderItem.findById(id)
-    .populate({ path: "product" })
-    .exec();
-    return orderItem;
-  } catch (error: any) {
-    const message = error.message.toString();
-    if (message.includes("Cast to ObjectId failed")) {
-      return null;
-    }
+      const orderItem = await MongooseOrderItem.findById(id)
+        .populate({ path: "product" })
+        .exec();
+      return orderItem;
+    } catch (error: any) {
+      const message = error.message.toString();
+      if (message.includes("Cast to ObjectId failed")) {
+        return null;
+      }
 
-    throw error;
+      throw error;
+    }
   }
-}
   async update(
     orderItemId: string,
     updateOrderItemInfo: Partial<IOrderItem>
