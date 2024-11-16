@@ -16,8 +16,6 @@ import { authUserMiddleware } from "./api/common/middlewares/authUser.middleware
 import cartRouter from "./api/carts/router/carts.router";
 import orderRouter from "./api/orders/router/orders.router";
 import adminOrderRouter from "./api/orders/router/adminOrder.router";
-import orderItemRouter from "./api/orderItems/router/orderItems.router";
-import adminOrderItemRouter from "./api/orderItems/router/adminOrderItem.router";
 import cartItemRouter from "./api/cartItems/router/cartItems.router";
 import adminCartItemRouter from "./api/cartItems/router/adminCartItem.router";
 import userRouter from "./api/users/router/users.router";
@@ -51,10 +49,6 @@ app.use(ROUTES_INDEX.ADMIN_USERS_API, adminUsersRouter);
 /** -------- products ---------  */
  app.use(ROUTES_INDEX.PRODUCTS_API, productRouter);
  app.use(ROUTES_INDEX.ADMIN_PRODUCTS_API, adminProductRouter);
-
-/** -------- orderitems ---------  */
- app.use(ROUTES_INDEX.ORDER_ITEMS_API, orderItemRouter);
- app.use(ROUTES_INDEX.ADMIN_ORDER_ITEMS_API, adminOrderItemRouter);
 
 
 /**------ deliveries --------  */
