@@ -23,10 +23,9 @@ type OrderStatus =
 interface IOrder {
   /** 주문 ID */
   id: string;
+  userId: string;
   /** 주문 회원 정보  */
-  user: IUser;
-  firstName: string;
-  phoneNum: string;
+  userInfo: IProfile;
   /** 배송지 */
   deliveryAddress: string;
   /** 배송요청사항 */
@@ -50,13 +49,12 @@ interface IOrder {
 interface IOrderResponseDTO {
   /** 주문 ID */
   orderId: string;
-
+  userId: string;
   /** 주문 회원정보 */
-  user: {
-    id: string;
+  userInfo: {
+    firstName: string;
+    phoneNum: string;
   };
-  firstName: string;
-  phoneNum: string;
   deliveryAddress: string;
   /** 배송요청사항 */
   deliveryRequest?: string;

@@ -4,9 +4,11 @@ import { MongooseOrder } from "@/api/orders/model/order.schema";
 
 export class MongooseOrderRepository implements OrderRepository {
   async findAllWithPagination({
+    userId,
     offset,
     limit,
   }: {
+    userId: string;
     offset: number;
     limit: number;
   }): Promise<{
@@ -19,12 +21,21 @@ export class MongooseOrderRepository implements OrderRepository {
     const limitValue = Number(limit) || 10;
 
     // 주문 목록 조회 및 페이지네이션 적용
-    const list = await MongooseOrder.find()
+    const list = await MongooseOrder.find({ userId })
       .limit(limitValue)
       .skip(offsetValue)
+      .populate({
+        path: "orderItem",
+        populate: {
+          path: "product",
+        },
+      })
+      .populate("userInfo")
       .sort({ createdAt: -1 });
 
-    const totalCount = await MongooseOrder.find().countDocuments();
+    console.log("list:", list);
+
+    const totalCount = await MongooseOrder.find({ userId }).countDocuments();
 
     return {
       totalCount,
@@ -43,6 +54,7 @@ export class MongooseOrderRepository implements OrderRepository {
   async save(order: Omit<IOrder, "id">): Promise<IOrder> {
     const newOrder = new MongooseOrder({
       ...order,
+      userInfo: order.userInfo,
     });
 
     await newOrder.save();
@@ -50,14 +62,28 @@ export class MongooseOrderRepository implements OrderRepository {
     return newOrder;
   }
 
-  async findAll(): Promise<IOrder[]> {
-    const orders = await MongooseOrder.find();
+  async findAll(userId: string): Promise<IOrder[]> {
+    const orders = await MongooseOrder.find({ userId })
+      .populate({
+        path: "orderItem",
+        populate: {
+          path: "product", // orderItem 안의 product를 populate
+        },
+      })
+      .populate("userInfo");
+    console.log("orders:", orders);
     return orders;
   }
 
   async findById(orderId: string): Promise<IOrder | null> {
-    const order = await MongooseOrder.findById(orderId);
-
+    const order = await MongooseOrder.findById(orderId)
+      .populate({
+        path: "orderItem",
+        populate: {
+          path: "product", // orderItem 안의 product를 populate
+        },
+      })
+      .populate("userInfo");
     if (!order) {
       throw new HttpException(404, "주문을 찾을 수 없습니다.");
     }
@@ -73,7 +99,14 @@ export class MongooseOrderRepository implements OrderRepository {
       orderId,
       updateOrderInfo,
       { new: true }
-    );
+    )
+      .populate({
+        path: "orderItem",
+        populate: {
+          path: "product", // orderItem 안의 product를 populate
+        },
+      })
+      .populate("userInfo");
 
     if (!updatedOrder) {
       throw new HttpException(404, "주문을 찾을 수 없습니다.");
@@ -83,10 +116,8 @@ export class MongooseOrderRepository implements OrderRepository {
   }
 
   async delete(orderId: string): Promise<void> {
-    const result = await MongooseOrder.deleteOne({ _id: orderId });
+    await MongooseOrder.deleteOne({ _id: orderId });
 
-    if (result.deletedCount === 0) {
-      throw new HttpException(404, "주문을 찾을 수 없습니다.");
-    }
+    return;
   }
 }

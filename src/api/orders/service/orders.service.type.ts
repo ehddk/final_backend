@@ -4,10 +4,15 @@ export interface OrdersService {
   /** 주문 생성 */
   createOrder(
     userId: string,
-    order: Omit<IOrder, "id" | "user" | "createdAt" | "orderItem" |"firstName" | "phoneNum"> 
+    order: Omit<
+      IOrder,
+      "id" | "userId" | "userInfo" | "createdAt" | "orderItem"
+    > & {
+      orderItem: Omit<IOrderItem, "id">[];
+    }
   ): Promise<OrderResponseDTO>;
   /** 주문 목록 조회 */
-  getOrders({ limit, offset }: { limit?: number; offset?: number }): Promise<{
+  getOrders({ userId, limit, offset }: { userId: string; limit?: number; offset?: number }): Promise<{
     totalCount: number;
     prev: string | null;
     results: OrderResponseDTO[];
@@ -18,7 +23,11 @@ export interface OrdersService {
   /** 주문 수정 */
   updateOrder(
     orderId: string,
-    updatedOrder: Partial<Pick<IOrder, "deliveryRequest" | "orderStatus">>
+    params: Partial<
+      Pick<IOrder, "deliveryRequest" | "orderStatus"> & {
+        orderItem: Omit<IOrderItem, "id">[];
+      }
+    >
   ): Promise<void>;
   /** 주문 삭제 */
   deleteOrder(orderId: string): Promise<void>;
