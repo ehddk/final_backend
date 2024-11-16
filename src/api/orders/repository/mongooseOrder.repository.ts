@@ -52,13 +52,22 @@ export class MongooseOrderRepository implements OrderRepository {
   }
 
   async findAll(): Promise<IOrder[]> {
-    const orders = await MongooseOrder.find().populate("orderItem");
+    const orders = await MongooseOrder.find().populate({
+      path: "orderItem",
+      populate: {
+        path: "product", // orderItem 안의 product를 populate
+      },
+    });
     return orders;
   }
 
   async findById(orderId: string): Promise<IOrder | null> {
-    const order = await MongooseOrder.findById(orderId).populate("orderItem");
-
+    const order = await MongooseOrder.findById(orderId).populate({
+      path: "orderItem",
+      populate: {
+        path: "product", // orderItem 안의 product를 populate
+      },
+    });
     if (!order) {
       throw new HttpException(404, "주문을 찾을 수 없습니다.");
     }
@@ -74,7 +83,12 @@ export class MongooseOrderRepository implements OrderRepository {
       orderId,
       updateOrderInfo,
       { new: true }
-    ).populate("orderItem");
+    ).populate({
+      path: "orderItem",
+      populate: {
+        path: "product", // orderItem 안의 product를 populate
+      },
+    });
 
     if (!updatedOrder) {
       throw new HttpException(404, "주문을 찾을 수 없습니다.");
