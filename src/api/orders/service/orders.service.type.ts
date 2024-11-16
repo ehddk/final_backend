@@ -12,7 +12,7 @@ export interface OrdersService {
     }
   ): Promise<OrderResponseDTO>;
   /** 주문 목록 조회 */
-  getOrders({ limit, offset }: { limit?: number; offset?: number }): Promise<{
+  getOrders({ userId, limit, offset }: { userId: string; limit?: number; offset?: number }): Promise<{
     totalCount: number;
     prev: string | null;
     results: OrderResponseDTO[];

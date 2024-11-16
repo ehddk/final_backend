@@ -4,9 +4,11 @@ import { MongooseOrder } from "@/api/orders/model/order.schema";
 
 export class MongooseOrderRepository implements OrderRepository {
   async findAllWithPagination({
+    userId,
     offset,
     limit,
   }: {
+    userId: string;
     offset: number;
     limit: number;
   }): Promise<{
@@ -19,7 +21,7 @@ export class MongooseOrderRepository implements OrderRepository {
     const limitValue = Number(limit) || 10;
 
     // 주문 목록 조회 및 페이지네이션 적용
-    const list = await MongooseOrder.find()
+    const list = await MongooseOrder.find({ userId })
       .limit(limitValue)
       .skip(offsetValue)
       .populate({
@@ -33,7 +35,7 @@ export class MongooseOrderRepository implements OrderRepository {
 
     console.log("list:", list);
 
-    const totalCount = await MongooseOrder.find().countDocuments();
+    const totalCount = await MongooseOrder.find({ userId }).countDocuments();
 
     return {
       totalCount,
@@ -60,8 +62,8 @@ export class MongooseOrderRepository implements OrderRepository {
     return newOrder;
   }
 
-  async findAll(): Promise<IOrder[]> {
-    const orders = await MongooseOrder.find()
+  async findAll(userId: string): Promise<IOrder[]> {
+    const orders = await MongooseOrder.find({ userId })
       .populate({
         path: "orderItem",
         populate: {

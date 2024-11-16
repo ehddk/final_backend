@@ -32,8 +32,10 @@ export default class AdminOrdersController {
     res: Response,
     next: NextFunction
   ) {
+    const userId = req.user.userId;
     try {
       const orders = await this._ordersService.getOrders({
+        userId,
         limit: req.query.limit,
         offset: req.query.offset,
       });

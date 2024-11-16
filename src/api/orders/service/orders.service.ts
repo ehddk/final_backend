@@ -78,9 +78,11 @@ export class OrdersServiceImpl implements OrdersService {
 
   /** 주문 목록 조회 */
   async getOrders({
+    userId, 
     limit,
     offset,
   }: {
+    userId: string;
     limit?: number;
     offset?: number;
   }): Promise<{
@@ -90,6 +92,7 @@ export class OrdersServiceImpl implements OrdersService {
     next: string | null;
   }> {
     const orders = await this._orderRepository.findAllWithPagination({
+      userId,
       limit,
       offset,
     });

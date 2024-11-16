@@ -4,9 +4,11 @@ export interface OrderRepository {
 
   /** 페이지네이션 목록 조회 */
   findAllWithPagination({
+    userId,
     limit,
     offset,
   }: {
+    userId: string;
     limit?: number;
     offset?: number;
   }): Promise<{
@@ -17,7 +19,7 @@ export interface OrderRepository {
   }>;
 
   /** 주문 목록 조회 */
-  findAll(): Promise<IOrder[]>;
+  findAll(userId: string): Promise<IOrder[]>;
 
   /** ID로 주문 조회 */
   findById(orderId: string): Promise<IOrder | null>;

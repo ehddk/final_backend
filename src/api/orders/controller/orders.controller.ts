@@ -26,8 +26,11 @@ export default class OrdersController {
   ) {
     const { limit, offset } = req.query;
 
+    const userId = req.user.userId;
+
     try {
       const orders = await this._ordersService.getOrders({
+        userId,
         limit,
         offset,
       });
