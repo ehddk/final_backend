@@ -28,6 +28,10 @@ export class UsersServiceImpl implements UserService {
         profile,
         cart,
       });
+
+      await this._cartRepository.update(cart.id, {
+        userId: user.id, // userId 연결
+      });
       return new UserResponseDTO(user);
     }catch(error){ 
       await session.abortTransaction(); //실패시 모두 rollback
