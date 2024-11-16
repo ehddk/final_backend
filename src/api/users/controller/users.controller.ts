@@ -30,11 +30,6 @@ export default class UsersController {
           firstName: req.body.profile.firstName,
         },
       });
-
-      // console.log(user);
-      // console.log("회원 생성 성공");
-
-      // res.send(user);
       res.status(200).json({
         message: "회원 생성 성공",
         data: user,
@@ -57,12 +52,6 @@ export default class UsersController {
     res: Response,
     next: NextFunction
   ) {
-    // const user = await this._userService.getUser(req.user.userId);
-
-    // console.log(req.user);
-    // console.log("회원 상세 조회 완료");
-
-    // res.send(user);
     try {
       const { userId } = req.params;
 
