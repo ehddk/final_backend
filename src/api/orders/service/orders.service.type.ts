@@ -4,7 +4,10 @@ export interface OrdersService {
   /** 주문 생성 */
   createOrder(
     userId: string,
-    order: Omit<IOrder, "id" | "user" | "createdAt" | "orderItem" |"firstName" | "phoneNum"> 
+    order: Omit<
+      IOrder,
+      "id" | "userId" | "userInfo" | "createdAt" | "orderItem"
+    >
   ): Promise<OrderResponseDTO>;
   /** 주문 목록 조회 */
   getOrders({ limit, offset }: { limit?: number; offset?: number }): Promise<{

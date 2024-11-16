@@ -2,17 +2,16 @@ import mongoose from "@/vendors/mongoose";
 
 const orderSchema = new mongoose.Schema<IOrder>(
   {
-    user: {
+    userId: {
+      type: String,
+    },
+
+    userInfo: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Profile",
       required: true,
     },
-    firstName: {
-      type: String,
-    },
-    phoneNum: {
-      type: String,
-    },
+
     deliveryAddress: {
       type: String,
       required: true,

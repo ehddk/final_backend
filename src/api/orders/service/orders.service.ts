@@ -19,19 +19,19 @@ export class OrdersServiceImpl implements OrdersService {
   /** 주문 생성 */
   async createOrder(
     userId: string,
-    order: Omit<IOrder, "id" | "orderItem">
+    order: Omit<IOrder, "id" | "userInfo" | "orderItem">
   ): Promise<OrderResponseDTO> {
     const user = await this._userRepository.findById(userId);
 
     if (!user) {
       throw new HttpException(404, "작성자를 찾을 수 없습니다.");
     }
+    const userInfo: IProfile = user.profile;
 
     const newOrder: IOrder = {
       id: "", // MongoDB에서 자동 생성될 ID로 대체
-      user,
-      firstName: order.firstName,
-      phoneNum: order.phoneNum,
+      userId: user.id,
+      userInfo,
       deliveryAddress: order.deliveryAddress,
       deliveryRequest: order.deliveryRequest,
       createdAt: new Date(),
@@ -99,9 +99,9 @@ export class OrdersServiceImpl implements OrdersService {
     orderId: string,
     updatedOrder: Partial<Pick<IOrder, "deliveryRequest" | "orderStatus">>
   ): Promise<void> {
-    const existingOrder = await this._orderRepository.findById(orderId);
+    const findOrder = await this._orderRepository.findById(orderId);
 
-    if (!existingOrder) {
+    if (!findOrder) {
       throw new HttpException(404, "수정할 주문을 찾을 수 없습니다.");
     }
 
@@ -110,9 +110,9 @@ export class OrdersServiceImpl implements OrdersService {
 
   /** 주문 삭제 */
   async deleteOrder(orderId: string): Promise<void> {
-    const existingOrder = await this._orderRepository.findById(orderId);
+    const findOrder = await this._orderRepository.findById(orderId);
 
-    if (!existingOrder) {
+    if (!findOrder) {
       throw new HttpException(404, "삭제할 주문을 찾을 수 없습니다.");
     }
 

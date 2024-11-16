@@ -43,6 +43,7 @@ export class MongooseOrderRepository implements OrderRepository {
   async save(order: Omit<IOrder, "id">): Promise<IOrder> {
     const newOrder = new MongooseOrder({
       ...order,
+      userInfo: order.userInfo
     });
 
     await newOrder.save();
@@ -51,12 +52,12 @@ export class MongooseOrderRepository implements OrderRepository {
   }
 
   async findAll(): Promise<IOrder[]> {
-    const orders = await MongooseOrder.find();
+    const orders = await MongooseOrder.find().populate("orderItem");
     return orders;
   }
 
   async findById(orderId: string): Promise<IOrder | null> {
-    const order = await MongooseOrder.findById(orderId);
+    const order = await MongooseOrder.findById(orderId).populate("orderItem");
 
     if (!order) {
       throw new HttpException(404, "주문을 찾을 수 없습니다.");
@@ -73,7 +74,7 @@ export class MongooseOrderRepository implements OrderRepository {
       orderId,
       updateOrderInfo,
       { new: true }
-    );
+    ).populate("cartItem");
 
     if (!updatedOrder) {
       throw new HttpException(404, "주문을 찾을 수 없습니다.");
@@ -83,10 +84,8 @@ export class MongooseOrderRepository implements OrderRepository {
   }
 
   async delete(orderId: string): Promise<void> {
-    const result = await MongooseOrder.deleteOne({ _id: orderId });
+    await MongooseOrder.deleteOne({ _id: orderId });
 
-    if (result.deletedCount === 0) {
-      throw new HttpException(404, "주문을 찾을 수 없습니다.");
-    }
+    return;
   }
 }
