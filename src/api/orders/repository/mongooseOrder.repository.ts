@@ -22,7 +22,16 @@ export class MongooseOrderRepository implements OrderRepository {
     const list = await MongooseOrder.find()
       .limit(limitValue)
       .skip(offsetValue)
+      .populate({
+        path: "orderItem",
+        populate: {
+          path: "product",
+        },
+      })
+      .populate("userInfo")
       .sort({ createdAt: -1 });
+
+    console.log("list:", list);
 
     const totalCount = await MongooseOrder.find().countDocuments();
 
@@ -52,22 +61,27 @@ export class MongooseOrderRepository implements OrderRepository {
   }
 
   async findAll(): Promise<IOrder[]> {
-    const orders = await MongooseOrder.find().populate({
-      path: "orderItem",
-      populate: {
-        path: "product", // orderItem 안의 product를 populate
-      },
-    });
+    const orders = await MongooseOrder.find()
+      .populate({
+        path: "orderItem",
+        populate: {
+          path: "product", // orderItem 안의 product를 populate
+        },
+      })
+      .populate("userInfo");
+    console.log("orders:", orders);
     return orders;
   }
 
   async findById(orderId: string): Promise<IOrder | null> {
-    const order = await MongooseOrder.findById(orderId).populate({
-      path: "orderItem",
-      populate: {
-        path: "product", // orderItem 안의 product를 populate
-      },
-    });
+    const order = await MongooseOrder.findById(orderId)
+      .populate({
+        path: "orderItem",
+        populate: {
+          path: "product", // orderItem 안의 product를 populate
+        },
+      })
+      .populate("userInfo");
     if (!order) {
       throw new HttpException(404, "주문을 찾을 수 없습니다.");
     }
@@ -83,12 +97,14 @@ export class MongooseOrderRepository implements OrderRepository {
       orderId,
       updateOrderInfo,
       { new: true }
-    ).populate({
-      path: "orderItem",
-      populate: {
-        path: "product", // orderItem 안의 product를 populate
-      },
-    });
+    )
+      .populate({
+        path: "orderItem",
+        populate: {
+          path: "product", // orderItem 안의 product를 populate
+        },
+      })
+      .populate("userInfo");
 
     if (!updatedOrder) {
       throw new HttpException(404, "주문을 찾을 수 없습니다.");
