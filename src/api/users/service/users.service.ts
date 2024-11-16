@@ -18,9 +18,21 @@ export class UsersServiceImpl implements UserService {
   async createUser(params: Omit<IUser, "userId">): Promise<UserResponseDTO> {
     // 트랙잭션으로 중복 막기
     // 모두 성공적으로 처리되거나 혹은 그렇지 못했을 경우 롤백.
-    const session = await mongoose.startSession();
-    session.startTransaction(); //트렌젝션을 시작.
+
     try{
+      const existingUserByEmail = await this._userRepository.findByEmail(params.email);
+      console.log('이미 있다',existingUserByEmail)
+      if (existingUserByEmail) {
+        throw new HttpException(409, "이미 존재하는 이메일입니다.");
+      }
+       // 2. 로그인 ID 중복 체크도 필요하다면
+    const existingUserById = await this._userRepository.findByLoginId(params.loginId);
+    if (existingUserById) {
+      throw new HttpException(409, "이미 존재하는 아이디입니다.");
+    }
+
+    
+      
       const profile = await this._profileRepository.save(params.profile);
       const cart = await this._cartRepository.save(params.cart);
       const user = await this._userRepository.save({
@@ -34,16 +46,12 @@ export class UsersServiceImpl implements UserService {
       });
       return new UserResponseDTO(user);
     }catch(error){ 
-      await session.abortTransaction(); //실패시 모두 rollback
       throw error;
-    }finally{ //종료
-      session.endSession();
     }
   }
-
   async getUsers(): Promise<GetUsersResponseDTO[]> {
     const users = await this._userRepository.findAll();
-    console.log("유저 찾기", users);
+   // console.log("유저 찾기", users);
     const newList = await Promise.all(
       users.map((user) => new GetUsersResponseDTO(user))
     );
