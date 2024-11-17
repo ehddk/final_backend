@@ -11,6 +11,7 @@ export default class UsersController {
     this.signUp = this.signUp.bind(this);
     this.getMyInfo = this.getMyInfo.bind(this);
     this.updateMyInfo = this.updateMyInfo.bind(this);
+    this.logout=this.logout.bind(this)
   }
 
   /** 회원가입 (사용자페이지) */
@@ -107,4 +108,21 @@ export default class UsersController {
       res.status(409).json({ message: "회원 수정 실패" });
     }
   }
+  /**로그아웃 */
+  async logout(req:Request<
+      logoutRequest["path"],
+      logoutResponse,
+      logoutRequest["params"],
+      logoutRequest["body"]
+      >,
+      res:Response,
+      next:NextFunction){
+        try{
+          res.clearCookie('accessToken',{path:'/'})
+          res.status(200).send('로그아웃 성공')
+         // res.redirect('/')
+        }catch(error){
+          next(error)
+        }
+      }
 }

@@ -49,3 +49,14 @@ type updateMyInfoRequest = {
 }
 
 type updateMyInfoResponse = void;
+
+/**로그아웃 */
+type logoutRequestPath={};
+type logoutRequestParams={};
+type logoutRequestBody={};
+type logoutRequest={
+  path?:logoutRequestPath,
+  params?:logoutRequestParams,
+  body?:logoutRequestBody
+};
+type logoutResponse=void;
