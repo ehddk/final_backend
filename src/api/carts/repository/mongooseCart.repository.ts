@@ -11,14 +11,24 @@ export class MongooseCartRepository implements CartRepository {
   }
 
   async findAll(): Promise<ICart[]> {
-    const values = await MongooseCart.find().populate("cartItem");
+    const values = await MongooseCart.find().populate({
+      path: "cartItem",
+      populate: {
+        path: "product",
+      },
+    });
     return values;
   }
 
   /** ID로 장바구니 조회 */
   async findById(id: string): Promise<ICart | null> {
     try {
-      const findCart = await MongooseCart.findById(id).populate("cartItem");
+      const findCart = await MongooseCart.findById(id).populate({
+        path: "cartItem",
+        populate: {
+          path: "product",
+        },
+      });
 
       return findCart;
     } catch (error: any) {
@@ -34,9 +44,12 @@ export class MongooseCartRepository implements CartRepository {
   /** userId로 장바구니 조회 */
   async findOneByUserId(userId: string): Promise<ICart | null> {
     try {
-      const findCart = await MongooseCart.findOne({ userId }).populate(
-        "cartItem"
-      );
+      const findCart = await MongooseCart.findOne({ userId }).populate({
+        path: "cartItem",
+        populate: {
+          path: "product",
+        },
+      });
 
       return findCart;
     } catch (error: any) {
@@ -54,7 +67,12 @@ export class MongooseCartRepository implements CartRepository {
     await MongooseCart.findByIdAndUpdate(cartId, {
       ...updateCartInfo,
       cartItem: updateCartInfo.cartItem || undefined, // 예약 목록 업데이트
-    }).populate("cartItem");
+    }).populate({
+      path: "cartItem",
+      populate: {
+        path: "product",
+      },
+    });
 
     return;
   }
