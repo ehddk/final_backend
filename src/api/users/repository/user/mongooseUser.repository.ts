@@ -20,7 +20,7 @@ export class MongooseUserRepository implements UserRepository {
       })
       .populate('cart')
       .exec();
-    console.log("values", values);
+   // console.log("values", values);
     return values;
   }
 

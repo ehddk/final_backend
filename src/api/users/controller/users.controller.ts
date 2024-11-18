@@ -11,6 +11,7 @@ export default class UsersController {
     this.signUp = this.signUp.bind(this);
     this.getMyInfo = this.getMyInfo.bind(this);
     this.updateMyInfo = this.updateMyInfo.bind(this);
+    this.logout=this.logout.bind(this)
   }
 
   /** 회원가입 (사용자페이지) */
@@ -30,11 +31,6 @@ export default class UsersController {
           firstName: req.body.profile.firstName,
         },
       });
-
-      // console.log(user);
-      // console.log("회원 생성 성공");
-
-      // res.send(user);
       res.status(200).json({
         message: "회원 생성 성공",
         data: user,
@@ -57,12 +53,6 @@ export default class UsersController {
     res: Response,
     next: NextFunction
   ) {
-    // const user = await this._userService.getUser(req.user.userId);
-
-    // console.log(req.user);
-    // console.log("회원 상세 조회 완료");
-
-    // res.send(user);
     try {
       const { userId } = req.params;
 
@@ -118,4 +108,21 @@ export default class UsersController {
       res.status(409).json({ message: "회원 수정 실패" });
     }
   }
+  /**로그아웃 */
+  async logout(req:Request<
+      logoutRequest["path"],
+      logoutResponse,
+      logoutRequest["params"],
+      logoutRequest["body"]
+      >,
+      res:Response,
+      next:NextFunction){
+        try{
+          res.clearCookie('accessToken',{path:'/'})
+          res.status(200).send('로그아웃 성공')
+         // res.redirect('/')
+        }catch(error){
+          next(error)
+        }
+      }
 }
