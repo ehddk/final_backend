@@ -16,10 +16,11 @@ const productSchema = new mongoose.Schema<IProduct>(
         required:true,
     },
 
-    rdate:{ 
-        type:Date,
-        required:true,
-    },
+    // rdate:{ 
+    //     type:Date,
+    //     required:true,
+    //     default:()=> new Date()
+    // },
     //대표 이미지
     thumbnail:{
         type:String,
@@ -37,6 +38,7 @@ const productSchema = new mongoose.Schema<IProduct>(
     } ,
     seller:{
         type:String,
+        default:'컬리'
     } ,
     description:{
         type:String,
@@ -51,8 +53,12 @@ const productSchema = new mongoose.Schema<IProduct>(
     },
     category:{
         type:String 
+    },
+    },
+    {
+        timestamps:true
     }
-}
+
 )
 
 export const MongooseProduct = mongoose.model<IProduct>("Product",productSchema)

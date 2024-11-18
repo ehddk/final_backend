@@ -58,3 +58,7 @@ adminProductRouter.put(
     validate(adminUpdateProductValidator),
     adminProductController.updateProduct
 )
+adminProductRouter.post(
+    extractPath(ADMIN_PRODUCT_ROUTES.CREATE_DUMMY, ROUTES_INDEX.ADMIN_PRODUCTS_API),
+    adminProductController.createDummy
+  );
