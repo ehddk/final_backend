@@ -9,6 +9,7 @@ export class User implements IUser {
   profile: IProfile;
   cart: ICart;
   orders?: IOrder[];
+  inquiries?: IInquiry[];
 
   constructor(params: IUser) {
     this.id = params.id;
@@ -21,5 +22,6 @@ export class User implements IUser {
     this.profile = params.profile;
     this.cart = params.cart;
     this.orders = params.orders;
+    this.inquiries = params.inquiries;
   }
 }
