@@ -44,11 +44,20 @@ const CART_ITEM_ROUTES = {
   ADMIN_CART_ITEMS_API: "/admin-api/cartItems",
 } as const;
 
+/**  1:1문의 라우터 */
+const INQUIRY_ROUTES = {
+  /** 1:1문의 API */
+  INQUIRIES_API: "/api/inquiries",
+  /** 1:1문의 API */
+  ADMIN_INQUIRIES_API: "/admin-api/inquiries",
+} as const;
+
 /**배송지 라우터 */
 const DELIVERY_ROUTES = {
   DELIVERY_API: "/api/deliveries",
 };
 export const ROUTES_INDEX = {
+  ...INQUIRY_ROUTES,
   ...CART_ITEM_ROUTES,
   ...CART_ROUTES,
   ...ORDER_ROUTES,

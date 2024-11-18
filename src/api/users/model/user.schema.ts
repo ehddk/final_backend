@@ -38,7 +38,20 @@ const userSchema = new mongoose.Schema<IUser>(
       // required: true,
       ref: "Cart",
     },
-    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order", strictPopulate: false}],
+    orders: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Order",
+        strictPopulate: false,
+      },
+    ],
+    inquiries: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Inquiry",
+        strictPopulate: false,
+      },
+    ],
   },
   {
     timestamps: {

@@ -23,7 +23,8 @@ import adminUsersRouter from "./api/users/router/adminUsers.router";
 import { productRouter } from "./api/products/router/products.router";
 import { adminProductRouter } from "./api/products/router/adminProduct.router";
 import { deliveryRouter } from "./api/deliveries/router/delivery.router";
-
+import inquiryRouter from "./api/inquiries/router/inquiry.router";
+import adminInquiryRouter from "./api/inquiries/router/adminInquiry.router";
 
 const app = express();
 
@@ -43,21 +44,23 @@ app.use(ROUTES_INDEX.USERS_API, userRouter);
 app.use(ROUTES_INDEX.ADMIN_USERS_API, adminUsersRouter);
 
 /** -------- orders ---------  */
- app.use(ROUTES_INDEX.ORDERS_API, orderRouter);
- app.use(ROUTES_INDEX.ADMIN_ORDERS_API, adminOrderRouter);
+app.use(ROUTES_INDEX.ORDERS_API, orderRouter);
+app.use(ROUTES_INDEX.ADMIN_ORDERS_API, adminOrderRouter);
 
 /** -------- products ---------  */
- app.use(ROUTES_INDEX.PRODUCTS_API, productRouter);
- app.use(ROUTES_INDEX.ADMIN_PRODUCTS_API, adminProductRouter);
-
+app.use(ROUTES_INDEX.PRODUCTS_API, productRouter);
+app.use(ROUTES_INDEX.ADMIN_PRODUCTS_API, adminProductRouter);
 
 /**------ deliveries --------  */
-app.use(ROUTES_INDEX.DELIVERY_API,deliveryRouter)
+app.use(ROUTES_INDEX.DELIVERY_API, deliveryRouter);
 
 /** -------- cartitems ---------  */
 app.use(ROUTES_INDEX.CART_ITEMS_API, cartItemRouter);
 app.use(ROUTES_INDEX.ADMIN_CART_ITEMS_API, adminCartItemRouter);
 
+/** -------- 1:1문의 ---------  */
+app.use(ROUTES_INDEX.INQUIRIES_API, inquiryRouter);
+app.use(ROUTES_INDEX.ADMIN_INQUIRIES_API, adminInquiryRouter);
 
 /** -------- carts ---------  */
 app.use(ROUTES_INDEX.CARTS_API, cartRouter);
