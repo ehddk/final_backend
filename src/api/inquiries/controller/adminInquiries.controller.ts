@@ -23,8 +23,11 @@ export default class AdminInquiriesController {
     res: Response,
     next: NextFunction
   ) {
+    const userId = req.user.userId;
     try {
+
       const inquiries = await this._inquiriesService.getInquiries({
+        userId,
         limit: req.query.limit,
         offset: req.query.offset,
       });
