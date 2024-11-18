@@ -4,9 +4,11 @@ import { InquiryRepository } from "@/api/inquiries/repository/inquiry.repository
 
 export class MongooseInquiryRepository implements InquiryRepository {
   async findAllWithPagination({
+    userId,
     offset,
     limit,
   }: {
+    userId: string;
     offset: number;
     limit: number;
   }): Promise<{
@@ -18,7 +20,7 @@ export class MongooseInquiryRepository implements InquiryRepository {
     const offsetValue = Number(offset) || 0;
     const limitValue = Number(limit) || 10;
     // throw new Error("Method not implemented.");
-    const list = await MongooseInquiry.find()
+    const list = await MongooseInquiry.find({"author": userId})
       .limit(limitValue)
       .skip(offsetValue)
       .populate({
@@ -29,7 +31,7 @@ export class MongooseInquiryRepository implements InquiryRepository {
       })
       .sort({ createdAt: -1 });
 
-    const totalCount = await MongooseInquiry.find().countDocuments();
+    const totalCount = await MongooseInquiry.find({"author": userId}).countDocuments();
 
     return {
       totalCount,
@@ -54,8 +56,8 @@ export class MongooseInquiryRepository implements InquiryRepository {
 
     return newInquiry;
   }
-  async findAll(): Promise<IInquiry[]> {
-    const values = await MongooseInquiry.find().populate({
+  async findAll(userId: string): Promise<IInquiry[]> {
+    const values = await MongooseInquiry.find({ "author": userId }).populate({
       path: "author",
       populate: {
         path: "profile",

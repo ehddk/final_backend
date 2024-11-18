@@ -8,9 +8,11 @@ export interface InquiriesService {
   ): Promise<InquiryResponseDTO>;
   /** 1:1문의 목록 조회 */
   getInquiries({
+    userId,
     limit,
     offset,
   }: {
+    userId: string;
     limit?: number;
     offset?: number;
   }): Promise<{
