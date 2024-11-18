@@ -11,13 +11,13 @@ interface IProfile {
   phoneNum: string;
   /** 배송지 */
   //delivery: IDelivery | string;
-  delivery:IDelivery[];
+  delivery: IDelivery[];
 }
 
 interface IUser {
   /** ID */
   id: string;
-  name?:string;
+  name?: string;
   /** 아이디 */
   loginId: string;
   /** 비밀번호 */
@@ -34,4 +34,6 @@ interface IUser {
   cart: ICart;
   /** 주문 목록 */
   orders?: IOrder[];
+  /** 1:1 문의 목록 */
+  inquiries?: IInquiry[];
 }

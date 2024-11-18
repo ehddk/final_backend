@@ -18,27 +18,56 @@ export class MongooseUserRepository implements UserRepository {
           model: "Delivery",
         },
       })
-      .populate('cart')
+      .populate("cart")
       .exec();
-   // console.log("values", values);
+    // console.log("values", values);
     return values;
   }
 
   async findById(userId: string): Promise<IUser | null> {
     try {
-      
       const fullUser = await MongooseUser.findById(userId)
-      .populate({
-        path:'profile',
-        populate:{
-          path: 'delivery',
-          model: 'Delivery' 
-        }
-    })
-      .populate('cart')
-      // .populate('orders')
-      .exec();
-  console.log('Full 유저:', fullUser);
+        .populate({
+          path: "profile",
+          populate: {
+            path: "delivery",
+            model: "Delivery",
+          },
+        })
+        .populate({
+          path: "inquiries",
+          populate: {
+            path: "author",
+            populate: {
+              path: "profile",
+            },
+          },
+        })
+        .populate({
+          path: "orders",
+          populate: [
+            {
+              path: "userInfo", // userInfo를 포함
+            },
+            {
+              path: "orderItem", // orderItem을 포함
+              populate: {
+                path: "product", // orderItem 내 product를 포함
+              },
+            },
+          ],
+        })
+        .populate({
+          path: "cart",
+          populate: {
+            path: "cartItem",
+            populate: {
+              path: "product",
+            },
+          },
+        })
+        .exec();
+      console.log("Full 유저:", fullUser);
       return fullUser;
     } catch (error: any) {
       const message = error.message.toString();
@@ -48,13 +77,13 @@ export class MongooseUserRepository implements UserRepository {
 
       throw error;
     }
-//   const findUser = await MongooseUser.findById(userId).populate(
-//     "profile",
-//     // "cart",
-//     // "orders"
-//   );
+    //   const findUser = await MongooseUser.findById(userId).populate(
+    //     "profile",
+    //     // "cart",
+    //     // "orders"
+    //   );
 
-// return findUser ?? null;
+    // return findUser ?? null;
   }
   async findByLoginId(loginId: string): Promise<IUser | null> {
     const findUser = await MongooseUser.findOne({ loginId });
@@ -68,7 +97,7 @@ export class MongooseUserRepository implements UserRepository {
   }
   async update(userId: string, updateUserInfo: Partial<IUser>): Promise<void> {
     await MongooseUser.findByIdAndUpdate(userId, updateUserInfo).populate(
-      "profile",
+      "profile"
     );
 
     return;
