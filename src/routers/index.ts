@@ -28,9 +28,41 @@ const USER_ROUTES = {
   USERS_API: "/api/users",
 } as const;
 
+/**  장바구니 라우터 */
+const CART_ROUTES = {
+  /** 장바구니 API */
+  CARTS_API: "/api/carts",
+  /** 장바구니 API */
+  ADMIN_CARTS_API: "/admin-api/carts",
+} as const;
+
+/**  장바구니 아이템 라우터 */
+const CART_ITEM_ROUTES = {
+  /** 장바구니 API */
+  CART_ITEMS_API: "/api/cartItems",
+  /** 장바구니 API */
+  ADMIN_CART_ITEMS_API: "/admin-api/cartItems",
+} as const;
+
+/**  1:1문의 라우터 */
+const INQUIRY_ROUTES = {
+  /** 1:1문의 API */
+  INQUIRIES_API: "/api/inquiries",
+  /** 1:1문의 API */
+  ADMIN_INQUIRIES_API: "/admin-api/inquiries",
+} as const;
+
+/**배송지 라우터 */
+const DELIVERY_ROUTES = {
+  DELIVERY_API: "/api/deliveries",
+};
 export const ROUTES_INDEX = {
+  ...INQUIRY_ROUTES,
+  ...CART_ITEM_ROUTES,
+  ...CART_ROUTES,
   ...ORDER_ROUTES,
   ...PRODUCT_ROUTES,
   ...AUTH_ROUTES,
   ...USER_ROUTES,
+  ...DELIVERY_ROUTES,
 } as const;

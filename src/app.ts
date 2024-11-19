@@ -13,6 +13,19 @@ import authRouter from "./api/auth/router/auth.router";
 import { ROUTES_INDEX } from "./routers";
 import { authUserMiddleware } from "./api/common/middlewares/authUser.middleware";
 
+import cartRouter from "./api/carts/router/carts.router";
+import orderRouter from "./api/orders/router/orders.router";
+import adminOrderRouter from "./api/orders/router/adminOrder.router";
+import cartItemRouter from "./api/cartItems/router/cartItems.router";
+import adminCartItemRouter from "./api/cartItems/router/adminCartItem.router";
+import userRouter from "./api/users/router/users.router";
+import adminUsersRouter from "./api/users/router/adminUsers.router";
+import { productRouter } from "./api/products/router/products.router";
+import { adminProductRouter } from "./api/products/router/adminProduct.router";
+import { deliveryRouter } from "./api/deliveries/router/delivery.router";
+import inquiryRouter from "./api/inquiries/router/inquiry.router";
+import adminInquiryRouter from "./api/inquiries/router/adminInquiry.router";
+
 const app = express();
 
 app.use(morgan("dev")); // 클로져
@@ -37,6 +50,20 @@ app.use(ROUTES_INDEX.ADMIN_ORDERS_API, adminOrderRouter);
 /** -------- products ---------  */
 app.use(ROUTES_INDEX.PRODUCTS_API, productRouter);
 app.use(ROUTES_INDEX.ADMIN_PRODUCTS_API, adminProductRouter);
+
+/**------ deliveries --------  */
+app.use(ROUTES_INDEX.DELIVERY_API, deliveryRouter);
+
+/** -------- cartitems ---------  */
+app.use(ROUTES_INDEX.CART_ITEMS_API, cartItemRouter);
+app.use(ROUTES_INDEX.ADMIN_CART_ITEMS_API, adminCartItemRouter);
+
+/** -------- 1:1문의 ---------  */
+app.use(ROUTES_INDEX.INQUIRIES_API, inquiryRouter);
+app.use(ROUTES_INDEX.ADMIN_INQUIRIES_API, adminInquiryRouter);
+
+/** -------- carts ---------  */
+app.use(ROUTES_INDEX.CARTS_API, cartRouter);
 
 app.use(errorHandler);
 
