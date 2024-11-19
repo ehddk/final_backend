@@ -21,6 +21,7 @@ interface ICartResponseDTO {
       id: string;
       productName: string;
       sales: number;
+      thumbnail: File | Blob | null;
     };
     quantity: number;
     totalPrice: number; // 상품별 총 가격
