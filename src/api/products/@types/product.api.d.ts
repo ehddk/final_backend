@@ -74,3 +74,23 @@ type deleteProductRequest={
 type deleteProductResponse=void;
 
 }
+
+/**카테고리별 제품 목록 조회 */
+type getCategoriesRequestPath={};
+type getCategoriesRequestQuery={
+    category?:string;
+}
+
+type getCategoriesRequestBody={};
+
+
+type getCategoriesRequest={
+    path?:getCategoriesRequestPath;
+    query:getCategoriesRequestParams,
+    body?:getCategoriesRequestBody
+}
+
+/**카테고리 목록 조회(사용자) 응답 */
+type getCategoriesResponse={
+    products:IProduct[] //제품 배열 반환.
+};

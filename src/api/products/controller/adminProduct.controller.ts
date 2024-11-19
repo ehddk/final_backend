@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { AdminProductService } from "../service/adminProduct.service.type"
 import { faker } from "@faker-js/faker";
 import { generateProducts } from "@/dummy/product.dummy";
+import { getCategoriesRequest,getCategoriesResponse } from "../@types/product.api";
 
 export default class AdminProductController{
     private readonly _adminProductService:AdminProductService;
@@ -24,13 +25,34 @@ export default class AdminProductController{
         res:Response,next:NextFunction){
     try{
         const products= await this._adminProductService.getProducts()
-        console.log('rpdi',products)
+       // console.log('rpdi',products)
         res.send(products)
         // res.send('관리자 제품 목록 조회')
     }catch(error){
         next(error)
     }
-    }      
+    }   
+    async getProductsByCategory(
+        req:Request<getCategoriesRequest["path"],
+        getCategoriesResponse,
+        getCategoriesRequest["body"],
+        getCategoriesRequest["query"]
+        >,res:Response,next:NextFunction){
+            try{
+                const {category}=req.query;
+                let products;
+                console.log('카테고리 뜨나요??',category)
+            if (category) {
+                products = await this._adminProductService.getProductsByCategory(category);
+            } else {
+                products = await this._adminProductService.getProducts();
+            }
+    
+             res.json(products);
+            }catch(error){
+                next(error)
+            }
+        }
     async getProductDetail(req:Request,res:Response,next:NextFunction){
         try{
            const product= await this._adminProductService.getProductDetail(req.params.productId)
