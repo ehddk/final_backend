@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":";AAAA,WAAW;;AAEX,kBAAgB;AAEhB,yBAAuB;AAEvB,iBAAe","sourcesContent":["// index.ts\n\nimport \"@/envs\";\n\nimport \"@/db/mongoose\";\n\nimport \"@/app\";\n"]}
