@@ -86,14 +86,18 @@ export class MongooseUserRepository implements UserRepository {
     // return findUser ?? null;
   }
   async findByLoginId(loginId: string): Promise<IUser | null> {
-    const findUser = await MongooseUser.findOne({ loginId });
+    const findUser = await MongooseUser.findOne({loginId});
+
+    console.log(findUser)
 
     return findUser ?? null;
   }
   async findByEmail(email: string): Promise<IUser | null> {
-    const findUser = await MongooseUser.findOne({ email });
+    const findUser = await MongooseUser.findOne({email});
 
-    return findUser ?? null;
+    console.log(findUser)
+
+    return findUser ?? null;    
   }
   async update(userId: string, updateUserInfo: Partial<IUser>): Promise<void> {
     await MongooseUser.findByIdAndUpdate(userId, updateUserInfo).populate(
