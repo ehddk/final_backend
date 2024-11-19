@@ -7,6 +7,12 @@ export interface UserService {
   getUsers(): Promise<GetUsersResponseDTO[]>;
   /** 유저 조회 */
   getUser(userId: string): Promise<GetUserResponseDTO | null>;
+  /** 유저 조회(loginId 기반) */
+  checkUserLoginId(loginId: string): Promise<boolean>;
+  // getUserLoginId(loginId: string): Promise<GetUserResponseDTO | null>;
+  // /** 유저 조회(email 기반) */
+  checkUserEmail(email: string): Promise<boolean>;
+  // getUserEmail(email: string): Promise<GetUserResponseDTO | null>;
   /** 유저 생성 */
   createUser(
     params: Omit<IUser, "id" | "role" | "profile" | "cart"> & {

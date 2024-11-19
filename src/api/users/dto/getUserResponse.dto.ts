@@ -6,6 +6,7 @@ import { OrderResponseDTO } from "@/api/orders/dto/orderResponse.dto";
 export class GetUserResponseDTO {
   userId: string;
   email: string;
+  loginId: string;
   profile: {
     id: string;
     firstName: string;
@@ -24,6 +25,7 @@ export class GetUserResponseDTO {
   constructor(user: IUser) {
     this.userId = user.id;
     this.email = user.email;
+    this.loginId = user.loginId;
     this.profile = {
       id: user.profile.id,
       firstName: user.profile.firstName,
