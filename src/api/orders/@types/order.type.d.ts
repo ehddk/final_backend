@@ -68,6 +68,8 @@ interface IOrderResponseDTO {
       id: string;
       productName: string;
       sales: number;
+      price: number;
+      thumbnail: File | Blob | null;
     };
     /** 주문 수량 */
     quantity: number;

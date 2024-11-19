@@ -4,6 +4,7 @@ export class CartItemResponseDTO {
     id: string;
     productName: string;
     sales: number;
+    thumbnail: File | Blob | null;
   };
 
   quantity: number;
@@ -16,6 +17,7 @@ export class CartItemResponseDTO {
       id: params.product.id,
       productName: params.product.productName,
       sales: params.product.sales,
+      thumbnail: params.product.thumbnail,
     };
     this.quantity = params.quantity;
     this.totalPrice = params.totalPrice;
