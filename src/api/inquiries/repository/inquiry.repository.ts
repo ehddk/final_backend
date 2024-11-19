@@ -3,9 +3,11 @@ export interface InquiryRepository {
   save(inquiry: Omit<IInquiry, "id">): Promise<IInquiry>;
   /** 페이지네이션 목록 조회 */
   findAllWithPagination({
+    userId,
     limit,
     offset,
   }: {
+    userId: string;
     offset?: number;
     limit?: number;
   }): Promise<{
@@ -15,7 +17,7 @@ export interface InquiryRepository {
     next: string | null;
   }>;
   /** 1:1문의 목록 조회 */
-  findAll(): Promise<IInquiry[]>;
+  findAll(userId: string): Promise<IInquiry[]>;
   /** ID로 1:1문의 조회 */
   findById(id: string): Promise<IInquiry | null>;
   /** 1:1문의 수정 */

@@ -37,9 +37,11 @@ export class InquiriesServiceImpl implements InquiriesService {
     return new InquiryResponseDTO(newInquiry);
   }
   async getInquiries({
+    userId,
     limit,
     offset,
   }: {
+    userId: string;
     limit?: number;
     offset?: number;
   }): Promise<{
@@ -49,6 +51,7 @@ export class InquiriesServiceImpl implements InquiriesService {
     next: string | null;
   }> {
     const inquiries = await this._inquiryRepository.findAllWithPagination({
+      userId,
       limit,
       offset,
     });
