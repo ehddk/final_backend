@@ -112,32 +112,26 @@ async checkEmail(req: Request, res: Response, next: NextFunction) {
       res: Response,
       next: NextFunction) {
     try {
-      // const { userId } = req.user;
+      
+    const updateData = { ...req.body };
 
-      // const user = await this._userService.updateUser(userId, {
-      //   profile: {
-      //     ...req.body.profile,
-      //   },
-      // });
+    if (updateData.password) {
+      const { hashedPassword, salt } = CryptoService.encryptPassword(updateData.password);
+      updateData.password = hashedPassword;
+      updateData.salt = salt;
+    }
 
-      // console.log(req.user);
-      // console.log("회원 수정 완료");
+    const user = await this._userService.updateUser(req.params.userId, updateData);
 
-      // res.send(user);
-      const user = await this._userService.updateUser(req.params.userId, req.body);
-
-      // console.log("회원 수정 완료")
-
-      // res.status(200).send(user);
       res.status(200).json({
         message: "회원 수정 성공",
         data: user,
       });
     } catch (error) {
-      // next(error);
       res.status(409).json({ message: "회원 수정 실패" });
     }
   }
+
   /**로그아웃 */
   async logout(req:Request<
       logoutRequest["path"],

@@ -68,26 +68,6 @@ export class UsersServiceImpl implements UserService {
     return dtoUser;
   }
 
-  // async getUserLoginId(loginId: string): Promise<GetUserResponseDTO | null> {
-  //   const user = await this._userRepository.findByLoginId(loginId);
-
-  //   if (!user) throw new HttpException(404, "유저를 찾을 수 없습니다.");
-
-  //   const dtoUser = await new GetUserResponseDTO(user);
-
-  //   return dtoUser;
-  // }
-
-  // async getUserEmail(email: string): Promise<GetUserResponseDTO | null> {
-  //   const user = await this._userRepository.findByEmail(email);
-
-  //   if (!user) throw new HttpException(404, "유저를 찾을 수 없습니다.");
-
-  //   const dtoUser = await new GetUserResponseDTO(user);
-
-  //   return dtoUser;
-  // }
-
   async checkUserLoginId(loginId: string): Promise<boolean> {
     const user = await this._userRepository.findByLoginId(loginId);
     return !!user;
