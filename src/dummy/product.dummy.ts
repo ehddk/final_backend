@@ -96,6 +96,104 @@ const PRODUCT_CATEGORIES: ProductCategory[]=[
       // ... 정육 관련 이미지
     ]
   },
+  {
+    name: '국/반찬/메인요리',
+    products: [
+      '유기농 콜드브루 1L', '프리미엄 녹차 50티백', '착즙 오렌지주스 1L',
+ '국산 보리차 40티백', '유기농 과일주스 3종', '프리미엄 원두커피 200g'
+    ],
+    images: [
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/pexels-satya-27903-3158814.jpg?alt=media&token=932768a6-ffc2-4326-af7f-c6a87444eed3`,
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/juice.jpg?alt=media&token=663c9b5f-0120-4e4e-a606-0eb60c1fe82d`
+      // `${BASE_URL}/images/meat.png`,
+      // `${BASE_URL}/images/chicken.png`,
+      // ... 정육 관련 이미지
+    ]
+  },
+  {
+    name: '샐러드/간편식',
+    products: [
+      '유기농 콜드브루 1L', '프리미엄 녹차 50티백', '착즙 오렌지주스 1L',
+ '국산 보리차 40티백', '유기농 과일주스 3종', '프리미엄 원두커피 200g'
+    ],
+    images: [
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/pexels-satya-27903-3158814.jpg?alt=media&token=932768a6-ffc2-4326-af7f-c6a87444eed3`,
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/juice.jpg?alt=media&token=663c9b5f-0120-4e4e-a606-0eb60c1fe82d`
+      // `${BASE_URL}/images/meat.png`,
+      // `${BASE_URL}/images/chicken.png`,
+      // ... 정육 관련 이미지
+    ]
+  },
+  {
+    name: '면/양념/오일',
+    products: [
+      '유기농 콜드브루 1L', '프리미엄 녹차 50티백', '착즙 오렌지주스 1L',
+ '국산 보리차 40티백', '유기농 과일주스 3종', '프리미엄 원두커피 200g'
+    ],
+    images: [
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/pexels-satya-27903-3158814.jpg?alt=media&token=932768a6-ffc2-4326-af7f-c6a87444eed3`,
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/juice.jpg?alt=media&token=663c9b5f-0120-4e4e-a606-0eb60c1fe82d`
+      // `${BASE_URL}/images/meat.png`,
+      // `${BASE_URL}/images/chicken.png`,
+      // ... 정육 관련 이미지
+    ]
+  },
+  {
+    name: '생수/음료/우유/커피',
+    products: [
+      '유기농 콜드브루 1L', '프리미엄 녹차 50티백', '착즙 오렌지주스 1L',
+ '국산 보리차 40티백', '유기농 과일주스 3종', '프리미엄 원두커피 200g'
+    ],
+    images: [
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/pexels-satya-27903-3158814.jpg?alt=media&token=932768a6-ffc2-4326-af7f-c6a87444eed3`,
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/juice.jpg?alt=media&token=663c9b5f-0120-4e4e-a606-0eb60c1fe82d`
+      // `${BASE_URL}/images/meat.png`,
+      // `${BASE_URL}/images/chicken.png`,
+      // ... 정육 관련 이미지
+    ]
+  },
+  {
+    name: '간식/과자/떡',
+    products: [
+      '유기농 콜드브루 1L', '프리미엄 녹차 50티백', '착즙 오렌지주스 1L',
+ '국산 보리차 40티백', '유기농 과일주스 3종', '프리미엄 원두커피 200g'
+    ],
+    images: [
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/pexels-satya-27903-3158814.jpg?alt=media&token=932768a6-ffc2-4326-af7f-c6a87444eed3`,
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/juice.jpg?alt=media&token=663c9b5f-0120-4e4e-a606-0eb60c1fe82d`
+      // `${BASE_URL}/images/meat.png`,
+      // `${BASE_URL}/images/chicken.png`,
+      // ... 정육 관련 이미지
+    ]
+  },
+  {
+    name: '건강식품',
+    products: [
+      '유기농 콜드브루 1L', '프리미엄 녹차 50티백', '착즙 오렌지주스 1L',
+ '국산 보리차 40티백', '유기농 과일주스 3종', '프리미엄 원두커피 200g'
+    ],
+    images: [
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/pexels-satya-27903-3158814.jpg?alt=media&token=932768a6-ffc2-4326-af7f-c6a87444eed3`,
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/juice.jpg?alt=media&token=663c9b5f-0120-4e4e-a606-0eb60c1fe82d`
+      // `${BASE_URL}/images/meat.png`,
+      // `${BASE_URL}/images/chicken.png`,
+      // ... 정육 관련 이미지
+    ]
+  },
+  {
+    name: '와인/위스키',
+    products: [
+      '유기농 콜드브루 1L', '프리미엄 녹차 50티백', '착즙 오렌지주스 1L',
+ '국산 보리차 40티백', '유기농 과일주스 3종', '프리미엄 원두커피 200g'
+    ],
+    images: [
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/pexels-satya-27903-3158814.jpg?alt=media&token=932768a6-ffc2-4326-af7f-c6a87444eed3`,
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/juice.jpg?alt=media&token=663c9b5f-0120-4e4e-a606-0eb60c1fe82d`
+      // `${BASE_URL}/images/meat.png`,
+      // `${BASE_URL}/images/chicken.png`,
+      // ... 정육 관련 이미지
+    ]
+  },
 ]
 const PRODUCT_NAMES = [
     '유기농 양파 1kg',
