@@ -25,9 +25,11 @@ export default class InquiriesController {
     next: NextFunction
   ) {
     const { limit, offset } = req.query;
-
+    const userId = req.user.userId;
+    console.log("UserId:", userId);
     try {
       const inquiries = await this._inquiriesService.getInquiries({
+        userId,
         limit,
         offset,
       });
