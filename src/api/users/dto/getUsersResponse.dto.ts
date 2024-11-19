@@ -3,6 +3,7 @@ import { IDelivery } from "@/api/deliveries/@types/delivery.type";
 /**  유저 목록 조회 응답 DTO */
 export class GetUsersResponseDTO {
   userId: string;
+  loginId: string;
   email: string;
   profile: {
     firstName: string;
@@ -14,6 +15,7 @@ export class GetUsersResponseDTO {
 
   constructor(user: IUser) {
     this.userId = user.id;
+    this.loginId = user.loginId;
     this.email = user.email;
     const deliveryData = user.profile?.delivery;
 
