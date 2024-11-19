@@ -5,7 +5,98 @@ import { fakerKO as faker } from "@faker-js/faker";
 //   DELIVERY_TYPES, 
 //   PACKAGE_TYPES 
 // } from '../constants/product.constants';
+interface ProductCategory{
+  name:string;
+  products:string[],
+  images:string[]
+}
 
+const PRODUCT_CATEGORIES: ProductCategory[]=[
+  {
+    name:'채소/과일',
+    products:[
+      '유기농 양파 1kg',
+      '무농약 당근 500g',
+      '친환경 감자 2kg',
+      '제주 한라봉 1박스',
+      '국내산 삼겹살 300g',
+      '신선 방울토마토 500g',
+    '친환경 파프리카 3입',
+    '무농약 고구마 1kg',
+    '산지직송 사과 1.5kg',
+    '제철 수박 1통',
+    '유기농 브로콜리 1송이',
+    '유기농 고구마 1kg',
+    '신선 딸기 500g', '샤인머스켓 1kg', '친환경 오이 3입', '제철 배 1.5kg',
+   
+    ],
+    images:[
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/sweetPotato.png?alt=media&token=3a5f7093-f1dc-4d69-b281-28fdf5500c82`,
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/apple.png?alt=media&token=703a7496-991b-414d-a749-1ecc54558ddb`,
+`https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/corn.jpg?alt=media&token=99ff38e6-dd7f-48ce-b5d1-90b15fd4769a`,
+`https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/kiwi.png?alt=media&token=1b3dd974-d1e1-4f54-93fb-d4af73a96b05`,
+`https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/veg.jpg?alt=media&token=cc24e732-b95c-48d2-b2f1-88fdc4c3c335`
+    ]
+  },
+  {
+    name: '정육/계란',
+    products: [
+      '[1+등급] 한우 등심 300g',
+      '무항생제 돼지 삼겹살 500g',
+      '신선 닭가슴살 400g',
+      '동물복지 유정란 10구',
+       '무항생제 닭다리 500g', 
+       '제주 흑돼지 오겹살 400g',
+    ],
+    images: [
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/meat.jpg?alt=media&token=b42b8b56-dc68-47ed-a0ec-6c8cb148c27a`,
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/meat.png?alt=media&token=63bf7823-ca66-4a6e-89b9-ee80061a9c51`,
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/chicken.png?alt=media&token=e17f15c9-f5be-471f-b409-02028165b19b`
+      // `${BASE_URL}/images/chicken.png`,
+      // ... 정육 관련 이미지
+    ]
+  },
+  {
+    name: ' 수산물',
+    products: [
+      '제철 자반고등어 2마리', '완도 전복 5미', '노르웨이 생연어 300g',
+      '생물 백합 500g', '국산 생물오징어 2마리', '자연산 낙지 2마리',
+      
+    ],
+    images: [
+      // `${BASE_URL}/images/meat.png`,
+      // `${BASE_URL}/images/chicken.png`,
+      // ... 정육 관련 이미지
+    ]
+  },
+  {
+    name: '간식/과자',
+    products: [
+      '수제 과일칩 100g', '유기농 견과류 믹스 200g', '무첨가 말린망고 200g',
+ '구운아몬드 300g', '프리미엄 건포도 250g', '무농약 곶감 10개입',
+    ],
+    images: [
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/peanut.jpg?alt=media&token=cd4e2c67-7235-473b-8bfd-73b763cdf21c`,
+`https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/chips.jpg?alt=media&token=bd4e39dc-4a24-486a-9623-455a4a0e8c58`
+      // `${BASE_URL}/images/chicken.png`,
+      // ... 정육 관련 이미지
+    ]
+  },
+   {
+    name: '음료/커피',
+    products: [
+      '유기농 콜드브루 1L', '프리미엄 녹차 50티백', '착즙 오렌지주스 1L',
+ '국산 보리차 40티백', '유기농 과일주스 3종', '프리미엄 원두커피 200g'
+    ],
+    images: [
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/pexels-satya-27903-3158814.jpg?alt=media&token=932768a6-ffc2-4326-af7f-c6a87444eed3`,
+      `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/juice.jpg?alt=media&token=663c9b5f-0120-4e4e-a606-0eb60c1fe82d`
+      // `${BASE_URL}/images/meat.png`,
+      // `${BASE_URL}/images/chicken.png`,
+      // ... 정육 관련 이미지
+    ]
+  },
+]
 const PRODUCT_NAMES = [
     '유기농 양파 1kg',
     '무농약 당근 500g',
@@ -98,17 +189,18 @@ const PRODUCT_NAMES = [
     "고객님들의 많은 사랑을 받아 재입고 된 베스트셀러 상품입니다.",
     "온라인 단독 특가로 준비된 특별한 상품을 만나보세요."
    ];
-   const BASE_URL='http://localhost:4000'
-   const PRODUCT_IMAGES = [
-    // 이미지 URL 배열 정의
+  //  const BASE_URL='http://localhost:4000'
+  //  const PRODUCT_IMAGES = [
+  //   // 이미지 URL 배열 정의
     
-    `${BASE_URL}/images/apple.png`,
-    `${BASE_URL}/images/chicken.png`,
-    `${BASE_URL}/images/kiwi.png`,
-    `${BASE_URL}/images/meat.png`,
-    `${BASE_URL}/images/peanut.png`,
-    // ... 20개의 이미지 URL
-   ];
+  //   `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/apple.png?alt=media&token=703a7496-991b-414d-a749-1ecc54558ddb`,
+
+  //   // /static/images/apple.png
+  //   `${BASE_URL}/images/chicken.png`,
+  //   `${BASE_URL}/images/kiwi.png`,
+  //   `${BASE_URL}/images/meat.png`,
+  //   `${BASE_URL}/images/peanut.png`,
+  //  ];
 
   export const DELIVERY_TYPES = ['무료배송', '유료배송'];
   export const PACKAGE_TYPES = ['상온', '냉장', '냉동'];
@@ -119,9 +211,11 @@ export const generateProducts = (count: number) => {
   const products = [];
 
   for (let i = 0; i < count; i++) {
-    const name=faker.helpers.arrayElement(PRODUCT_NAMES);
+    //배열에서 무작위로 값을 선택하기 위한 함수 arrayElement !!
+    const category = faker.helpers.arrayElement(PRODUCT_CATEGORIES);
+    const name=faker.helpers.arrayElement(category.products);
     const description=faker.helpers.arrayElement(DESCRIPTIONS);
-    const imgIndex = i % PRODUCT_IMAGES.length;
+    const img=faker.helpers.arrayElement(category.images);
     const price = faker.number.int({ min: 1000, max: 100000 });
     const salesPrice= Math.floor(price * 0.65);
 
@@ -130,8 +224,8 @@ export const generateProducts = (count: number) => {
       price: price,
       sales: salesPrice,
       rdate: new Date(),
-      thumbnail: PRODUCT_IMAGES[imgIndex],
-      img:  PRODUCT_IMAGES[imgIndex],
+      thumbnail: img,
+      img:  img,
       delivery: faker.helpers.arrayElement(DELIVERY_TYPES),
       seller: faker.company.name(),
       description: `${description}`,
