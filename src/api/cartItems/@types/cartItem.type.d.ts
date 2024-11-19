@@ -18,10 +18,9 @@ interface ICartItemResponseDTO {
   product: {
     id: string;
     productName: string;
-  sales: number;
+    sales: number;
+    thumbnail: File | Blob | null;
   };
-  productName: string;
-  sales: number;
   /** 주문 수량 */
   quantity: number;
   /** 주문 총 가격 */
