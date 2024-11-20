@@ -58,6 +58,8 @@ export class UsersServiceImpl implements UserService {
 
     return newList;
   }
+
+  // 기존 userId로 상세 조회
   async getUser(userId: string): Promise<GetUserResponseDTO | null> {
     const user = await this._userRepository.findById(userId);
 
@@ -67,6 +69,17 @@ export class UsersServiceImpl implements UserService {
 
     return dtoUser;
   }
+
+  // loginId로 상세 조회
+  // async getUser(loginId: string): Promise<GetUserResponseDTO | null> {
+  //   const user = await this._userRepository.findByLoginId(loginId);
+
+  //   if (!user) throw new HttpException(404, "유저를 찾을 수 없습니다.");
+
+  //   const dtoUser = await new GetUserResponseDTO(user);
+
+  //   return dtoUser;
+  // }
 
   async checkUserLoginId(loginId: string): Promise<boolean> {
     const user = await this._userRepository.findByLoginId(loginId);
