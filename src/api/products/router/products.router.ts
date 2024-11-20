@@ -11,17 +11,24 @@ import { extractPath } from "@/utils/path.util";
 export const productRouter=express.Router();
 
 const PRODUCT_ROUTES = {
+     /**제품 목록 조회 (유저) */
     GET_PRODUCTS: "/api/products",
+      /**카테고리별 제품 목록 조회 */
+      GET_PRODUCTS_BYCATEGORY:`/api/products/category`,
+    /**제품 상세 조회 (유저) */
     GET_PRODUCT_DETAILS:"/api/products/:productId",
-    CREATE_PRODUCT:"/api/products",
-    UPDATE_PRODUCT:"/api/products/:productId",
-    DELETE_PRODUCT:"/api/products/:productId"
+    
    
   } as const;
 
 const productController = new ProductController(
     new ProductsServiceImpl(new MongooseProductRepository)
 );
+
+productRouter.get(
+    extractPath(PRODUCT_ROUTES.GET_PRODUCTS_BYCATEGORY,ROUTES_INDEX.PRODUCTS_API),
+    productController.getProductsByCategory
+)
 
 productRouter.get(
     extractPath(PRODUCT_ROUTES.GET_PRODUCTS,ROUTES_INDEX.PRODUCTS_API),
@@ -32,3 +39,4 @@ productRouter.get(
     extractPath(PRODUCT_ROUTES.GET_PRODUCT_DETAILS,ROUTES_INDEX.PRODUCTS_API),
     productController.getProductDetail
 )
+

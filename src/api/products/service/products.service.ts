@@ -31,6 +31,15 @@ constructor(productRepository:ProductRepository){
          throw  new Error(`해당 제품이 없습니다.`);
      }
      }
+       /** 카테고리별 제품 목록 조회 */
+    async getProductsByCategory(category: string): Promise<ProductResponseDTO[]> {
+        try{
+            const products=await this._productRepository.findByCategory(category);
+            return products;
+        }catch(error){
+            throw new Error('카테고리별 제품 목록 조회 중 오류 발생.')
+        }
+    }   
   
 
 }

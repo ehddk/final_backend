@@ -7,5 +7,5 @@ export interface ProductsService{
     getProducts():Promise<IProduct[]>;
      /**제품 상세 조회 */
     getProductDetail(productId:string):Promise<ProductResponseDTO | null>;
-
+    getProductsByCategory(category:string):Promise<ProductResponseDTO[]>;
 }

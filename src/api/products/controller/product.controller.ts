@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { ProductsService } from "../service/product.service.type"
+import { getCategoriesRequest, getCategoriesResponse } from "../@types/product.api";
 
 
 export default class ProductController{
@@ -9,6 +10,7 @@ export default class ProductController{
 
         this.getProducts= this.getProducts.bind(this);
         this.getProductDetail=this.getProductDetail.bind(this);
+        this.getProductsByCategory=this.getProductsByCategory.bind(this);
     }
        /**제품 목록 조회 */
    async getProducts(
@@ -27,6 +29,28 @@ export default class ProductController{
         next(error)
     }
    }
+
+   async getProductsByCategory(
+    req:Request<getCategoriesRequest["path"],
+    getCategoriesResponse,
+    getCategoriesRequest["body"],
+    getCategoriesRequest["query"]
+    >,res:Response,next:NextFunction){
+        try{
+            const {category}=req.query;
+            let products;
+            console.log('카테고리 뜨나요??',category)
+        if (category) {
+            products = await this._productsService.getProductsByCategory(category);
+        } else {
+            products = await this._productsService.getProducts();
+        }
+
+         res.json(products);
+        }catch(error){
+            next(error)
+        }
+    }
    /**제품 상세 조회 */
   
 
