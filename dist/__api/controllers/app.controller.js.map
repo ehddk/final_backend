@@ -1,1 +1,0 @@
-{"version":3,"file":"app.controller.js","sourceRoot":"","sources":["../../../src/__api/controllers/app.controller.ts"],"names":[],"mappings":"","sourcesContent":["// case 1\nimport express from \"express\";\n// case 2\nimport type { Request, Response, NextFunction } from \"express\";\n"]}
