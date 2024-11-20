@@ -27,9 +27,25 @@ import inquiryRouter from "./api/inquiries/router/inquiry.router";
 import adminInquiryRouter from "./api/inquiries/router/adminInquiry.router";
 
 const app = express();
+const cors = require('cors');
+
+app.use(express.urlencoded({ extended: true }));
+
+// CORS 설정 수정
+app.use(cors({
+  origin: ['http://localhost:3000'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],  // 허용할 HTTP 메서드
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'], // 허용할 헤더
+  exposedHeaders: ['Content-Range', 'X-Content-Range'] // 노출할 헤더
+}));
+
+app.options('*', cors());  // 모든 경로에 대해 OPTIONS 요청 허용
 
 app.use(morgan("dev")); // 클로져
 app.use("/static", express.static(path.join(__dirname, "../public")));
+
+
 
 app.use(express.json());
 app.use(cookieParser());

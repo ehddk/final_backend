@@ -14,7 +14,13 @@ export class MongooseProductRepository implements ProductRepository{
         console.log('productfind',product)
         return product;
     }
-
+    async  findByCategory(category: string): Promise<IProduct[]> {
+        return await MongooseProduct.find({category})
+    }
+    async  findBySubCategory(category: string,subCategory?:string): Promise<IProduct[]> {
+        return await MongooseProduct.find({category,subCategory})
+    }
+    
     async save(product:Omit<IProduct,"id">):Promise<IProduct>{
         try {
             const newProduct = new MongooseProduct({

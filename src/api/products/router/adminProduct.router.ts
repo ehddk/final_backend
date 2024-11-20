@@ -13,6 +13,8 @@ export const adminProductRouter = express.Router();
 const ADMIN_PRODUCT_ROUTES = {
   /**제품 목록 조회 (관리자) */
   GET_PRODUCTS: `/admin-api/products`,
+  /**카테고리별 제품 목록 조회 */
+  GET_PRODUCTS_BYCATEGORY:`/admin-api/products`,
   /**제품 상세 조회 (관리자) */
   GET_PRODUCTDETAIL: `/admin-api/products/:productId`,
   /**제품 생성 (관리자)  */
@@ -58,3 +60,7 @@ adminProductRouter.put(
     validate(adminUpdateProductValidator),
     adminProductController.updateProduct
 )
+adminProductRouter.post(
+    extractPath(ADMIN_PRODUCT_ROUTES.CREATE_DUMMY, ROUTES_INDEX.ADMIN_PRODUCTS_API),
+    adminProductController.createDummy
+  );
