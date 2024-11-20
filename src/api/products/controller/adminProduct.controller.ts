@@ -11,6 +11,7 @@ export default class AdminProductController{
 
         this.getProducts=this.getProducts.bind(this);
         this.getProductDetail=this.getProductDetail.bind(this);
+        this.getProductsByCategory=this.getProductsByCategory.bind(this);
         this.createProduct=this.createProduct.bind(this);
         this.updateProduct=this.updateProduct.bind(this);
         this.deleteProduct=this.deleteProduct.bind(this);
@@ -39,6 +40,7 @@ export default class AdminProductController{
         getCategoriesRequest["query"]
         >,res:Response,next:NextFunction){
             try{
+                console.log('전체 query:', req.query);
                 const {category}=req.query;
                 let products;
                 console.log('카테고리 뜨나요??',category)
