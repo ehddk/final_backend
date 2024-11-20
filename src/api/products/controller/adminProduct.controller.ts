@@ -72,7 +72,7 @@ export default class AdminProductController{
             adminCreateProductRequest["params"]
         >,res:Response,
         next:NextFunction){
-            const {productName,price,sales,thumbnail,img,delivery,description,seller,packageType,detail,createdAt,category}=req.body;
+            const {productName,price,sales,thumbnail,img,delivery,description,seller,packageType,detail,createdAt,category,subCategory}=req.body;
         try{
             const product=await this._adminProductService.createProduct({
                 productName,
@@ -86,7 +86,8 @@ export default class AdminProductController{
                 packageType,
                 detail,
                 createdAt,
-                category
+                category,
+                subCategory
             })
             
             res.send(product)

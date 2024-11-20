@@ -6,8 +6,6 @@ export class ProductResponseDTO{
     price:number;
     sales:number;
     createdAt?:Date; //등록일
-    // thumbnail:File | Blob | null; ;  //대표이미지
-    // img: File | Blob | null;      //상세 이미지
     thumbnail:string
     img:string
     delivery: string  //배송방법 
@@ -16,6 +14,7 @@ export class ProductResponseDTO{
     packageType?: string //( 선택 ) 포장타입
     detail?: string  //( 선택 )안내사항 ,
     category?:string;
+    subCategory?:string;
 
     constructor(params:IProduct){
         this.id=params.id;
@@ -31,5 +30,6 @@ export class ProductResponseDTO{
         this.packageType=params.packageType;
         this.detail = params.detail;
         this.category=params.category;
+        this.subCategory=params.subCategory
     }
 }

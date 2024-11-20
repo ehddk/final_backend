@@ -94,3 +94,22 @@ type getCategoriesRequest={
 type getCategoriesResponse={
     products:IProduct[] //제품 배열 반환.
 };
+
+
+// 서브 카테고리별 조회 타입 추가
+type getSubCategoriesRequestPath = {};
+type getSubCategoriesRequestQuery = {
+   category?: string;    // 메인 카테고리
+   subCategory?: string; // 서브 카테고리
+};
+type getSubCategoriesRequestBody = {};
+
+type getSubCategoriesRequest = {
+   path?: getSubCategoriesRequestPath;
+   query: getSubCategoriesRequestQuery,
+   body?: getSubCategoriesRequestBody
+};
+
+type getSubCategoriesResponse = {
+   products: IProduct[];
+};

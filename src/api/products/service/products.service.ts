@@ -34,12 +34,23 @@ constructor(productRepository:ProductRepository){
        /** 카테고리별 제품 목록 조회 */
     async getProductsByCategory(category: string): Promise<ProductResponseDTO[]> {
         try{
+            // const {category,subCategory}=params;
+           console.log('서비스에 카테고리 있?',category)
             const products=await this._productRepository.findByCategory(category);
+         //   console.log('제품 있나요?서비스',products)
             return products;
         }catch(error){
             throw new Error('카테고리별 제품 목록 조회 중 오류 발생.')
         }
     }   
-  
+    async  getProductsBySubCategory(category: string, subCategory: string): Promise<ProductResponseDTO[]> {
+        try{
+            console.log('category:서비스에 카테고리 있?',{category,subCategory})
+            const products=await this._productRepository.findBySubCategory(category,subCategory);
+            return products;
+        }catch(error){
+            throw new Error("서브카테고리별 제품 목록 조회 중 오류 발생")
+        }
+    }
 
 }

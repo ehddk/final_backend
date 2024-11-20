@@ -14,6 +14,8 @@ interface IProduct{
     packageType?: string //( 선택 ) 포장타입
     detail?: string  //( 선택 )안내사항 
     category?:string; //상품 카테고리
+    subCategory?:string  //상품 서브 카테고리
+
 }
 
 // 응답 타입을 위한 새로운 인터페이스 정의

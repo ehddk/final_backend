@@ -12,18 +12,25 @@ export const productRouter=express.Router();
 
 const PRODUCT_ROUTES = {
      /**제품 목록 조회 (유저) */
-    GET_PRODUCTS: "/api/products",
+     GET_PRODUCTS: "/api/products",
       /**카테고리별 제품 목록 조회 */
-      GET_PRODUCTS_BYCATEGORY:`/api/products/category`,
-    /**제품 상세 조회 (유저) */
-    GET_PRODUCT_DETAILS:"/api/products/:productId",
-    
-   
-  } as const;
+      GET_PRODUCTS_BYCATEGORY:`/api/products/categories`,
+    //   /*서브카테고리별 제품 목록 조회 */
+    //   GET_PRODUCTS_BYSUBCATEGORY: `/api/products/category/sub`,
+ 
+        /**제품 상세 조회 (유저) */
+        GET_PRODUCT_DETAILS:"/api/products/:productId",
+        } as const;
 
 const productController = new ProductController(
     new ProductsServiceImpl(new MongooseProductRepository)
 );
+
+productRouter.get(
+    extractPath(PRODUCT_ROUTES.GET_PRODUCTS_BYCATEGORY, ROUTES_INDEX.PRODUCTS_API),
+    productController.getProductsBySubCategory
+);
+
 
 productRouter.get(
     extractPath(PRODUCT_ROUTES.GET_PRODUCTS_BYCATEGORY,ROUTES_INDEX.PRODUCTS_API),

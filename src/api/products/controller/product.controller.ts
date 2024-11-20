@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { ProductsService } from "../service/product.service.type"
-import { getCategoriesRequest, getCategoriesResponse } from "../@types/product.api";
+import { getCategoriesRequest, getCategoriesResponse, getSubCategoriesRequest, getSubCategoriesResponse } from "../@types/product.api";
 
 
 export default class ProductController{
@@ -11,6 +11,7 @@ export default class ProductController{
         this.getProducts= this.getProducts.bind(this);
         this.getProductDetail=this.getProductDetail.bind(this);
         this.getProductsByCategory=this.getProductsByCategory.bind(this);
+        this.getProductsBySubCategory=this.getProductsBySubCategory.bind(this);
     }
        /**제품 목록 조회 */
    async getProducts(
@@ -42,6 +43,7 @@ export default class ProductController{
             console.log('카테고리 뜨나요??',category)
         if (category) {
             products = await this._productsService.getProductsByCategory(category);
+            console.log('물건있나??',products)
         } else {
             products = await this._productsService.getProducts();
         }
@@ -51,9 +53,38 @@ export default class ProductController{
             next(error)
         }
     }
-   /**제품 상세 조회 */
-  
 
+    /**서브카테고리별 목록 조회 */
+    async getProductsBySubCategory(
+        req:Request<
+        getSubCategoriesRequest["path"],
+        getSubCategoriesResponse,
+        getSubCategoriesRequest["body"],
+        getSubCategoriesRequest["query"]
+        >,res:Response,next:NextFunction){
+            try{
+                console.log('query있음?',req.query)
+                const {category, subCategory}=req.query;
+                let products;
+
+                if(category && subCategory){
+                    const results= await this._productsService.getProductsBySubCategory(category,subCategory);
+                 //   console.log('리절트',results)
+                    res.json({results})
+                }else if(category){
+                    products = await this._productsService.getProductsByCategory(category)
+                
+                }else {
+                    // 카테고리 정보가 없는 경우 전체 상품
+                    products = await this._productsService.getProducts();
+                }
+                  res.json(products);
+            }catch(error){
+                next(error)
+            }
+        }
+
+   /**제품 상세 조회 */
    async getProductDetail(
     req: Request<getProductDetailRequestPath, getProductDetailResponse, getProductDetailRequestBody>,
      res: Response,
