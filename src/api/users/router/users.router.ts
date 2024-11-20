@@ -25,7 +25,8 @@ const USER_ROUTES = {
   /** 회원가입 */
   SIGN_UP: `/api/users`,
   /** 내 정보 조회 */
-  GET_MY_INFO: `/api/users/:userId`,
+  // GET_MY_INFO: `/api/users/:userId`,
+  GET_MY_INFO: `/api/users`,
   /** 내 정보 조회(loginId 기반) */
   CHECK_LOGINID: `/api/users/loginId`,
   /** 내 정보 조회(email 기반) */
