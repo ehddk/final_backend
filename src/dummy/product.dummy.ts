@@ -1,10 +1,5 @@
 import { fakerKO as faker } from "@faker-js/faker";
-// import { 
-//   PRODUCT_NAMES, 
-//   CATEGORIES, 
-//   DELIVERY_TYPES, 
-//   PACKAGE_TYPES 
-// } from '../constants/product.constants';
+
 interface ProductCategory{
   name:string;
   products:string[],
@@ -138,9 +133,7 @@ const PRODUCT_CATEGORIES: ProductCategory[]=[
     images: [
       `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/pexels-satya-27903-3158814.jpg?alt=media&token=932768a6-ffc2-4326-af7f-c6a87444eed3`,
       `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/juice.jpg?alt=media&token=663c9b5f-0120-4e4e-a606-0eb60c1fe82d`
-      // `${BASE_URL}/images/meat.png`,
-      // `${BASE_URL}/images/chicken.png`,
-      // ... 정육 관련 이미지
+
     ]
   },
   {
@@ -161,11 +154,6 @@ const PRODUCT_CATEGORIES: ProductCategory[]=[
       `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/oil2.jpg?alt=media&token=2a5b40de-5ff0-44d1-a771-b540ca0d4050`,
       `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/spice.jpg?alt=media&token=641b6352-56e5-4a5d-93ee-ba027d13b576`,
       `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/pasta.jpg?alt=media&token=29dbab74-0e86-450f-a29e-76e3e929946d`
-
-
-      // `${BASE_URL}/images/meat.png`,
-      // `${BASE_URL}/images/chicken.png`,
-      // ... 정육 관련 이미지
     ]
   },
   {
@@ -230,57 +218,9 @@ const PRODUCT_CATEGORIES: ProductCategory[]=[
       `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/spainwine.jpeg?alt=media&token=885a19d8-8c44-45fd-8f4a-2d4cc88420a3`,
       `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/wine.jpg?alt=media&token=473f7b09-42d2-4ca5-8abe-4b0ed8e4fefc`,
       `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/wine2.jpg?alt=media&token=6b419b6f-8d27-4687-90a3-78060e312837`
-
-      // `${BASE_URL}/images/meat.png`,
-      // `${BASE_URL}/images/chicken.png`,
-      // ... 정육 관련 이미지
     ]
   },
 ]
-const PRODUCT_NAMES = [
-    '유기농 양파 1kg',
-    '무농약 당근 500g',
-    '친환경 감자 2kg',
-    '제주 한라봉 1박스',
-    '국내산 삼겹살 300g',
-    '신선 방울토마토 500g',
-  '친환경 파프리카 3입',
-  '무농약 고구마 1kg',
-  '산지직송 사과 1.5kg',
-  '제철 수박 1통',
-  '유기농 브로콜리 1송이',
-  '유기농 고구마 1kg',
-  '신선 딸기 500g', '샤인머스켓 1kg', '친환경 오이 3입', '제철 배 1.5kg',
- 
- // 정육/계란
- '[1+등급] 한우 등심 300g', '무항생제 돼지 삼겹살 500g', '신선 닭가슴살 400g',
- '동물복지 유정란 10구', '무항생제 닭다리 500g', '제주 흑돼지 오겹살 400g',
- 
- // 수산물
- '제철 자반고등어 2마리', '완도 전복 5미', '노르웨이 생연어 300g',
- '생물 백합 500g', '국산 생물오징어 2마리', '자연산 낙지 2마리',
- 
- // 간식/과자
- '수제 과일칩 100g', '유기농 견과류 믹스 200g', '무첨가 말린망고 200g',
- '구운아몬드 300g', '프리미엄 건포도 250g', '무농약 곶감 10개입',
- 
- // 반찬
- '홈메이드 김치 1kg', '무농약 나물무침 200g', '맛간장 절임고추 300g',
- '국내산 젓갈모음 200g', '반찬세트 6종', '수제 장아찌 300g',
- 
- // 음료/커피
- '유기농 콜드브루 1L', '프리미엄 녹차 50티백', '착즙 오렌지주스 1L',
- '국산 보리차 40티백', '유기농 과일주스 3종', '프리미엄 원두커피 200g'
-  ];
-  
-  export const CATEGORIES = [
-    '채소/과일',
-    '정육/계란',
-    '수산물/건해산',
-    '쌀/잡곡/견과',
-    '베이커리',
-    ''
-  ];
   
   const DESCRIPTIONS = [
     "엄선된 농가에서 수확한 신선한 채소로, 산지 직송을 통해 영양이 가득한 상태로 배송됩니다.",
@@ -329,18 +269,7 @@ const PRODUCT_NAMES = [
     "고객님들의 많은 사랑을 받아 재입고 된 베스트셀러 상품입니다.",
     "온라인 단독 특가로 준비된 특별한 상품을 만나보세요."
    ];
-  //  const BASE_URL='http://localhost:4000'
-  //  const PRODUCT_IMAGES = [
-  //   // 이미지 URL 배열 정의
-    
-  //   `https://firebasestorage.googleapis.com/v0/b/kurly-75ac0.firebasestorage.app/o/apple.png?alt=media&token=703a7496-991b-414d-a749-1ecc54558ddb`,
 
-  //   // /static/images/apple.png
-  //   `${BASE_URL}/images/chicken.png`,
-  //   `${BASE_URL}/images/kiwi.png`,
-  //   `${BASE_URL}/images/meat.png`,
-  //   `${BASE_URL}/images/peanut.png`,
-  //  ];
 
   export const DELIVERY_TYPES = ['무료배송', '유료배송'];
   export const PACKAGE_TYPES = ['상온', '냉장', '냉동'];
@@ -371,7 +300,6 @@ export const generateProducts = (count: number) => {
       seller: faker.company.name(),
       description: `${description}`,
       packageType: faker.helpers.arrayElement(PACKAGE_TYPES),
-      //detail: faker.lorem.paragraph(),
       category: `${category}`
     });
   }
