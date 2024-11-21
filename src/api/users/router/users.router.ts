@@ -34,7 +34,9 @@ const USER_ROUTES = {
   /** 내 정보 수정 */
   UPDATE_MY_INFO: `/api/users/:userId`,
   /**로그아웃 */
-  LOGOUT : `/api/users/logout`
+  LOGOUT : `/api/users/logout`,
+  /** 회원 탈퇴 */
+  DELETE_USER: `/api/users`,
 } as const;
 
 userRouter.post(
@@ -67,6 +69,12 @@ userRouter.put(
 userRouter.post(
   extractPath(USER_ROUTES.LOGOUT,ROUTES_INDEX.USERS_API),
   usersController.logout
+)
+
+userRouter.delete(
+  extractPath(USER_ROUTES.DELETE_USER,ROUTES_INDEX.USERS_API),
+  authUserMiddleware,
+  usersController.deleteUser
 )
 
 export default userRouter;
