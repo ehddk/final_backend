@@ -86,7 +86,7 @@ export default class DeliveryController{
         next:NextFunction
     ){
         
-        const{name,postalCode,defaultAddress,detailAddress,number}=req.body;
+        const{name,postalCode,defaultAddress,detailAddress,number,isDefault}=req.body;
         try{
            // const {userId}=req.params;
            const userId = req.user.userId;
@@ -96,7 +96,7 @@ export default class DeliveryController{
             {
              name,postalCode,
              defaultAddress,detailAddress,
-             number
+             number,isDefault
           });
           res.send(delivery);
           console.log('deve',delivery)
