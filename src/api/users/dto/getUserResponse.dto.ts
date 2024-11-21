@@ -11,6 +11,7 @@ export class GetUserResponseDTO {
     id: string;
     firstName: string;
     delivery: IDelivery[];
+    phoneNum: string;
   };
   cart: {
     id: string;
@@ -30,6 +31,7 @@ export class GetUserResponseDTO {
       id: user.profile.id,
       firstName: user.profile.firstName,
       delivery: user.profile.delivery ?? [],
+      phoneNum: user.profile.phoneNum
     };
 
     if (user.cart) {

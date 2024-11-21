@@ -80,3 +80,17 @@ type logoutRequest={
 };
 
 type logoutResponse=void;
+
+
+/** 회원 탈퇴 */
+type deleteUserPath={userId:string;};
+type deleteUserParams={};
+type deleteUserBody={};
+
+type deleteUserRequest={
+  path:deleteUserPath,
+  params?:deleteUserParams,
+  body?:deleteUserBody
+};
+
+type deleteUserResponse=void;
