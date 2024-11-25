@@ -14,4 +14,6 @@ export interface ProductsService{
         category: string,
         subCategory: string
     ): Promise<ProductResponseDTO[]>;
+    /**제품 검색 */
+    getProductsBySearch(keyword:string):Promise<ProductResponseDTO[]>;
 }

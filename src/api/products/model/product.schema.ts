@@ -66,3 +66,4 @@ const productSchema = new mongoose.Schema<IProduct>(
 )
 
 export const MongooseProduct = mongoose.model<IProduct>("Product",productSchema)
+productSchema.index({"productName":"text"})
