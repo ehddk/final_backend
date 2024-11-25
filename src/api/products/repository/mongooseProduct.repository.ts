@@ -53,20 +53,18 @@ export class MongooseProductRepository implements ProductRepository{
 
     async search(keyword:string):Promise<IProduct[]>{
         try{
-            const products=await MongooseProduct.find({
-                $text:{
-                    $search:keyword,
-                    $caseSensitive:false //대소문자 구분 안함.
+            //처음엔 오직 정확히 키워드를 쳐야만 검색이 나옴.알고보니 정규식 검색부분을 
+            // 쓰지 않고 $text로만 검색을 하고 있었던 것. $text는 정확한 단어 매칭만 함.
+            // 해결: 부분 검색이 가능한 정규식 검색사용 => $regex
+            const products = await MongooseProduct.find({
+                productName: {
+                    $regex: keyword,
+                    $options: 'i'  // 대소문자 구분 안함
                 }
             });
-             // 또는 정규식을 사용한 검색
-             const productsRegex = await MongooseProduct.find({
-                productName: { 
-                    $regex: keyword, 
-                    $options: 'i'  // case-insensitive
-                }
-            });
+            
             return products;
+         
         }catch(error){
             console.error('제품 검색 에러:',error)
             throw error;
