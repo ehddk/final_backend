@@ -86,14 +86,57 @@ export class MongooseUserRepository implements UserRepository {
     // return findUser ?? null;
   }
   async findByLoginId(loginId: string): Promise<IUser | null> {
-    const findUser = await MongooseUser.findOne({ loginId });
+    const findUser = await MongooseUser.findOne({loginId}).populate({
+      path: "profile",
+      populate: {
+        path: "delivery",
+        model: "Delivery",
+      },
+    })
+    .populate({
+      path: "inquiries",
+      populate: {
+        path: "author",
+        populate: {
+          path: "profile",
+        },
+      },
+    })
+    .populate({
+      path: "orders",
+      populate: [
+        {
+          path: "userInfo", // userInfo를 포함
+        },
+        {
+          path: "orderItem", // orderItem을 포함
+          populate: {
+            path: "product", // orderItem 내 product를 포함
+          },
+        },
+      ],
+    })
+    .populate({
+      path: "cart",
+      populate: {
+        path: "cartItem",
+        populate: {
+          path: "product",
+        },
+      },
+    })
+    .exec();;
+
+    console.log(findUser)
 
     return findUser ?? null;
   }
   async findByEmail(email: string): Promise<IUser | null> {
-    const findUser = await MongooseUser.findOne({ email });
+    const findUser = await MongooseUser.findOne({email});
 
-    return findUser ?? null;
+    console.log(findUser)
+
+    return findUser ?? null;    
   }
   async update(userId: string, updateUserInfo: Partial<IUser>): Promise<void> {
     await MongooseUser.findByIdAndUpdate(userId, updateUserInfo).populate(

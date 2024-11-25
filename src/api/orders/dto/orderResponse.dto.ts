@@ -15,6 +15,8 @@ export class OrderResponseDTO {
       id: string;
       productName: string;
       sales: number;
+      price: number;
+      thumbnail: File | Blob | null;
     };
     /** 주문 수량 */
     quantity: number;
@@ -54,6 +56,8 @@ export class OrderResponseDTO {
             id: item.product.id,
             productName: item.product.productName,
             sales: item.product.sales,
+            price: item.product.price,
+            thumbnail: item.product.thumbnail,
           },
           quantity: item.quantity,
           totalPrice: item.totalPrice,

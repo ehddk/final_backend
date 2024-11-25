@@ -10,8 +10,11 @@ export default class UsersController {
   constructor(private _userService: UserService) {
     this.signUp = this.signUp.bind(this);
     this.getMyInfo = this.getMyInfo.bind(this);
+    this.checkLoginId = this.checkLoginId.bind(this);
+    this.checkEmail = this.checkEmail.bind(this);
     this.updateMyInfo = this.updateMyInfo.bind(this);
-    this.logout=this.logout.bind(this)
+    this.logout=this.logout.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
   }
 
   /** 회원가입 (사용자페이지) */
@@ -54,11 +57,11 @@ export default class UsersController {
     next: NextFunction
   ) {
     try {
-      const { userId } = req.params;
+      const { userId } = req.user;
+
+      console.log(req.user.userId)
 
       const user = await this._userService.getUser(userId);
-
-      // console.log("회원 상세 조회 완료")
 
       // res.status(200).send(user);
       res.status(200).json({
@@ -71,6 +74,36 @@ export default class UsersController {
     }
   }
 
+  /** 중복된 아이디 찾기 (사용자페이지) */
+  async checkLoginId(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { loginId } = req.query as { loginId: string };
+      const exists = await this._userService.checkUserLoginId(loginId);
+  
+      res.status(200).json({
+        message: exists ? "유저가 존재합니다." : "유저를 찾을 수 없습니다.",
+        exists,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+/** 중복된 이메일 찾기 (사용자페이지) */
+async checkEmail(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { email } = req.query as { email: string };
+    const exists = await this._userService.checkUserEmail(email);
+
+    res.status(200).json({
+      message: exists ? "유저가 존재합니다." : "유저를 찾을 수 없습니다.",
+      exists,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
   /** 내 정보 수정 (사용자 페이지) */
   async updateMyInfo(
     req: Request<
@@ -82,32 +115,26 @@ export default class UsersController {
       res: Response,
       next: NextFunction) {
     try {
-      // const { userId } = req.user;
+      
+    const updateData = { ...req.body };
 
-      // const user = await this._userService.updateUser(userId, {
-      //   profile: {
-      //     ...req.body.profile,
-      //   },
-      // });
+    if (updateData.password) {
+      const { hashedPassword, salt } = CryptoService.encryptPassword(updateData.password);
+      updateData.password = hashedPassword;
+      updateData.salt = salt;
+    }
 
-      // console.log(req.user);
-      // console.log("회원 수정 완료");
+    const user = await this._userService.updateUser(req.params.userId, updateData);
 
-      // res.send(user);
-      const user = await this._userService.updateUser(req.params.userId, req.body);
-
-      // console.log("회원 수정 완료")
-
-      // res.status(200).send(user);
       res.status(200).json({
         message: "회원 수정 성공",
         data: user,
       });
     } catch (error) {
-      // next(error);
       res.status(409).json({ message: "회원 수정 실패" });
     }
   }
+
   /**로그아웃 */
   async logout(req:Request<
       logoutRequest["path"],
@@ -125,4 +152,30 @@ export default class UsersController {
           next(error)
         }
       }
+
+/** 회원 탈퇴 */
+async deleteUser(
+  req: Request<
+    deleteUserRequest["path"],
+    deleteUserResponse,
+    deleteUserRequest["body"],
+    deleteUserRequest["params"]
+  >,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { userId } = req.user;
+    console.log(userId)
+    await this._userService.deleteUser(userId);
+
+    res.status(200).json({
+      message: "회원 삭제 성공"
+    });
+  } catch (error) {
+    res.status(404).json({ message: "회원 삭제 실패" });
+    // next(error);
+  }
+}
+
 }

@@ -7,12 +7,14 @@ import { GetUsersResponseDTO } from "@/api/users/dto/getUsersResponse.dto";
 import { ProfileRepository } from "@/api/users/repository/profile/profile.repository";
 import { CartRepository } from "@/api/carts/repository/cart.repository";
 import mongoose from "mongoose";
+import { CartItemRepository } from "@/api/cartItems/repository/cartItem.repository";
 
 export class UsersServiceImpl implements UserService {
   constructor(
     private readonly _userRepository: UserRepository,
     private readonly _profileRepository: ProfileRepository,
-    private readonly _cartRepository: CartRepository
+    private readonly _cartRepository: CartRepository,
+    private readonly _cartItemRepository: CartItemRepository,
   ) {}
 
   async createUser(params: Omit<IUser, "userId">): Promise<UserResponseDTO> {
@@ -58,6 +60,8 @@ export class UsersServiceImpl implements UserService {
 
     return newList;
   }
+
+  // 기존 userId로 상세 조회
   async getUser(userId: string): Promise<GetUserResponseDTO | null> {
     const user = await this._userRepository.findById(userId);
 
@@ -66,6 +70,27 @@ export class UsersServiceImpl implements UserService {
     const dtoUser = await new GetUserResponseDTO(user);
 
     return dtoUser;
+  }
+
+  // loginId로 상세 조회
+  // async getUser(loginId: string): Promise<GetUserResponseDTO | null> {
+  //   const user = await this._userRepository.findByLoginId(loginId);
+
+  //   if (!user) throw new HttpException(404, "유저를 찾을 수 없습니다.");
+
+  //   const dtoUser = await new GetUserResponseDTO(user);
+
+  //   return dtoUser;
+  // }
+
+  async checkUserLoginId(loginId: string): Promise<boolean> {
+    const user = await this._userRepository.findByLoginId(loginId);
+    return !!user;
+  }
+  
+  async checkUserEmail(email: string): Promise<boolean> {
+    const user = await this._userRepository.findByEmail(email);
+    return !!user;
   }
 
   async updateUser(userId: string, params: Partial<IUser>): Promise<void> {
@@ -91,15 +116,24 @@ export class UsersServiceImpl implements UserService {
 
     if (!findUser) throw new HttpException(404, "유저를 찾을 수 없습니다.");
 
-console.log("start")
+    console.log("start")
 
-console.log(await Promise.allSettled([
-  this._profileRepository.delete(findUser.profile?.id),
-  this._cartRepository.delete(findUser.cart?.id),
-  this._userRepository.delete(findUser.id),
-]))
+    // console.log(await Promise.allSettled([
+    //   this._profileRepository.delete(findUser.profile?.id),
+    //   this._cartRepository.delete(findUser.cart?.id),
+    //   this._userRepository.delete(findUser.id),
+    // ]))
 
-console.log("end")
+    await Promise.allSettled([
+      this._profileRepository.delete(findUser.profile?.id),
+      this._cartRepository.delete(findUser.cart?.id),
+      ...(findUser.cart?.cartItem?.map(cartItem =>
+        this._cartItemRepository.delete(cartItem.id)
+      ) || []),
+      this._userRepository.delete(findUser.id),
+    ])
+
+    console.log("end")
 
     return;
   }

@@ -37,7 +37,7 @@ declare global{
     };
     type createDeliveryRequestParams={};
     type createDeliveryRequestBody=
-        Omit<IDelivery,"id" | "isDefault">;
+        Omit<IDelivery,"id">;
     type createDeliveryRequest={
         path?:createDeliveryRequestPath;
         params?:createDeliveryRequestParams;
