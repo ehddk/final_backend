@@ -50,4 +50,26 @@ export class MongooseProductRepository implements ProductRepository{
         await MongooseProduct.deleteOne({_id:productId})
         return;
     }
+
+    async search(keyword:string):Promise<IProduct[]>{
+        try{
+            const products=await MongooseProduct.find({
+                $text:{
+                    $search:keyword,
+                    $caseSensitive:false //대소문자 구분 안함.
+                }
+            });
+             // 또는 정규식을 사용한 검색
+             const productsRegex = await MongooseProduct.find({
+                productName: { 
+                    $regex: keyword, 
+                    $options: 'i'  // case-insensitive
+                }
+            });
+            return products;
+        }catch(error){
+            console.error('제품 검색 에러:',error)
+            throw error;
+        }
+    }
 }

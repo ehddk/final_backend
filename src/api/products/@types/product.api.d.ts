@@ -75,6 +75,22 @@ type deleteProductResponse=void;
 
 }
 
+/**제품 검색  */
+
+type getProductsBySearchRequestPath={};
+type getProductsBySearchRequestQuery={
+    keyword:string
+};
+type getProductsBySearchRequestBody={};
+type getProductsBySearchRequest={
+    path?: getProductsBySearchRequestPath,
+    query: getProductsBySearchRequestQuery,
+    body?:getProductsBySearchRequestBody
+}
+type getProductsBySearchResponse={
+    products:IProduct[] //제품 배열 반환.
+};
+
 /**카테고리별 제품 목록 조회 */
 type getCategoriesRequestPath={};
 type getCategoriesRequestQuery={
@@ -82,7 +98,6 @@ type getCategoriesRequestQuery={
 }
 
 type getCategoriesRequestBody={};
-
 
 type getCategoriesRequest={
     path?:getCategoriesRequestPath;

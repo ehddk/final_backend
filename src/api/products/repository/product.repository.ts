@@ -15,4 +15,6 @@ export interface ProductRepository{
     update(productId:string,updateProductInfo:Partial<IProduct>):Promise<IProduct>;
     /**제품 삭제 */
     delete(productId:string):Promise<void>;
+    /**제품 검색 */
+    search(keyword:string):Promise<IProduct[]>
 }
