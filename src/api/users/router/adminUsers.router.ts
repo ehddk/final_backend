@@ -12,6 +12,7 @@ import { extractPath } from "@/utils/path.util";
 import { ROUTES_INDEX } from "@/routers";
 import { authRoleMiddleware } from "@/api/common/middlewares/authRole.middleware";
 import { MongooseCartRepository } from "@/api/carts/repository/mongooseCart.repository";
+import { MongooseCartItemRepository } from "@/api/cartItems/repository/mongooseCartItem.repository";
 
 const adminUsersRouter = express.Router();
 
@@ -19,7 +20,8 @@ const adminUserController = new AdminUserController(
   new UsersServiceImpl(
     new MongooseUserRepository(),
     new MongooseProfileRepository(),
-    new MongooseCartRepository()
+    new MongooseCartRepository(),
+    new MongooseCartItemRepository()
   )
 );
 
