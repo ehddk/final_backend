@@ -10,6 +10,7 @@ import { ROUTES_INDEX } from "@/routers";
 import { authUserMiddleware } from "@/api/common/middlewares/authUser.middleware";
 import { authRoleMiddleware } from "@/api/common/middlewares/authRole.middleware";
 import { MongooseCartRepository } from "@/api/carts/repository/mongooseCart.repository";
+import { MongooseCartItemRepository } from "@/api/cartItems/repository/mongooseCartItem.repository";
 
 const userRouter = express.Router();
 
@@ -17,7 +18,8 @@ const usersController = new UsersController(
   new UsersServiceImpl(
     new MongooseUserRepository(),
     new MongooseProfileRepository(),
-    new MongooseCartRepository()
+    new MongooseCartRepository(),
+    new MongooseCartItemRepository()
   )
 );
 
@@ -34,7 +36,9 @@ const USER_ROUTES = {
   /** 내 정보 수정 */
   UPDATE_MY_INFO: `/api/users/:userId`,
   /**로그아웃 */
-  LOGOUT : `/api/users/logout`
+  LOGOUT : `/api/users/logout`,
+  /** 회원 탈퇴 */
+  DELETE_USER: `/api/users`,
 } as const;
 
 userRouter.post(
@@ -67,6 +71,12 @@ userRouter.put(
 userRouter.post(
   extractPath(USER_ROUTES.LOGOUT,ROUTES_INDEX.USERS_API),
   usersController.logout
+)
+
+userRouter.delete(
+  extractPath(USER_ROUTES.DELETE_USER,ROUTES_INDEX.USERS_API),
+  authUserMiddleware,
+  usersController.deleteUser
 )
 
 export default userRouter;

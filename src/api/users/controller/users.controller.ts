@@ -13,7 +13,8 @@ export default class UsersController {
     this.checkLoginId = this.checkLoginId.bind(this);
     this.checkEmail = this.checkEmail.bind(this);
     this.updateMyInfo = this.updateMyInfo.bind(this);
-    this.logout=this.logout.bind(this)
+    this.logout=this.logout.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
   }
 
   /** 회원가입 (사용자페이지) */
@@ -151,4 +152,30 @@ async checkEmail(req: Request, res: Response, next: NextFunction) {
           next(error)
         }
       }
+
+/** 회원 탈퇴 */
+async deleteUser(
+  req: Request<
+    deleteUserRequest["path"],
+    deleteUserResponse,
+    deleteUserRequest["body"],
+    deleteUserRequest["params"]
+  >,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { userId } = req.user;
+    console.log(userId)
+    await this._userService.deleteUser(userId);
+
+    res.status(200).json({
+      message: "회원 삭제 성공"
+    });
+  } catch (error) {
+    res.status(404).json({ message: "회원 삭제 실패" });
+    // next(error);
+  }
+}
+
 }

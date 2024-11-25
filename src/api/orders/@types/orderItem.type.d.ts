@@ -10,8 +10,6 @@ type OrderItemStatus =
   | "EXCHANGE_REQUESTED"
   | "EXCHANGED";
 
-type OrderItemStatus = keyof typeof ORDER_ITEM_STATUS;
-
 interface IOrderItem {
   /** 주문 상품 ID */
   id: string;
