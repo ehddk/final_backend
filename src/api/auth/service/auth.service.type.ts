@@ -1,3 +1,3 @@
 export interface AuthService {
-  login(email: string, password: string): Promise<string>;
+  login(loginId: string, password: string): Promise<string>;
 }
