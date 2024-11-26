@@ -13,13 +13,8 @@ constructor(productRepository:ProductRepository){
     /**제품 등록 */
     async createProduct(product:Omit<IProduct,"id">):Promise<ProductResponseDTO>{
        try{
-        // const newProduct ={
-        //     id:'123',
-        //     ...product
-        // };
         const newProduct=await this._productRepository.save({
             ...product,
-           // createdAt:new Date()
         })
         return newProduct
        
