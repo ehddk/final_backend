@@ -50,8 +50,9 @@ export default class CartsController {
   ) {
     try {
       const userId = req.user.userId;
+     
       const cart = await this._cartsService.getCart(userId);
-
+      console.log('유저아이디',cart)
       res.send(cart);
     } catch (error) {
       next(error);

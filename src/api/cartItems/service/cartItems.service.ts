@@ -73,6 +73,7 @@ export class CartItemsServiceImpl implements CartItemsService {
 
   async getCartItems(): Promise<CartItemResponseDTO[]> {
     const cartItems = await this._cartItemRepository.findAll();
+    console.log('장바구니아이템 조회 되냐?',cartItems)
     const newList = await Promise.all(
       cartItems.map((cartItem) => new CartItemResponseDTO(cartItem))
     );

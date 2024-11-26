@@ -31,7 +31,7 @@ constructor(productRepository:ProductRepository){
          throw  new Error(`해당 제품이 없습니다.`);
      }
      }
-       /** 카테고리별 제품 목록 조회 */
+       /** 메인 카테고리별 제품 목록 조회 */
     async getProductsByCategory(category: string): Promise<ProductResponseDTO[]> {
         try{
             // const {category,subCategory}=params;
@@ -43,6 +43,7 @@ constructor(productRepository:ProductRepository){
             throw new Error('카테고리별 제품 목록 조회 중 오류 발생.')
         }
     }   
+    /** 서브 카테고리별 제품 목록 조회 */
     async  getProductsBySubCategory(category: string, subCategory: string): Promise<ProductResponseDTO[]> {
         try{
            // console.log('category:서비스에 카테고리 있?',{category,subCategory})
@@ -52,6 +53,7 @@ constructor(productRepository:ProductRepository){
             throw new Error("서브카테고리별 제품 목록 조회 중 오류 발생")
         }
     }
+    /** 제품 검색  조회 */
     async getProductsBySearch(keyword: string): Promise<ProductResponseDTO[]> {
         try{
            // console.log('서비스 시작.키워드:',keyword )

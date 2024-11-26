@@ -24,7 +24,10 @@ export default class CartItemsController {
     next: NextFunction
   ) {
     try {
+      console.log('getCartItems 컨트롤러 시작');
       const cartItems = await this._cartItemsService.getCartItems();
+      console.log('카트아이템 컨트롤러부분:',cartItems)
+      
       res.send(cartItems);
     } catch (error) {
       next(error);

@@ -25,7 +25,7 @@ export class CartsServiceImpl implements CartsService {
   /** 장바구니 조회 */
   async getCart(userId: string): Promise<CartResponseDTO> {
     const cart = await this._cartRepository.findOneByUserId(userId);
-
+    console.log('카트 서비스',cart)
     if (!cart) {
       throw new HttpException(404, "아이디를 찾을 수 없습니다.");
     }

@@ -29,7 +29,7 @@ export class MongooseCartRepository implements CartRepository {
           path: "product",
         },
       });
-
+      console.log('파인드카트:',findCart)
       return findCart;
     } catch (error: any) {
       const message = error.message.toString();
